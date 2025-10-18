@@ -8,6 +8,12 @@ public partial class Player : CharacterBody3D {
         Jumping,
         Falling,
         OnWall,
+        Dashing,
+    }
+
+    private enum HorizontalDirection {
+        Left = -1,
+        Right = 1,
     }
 
     private PlayerState CurrentState = PlayerState.Idle;
@@ -36,6 +42,8 @@ public partial class Player : CharacterBody3D {
 
     private Vector3 _velocity = Vector3.Zero;
 
+    private HorizontalDirection _horizontalDirection = HorizontalDirection.Right;
+
     private int _jumpBufferFrames = 0;
     private int _numberOfFramesInJump = 0;
 
@@ -51,9 +59,37 @@ public partial class Player : CharacterBody3D {
     [Export]
     public float WallSlideVelocity = -50.0f;
 
+    [ExportGroup("Dash Settings")]
+    [Export]
+    public float DashVelocity = 500.0f;
+
+    [Export]
+    public float DashCooldown = 0.3f;
+
+    [Export]
+    public float DashTime = 0.4f;
+
+    public bool CanDash = true;
+    private bool _dashReadyToUse = true;
+
+    private Timer _dashRecoverTimer = new();
+    private Timer _dashDurationTimer = new();
+
     public override void _Ready() {
+        AddChild(_dashRecoverTimer);
+        AddChild(_dashDurationTimer);
+
+        _dashRecoverTimer.OneShot = true;
+        _dashRecoverTimer.WaitTime = DashCooldown;
+        _dashRecoverTimer.Timeout += () => {
+            _dashReadyToUse = true;
+        };
+
+        _dashDurationTimer.OneShot = true;
+        _dashDurationTimer.WaitTime = DashTime;
+
         if (PlayerCamera == null) {
-            PlayerCamera = new Camera3D();
+            PlayerCamera = new();
         }
 
         PlayerCamera.Fov = CameraFov;
@@ -62,6 +98,23 @@ public partial class Player : CharacterBody3D {
 
     public override void _Process(double delta) {
         MoveCamera();
+        FigureOutHorizontalDirection();
+    }
+
+    private void MoveCamera() {
+        if (PlayerCamera != null) {
+            PlayerCamera.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
+        }
+    }
+    
+    private void FigureOutHorizontalDirection() {
+        if (Input.IsActionPressed("move_left") && Input.IsActionPressed("move_right")) {
+            // Do nothing, conflicting inputs
+        } else if (Input.IsActionPressed("move_left")) {
+            _horizontalDirection = HorizontalDirection.Left;
+        } else if (Input.IsActionPressed("move_right")) {
+            _horizontalDirection = HorizontalDirection.Right;
+        }
     }
 
     public override void _PhysicsProcess(double delta) {
@@ -79,6 +132,9 @@ public partial class Player : CharacterBody3D {
                 break;
             case PlayerState.OnWall:
                 HandleOnWallState(delta);
+                break;
+            case PlayerState.Dashing:
+                HandleDashingState(delta);
                 break;
         }
 
@@ -99,6 +155,8 @@ public partial class Player : CharacterBody3D {
             }
             CurrentState = PlayerState.Falling;
         }
+
+        CheckDash();
     } 
 
     private void HandleJumpingState(double delta) {
@@ -128,6 +186,8 @@ public partial class Player : CharacterBody3D {
             _numberOfFramesInJump = 0;
             CurrentState = PlayerState.Falling;
         }
+
+        CheckDash();
     }
 
     private void HandleFallingState(double delta) {
@@ -145,6 +205,8 @@ public partial class Player : CharacterBody3D {
                 _jumpBufferFrames = 6;
             }
         }
+
+        CheckDash();
     }
 
     private void HandleOnWallState(double delta) {
@@ -165,16 +227,31 @@ public partial class Player : CharacterBody3D {
         } else {
             CurrentState = PlayerState.Falling;
         }
+        CheckDash();
+    }
+
+    private void HandleDashingState(double delta) {
+        Vector3 dashDirection = new Vector3((float)_horizontalDirection, 0, 0).Normalized();
+        _velocity = dashDirection * DashVelocity * (float)delta;
+        if (_dashDurationTimer.IsStopped()) {
+            if (IsOnFloor()) {
+                CurrentState = PlayerState.Idle;
+            } else if (IsOnWall()) {
+                CurrentState = PlayerState.OnWall;
+            } else {
+                CurrentState = PlayerState.Falling;
+            }
+        }
     }
 
     private Vector3 GetInputDirection() {
         Vector3 direction = Vector3.Zero;
 
-        if (Input.IsActionPressed("move_right")) {
-            direction.X += 1;
-        }
         if (Input.IsActionPressed("move_left")) {
             direction.X -= 1;
+        }
+        if (Input.IsActionPressed("move_right")) {
+            direction.X += 1;
         }
 
         return direction.Normalized();
@@ -182,8 +259,17 @@ public partial class Player : CharacterBody3D {
 
     private void Move(double delta) {
         float yVelocity = _velocity.Y;
-        _velocity = _velocity.MoveToward(GetInputDirection() * MovementSpeed * (float)delta, MovementSpeed/4*(float)delta);
+        _velocity = _velocity.MoveToward(GetInputDirection() * MovementSpeed * (float)delta, MovementSpeed / 4 * (float)delta);
         _velocity.Y = yVelocity;
+    }
+    
+    private void CheckDash() {
+        if (Input.IsActionJustPressed("dash") && CanDash && _dashReadyToUse) {
+            CurrentState = PlayerState.Dashing;
+            _dashReadyToUse = false;
+            _dashDurationTimer.Start();
+            _dashRecoverTimer.Start();
+        }
     }
 
     private void ProcessJumpBuffer() {
@@ -191,12 +277,7 @@ public partial class Player : CharacterBody3D {
             _jumpBufferFrames--;
         }
     }
-
-    private void MoveCamera() {
-        if (PlayerCamera != null) {
-            PlayerCamera.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
-        }
-    }
+ 
 
     private bool WantsToJump() {
         return (Input.IsActionJustPressed("jump") || _jumpBufferFrames > 0);

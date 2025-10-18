@@ -18,6 +18,15 @@ public partial class Player : CharacterBody3D {
 
     private PlayerState CurrentState = PlayerState.Idle;
 
+    [ExportGroup("Combat Settings")]
+    [Export]
+    public int MaxHealth = 3;
+
+    [Export]
+    public int MaxDemage = 5;
+
+    public int Health = 3;
+
     [ExportGroup("Camera Settings")]
     [Export]
     public Camera3D PlayerCamera;
@@ -27,6 +36,17 @@ public partial class Player : CharacterBody3D {
 
     [Export]
     public float CameraFov = 70.0f;
+
+    [Export]
+    public float CameraDurationForMovement = 1.0f;
+
+    private float _cameraMovementBuffer = 0.0f;
+
+    [Export]
+    public float CameraLerpSpeed = 5.0f; // Speed at which the camera follows the player
+
+    [Export]
+    public float CameraMovementAmount = 2.0f;
 
     [ExportGroup("Movement Settings")]
     [Export]
@@ -116,13 +136,39 @@ public partial class Player : CharacterBody3D {
     }
 
     public override void _Process(double delta) {
-        MoveCamera();
+        UpdateCameraMovementBuffer(delta);
+        MoveCamera(delta);
         FigureOutHorizontalDirection();
     }
 
-    private void MoveCamera() {
+    private void MoveCamera(double delta) {
         if (PlayerCamera != null) {
-            PlayerCamera.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
+            // Calculate the forward position based on the player's velocity and direction
+            Vector3 targetPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
+
+            if (_cameraMovementBuffer > CameraDurationForMovement && CurrentState == PlayerState.Idle) {
+                targetPosition += new Vector3(0, GetCameraMovementDirection()*CameraMovementAmount, 0);
+            } 
+
+            PlayerCamera.GlobalPosition = PlayerCamera.GlobalPosition.Lerp(targetPosition, CameraLerpSpeed * (float)delta);
+        }
+    }
+
+    private void UpdateCameraMovementBuffer(double delta) {
+        if (Input.IsActionPressed("look_up") || Input.IsActionPressed("look_down")) {
+            _cameraMovementBuffer += (float)delta;
+        } else {
+            _cameraMovementBuffer = 0.0f;
+        }
+    }
+
+    private float GetCameraMovementDirection() {
+        if (Input.IsActionPressed("look_up")) {
+            return 1.0f;
+        } else if (Input.IsActionPressed("look_down")) {
+            return -1.0f;
+        } else {
+            return 0.0f;
         }
     }
 
@@ -131,8 +177,10 @@ public partial class Player : CharacterBody3D {
             // Do nothing, conflicting inputs
         } else if (Input.IsActionPressed("move_left")) {
             _horizontalDirection = HorizontalDirection.Left;
+            Rotation = new Vector3(0, Mathf.DegToRad(180), 0); 
         } else if (Input.IsActionPressed("move_right")) {
             _horizontalDirection = HorizontalDirection.Right;
+            Rotation = new Vector3(0, 0, 0);
         }
     }
 

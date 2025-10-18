@@ -40,6 +40,11 @@ public partial class Player : CharacterBody3D {
     [Export]
     public float JumpVelocity = 130.0f;
 
+    [Export]
+    public int FirstJumpFrames = 20;
+
+    private int _amountJumpFrames = 20;
+
     private Vector3 _velocity = Vector3.Zero;
 
     private HorizontalDirection _horizontalDirection = HorizontalDirection.Right;
@@ -51,29 +56,43 @@ public partial class Player : CharacterBody3D {
 
     [ExportGroup("Wall Jump Settings")]
     [Export]
-    public float WallJumpHorizontalVelocity = 500.0f;
+    public bool CanWallJump = false;
 
+    [Export]
+    public float WallJumpHorizontalVelocity = 200.0f;
+    
     [Export]
     public float WallJumpVelocityModifier = 2.0f;
 
     [Export]
-    public float WallSlideVelocity = -50.0f;
+    public float WallSlideVelocity = -70.0f;
 
     [ExportGroup("Dash Settings")]
+    [Export]
+    public bool CanDash = false;
+
     [Export]
     public float DashVelocity = 500.0f;
 
     [Export]
-    public float DashCooldown = 0.3f;
+    public float DashCooldown = 0.5f;
 
     [Export]
-    public float DashTime = 0.4f;
+    public float DashTime = 0.07f;
 
-    public bool CanDash = true;
     private bool _dashReadyToUse = true;
 
     private Timer _dashRecoverTimer = new();
     private Timer _dashDurationTimer = new();
+
+    [ExportGroup("Double Jump Settings")]
+    [Export]
+    public bool CanDoubleJump = false;
+
+    [Export]
+    public int SecondJumpFrames = 10;
+
+    private bool _doubleJumpReady = true;
 
     public override void _Ready() {
         AddChild(_dashRecoverTimer);
@@ -106,7 +125,7 @@ public partial class Player : CharacterBody3D {
             PlayerCamera.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
         }
     }
-    
+
     private void FigureOutHorizontalDirection() {
         if (Input.IsActionPressed("move_left") && Input.IsActionPressed("move_right")) {
             // Do nothing, conflicting inputs
@@ -119,6 +138,7 @@ public partial class Player : CharacterBody3D {
 
     public override void _PhysicsProcess(double delta) {
         ProcessJumpBuffer();
+        ResetDoubleJump();
 
         switch (CurrentState) {
             case PlayerState.Idle:
@@ -148,6 +168,7 @@ public partial class Player : CharacterBody3D {
         if (IsOnFloor() && WantsToJump()) {
             _jumpBufferFrames = 0;
             _jumpModifier = 1.0f;
+            _amountJumpFrames = FirstJumpFrames;
             CurrentState = PlayerState.Jumping;
         } else if (!IsOnFloor()) {
             if (Input.IsActionJustPressed("jump")) {
@@ -157,7 +178,7 @@ public partial class Player : CharacterBody3D {
         }
 
         CheckDash();
-    } 
+    }
 
     private void HandleJumpingState(double delta) {
         Move(delta);
@@ -172,7 +193,7 @@ public partial class Player : CharacterBody3D {
             }
 
             if (Input.IsActionPressed("jump")) {
-                if (_numberOfFramesInJump < 20) {
+                if (_numberOfFramesInJump < _amountJumpFrames) {
                     _numberOfFramesInJump++;
                 } else {
                     _numberOfFramesInJump = 0;
@@ -196,12 +217,19 @@ public partial class Player : CharacterBody3D {
         if (IsOnFloor()) {
             CurrentState = PlayerState.Idle;
             _velocity.Y = 0;
-        } else if (IsOnWall()) {
+        } else if (IsOnWall() && CanWallJump) {
             CurrentState = PlayerState.OnWall;
             _velocity.Y = WallSlideVelocity * (float)delta;
         } else {
             _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * (float)delta, Gravity * (float)delta);
-            if (Input.IsActionJustPressed("jump")) {
+            if (Input.IsActionJustPressed("jump") && CanDoubleJump && _doubleJumpReady) {
+                _jumpBufferFrames = 0;
+                _jumpModifier = 1.0f;
+                _doubleJumpReady = false;
+                _numberOfFramesInJump = 1;
+                _amountJumpFrames = SecondJumpFrames;
+                CurrentState = PlayerState.Jumping;
+            } else if (Input.IsActionJustPressed("jump")) {
                 _jumpBufferFrames = 6;
             }
         }
@@ -219,6 +247,7 @@ public partial class Player : CharacterBody3D {
                 Vector3 wallNormal = GetLastSlideCollision().GetNormal();
                 _velocity.X = (wallNormal * WallJumpHorizontalVelocity * (float)delta).X;
                 _velocity.Y = JumpVelocity * _jumpModifier * (float)delta;
+                _amountJumpFrames = FirstJumpFrames;
                 CurrentState = PlayerState.Jumping;
             }
         } else if (IsOnFloor()) {
@@ -262,7 +291,7 @@ public partial class Player : CharacterBody3D {
         _velocity = _velocity.MoveToward(GetInputDirection() * MovementSpeed * (float)delta, MovementSpeed / 4 * (float)delta);
         _velocity.Y = yVelocity;
     }
-    
+
     private void CheckDash() {
         if (Input.IsActionJustPressed("dash") && CanDash && _dashReadyToUse) {
             CurrentState = PlayerState.Dashing;
@@ -277,7 +306,11 @@ public partial class Player : CharacterBody3D {
             _jumpBufferFrames--;
         }
     }
- 
+
+    private void ResetDoubleJump() {
+        if (IsOnFloor() || IsOnWall()) _doubleJumpReady = true;
+    }
+
 
     private bool WantsToJump() {
         return (Input.IsActionJustPressed("jump") || _jumpBufferFrames > 0);

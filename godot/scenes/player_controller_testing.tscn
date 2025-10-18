@@ -100,10 +100,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9594393, 0.14151347)
 PlayerCamera = NodePath("../Camera3D")
 CameraDistance = 2.0
 Gravity = 17.0
+CanWallJump = true
 WallJumpHorizontalVelocity = 200.0
 WallSlideVelocity = -70.0
+CanDash = true
 DashCooldown = 0.5
 DashTime = 0.07
+CanDoubleJump = true
+SecondJumpFrames = 10
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9594393, 2.2275662)

@@ -6,7 +6,8 @@ public partial class Player : CharacterBody3D {
     private enum PlayerState {
         Idle,
         Jumping,
-        Falling
+        Falling,
+        OnWall,
     }
 
     private PlayerState CurrentState = PlayerState.Idle;
@@ -23,21 +24,32 @@ public partial class Player : CharacterBody3D {
 
     [ExportGroup("Movement Settings")]
     [Export]
-    public float MovementSpeed = 10.0f;
+    public float MovementSpeed = 120.0f;
 
     [Export]
-    public float Gravity = 98.8f;
+    public float Gravity = 15.8f;
 
-    [Export] float TerminalVelocity = -50.0f;
+    [Export] float TerminalVelocity = -200.0f;
 
     [Export]
-    public float JumpVelocity = 4.5f;
+    public float JumpVelocity = 130.0f;
 
     private Vector3 _velocity = Vector3.Zero;
 
     private int _jumpBufferFrames = 0;
     private int _numberOfFramesInJump = 0;
 
+    private float _jumpModifier = 1.0f;
+
+    [ExportGroup("Wall Jump Settings")]
+    [Export]
+    public float WallJumpHorizontalVelocity = 500.0f;
+
+    [Export]
+    public float WallJumpVelocityModifier = 2.0f;
+
+    [Export]
+    public float WallSlideVelocity = -50.0f;
 
     public override void _Ready() {
         if (PlayerCamera == null) {
@@ -65,6 +77,9 @@ public partial class Player : CharacterBody3D {
             case PlayerState.Falling:
                 HandleFallingState(delta);
                 break;
+            case PlayerState.OnWall:
+                HandleOnWallState(delta);
+                break;
         }
 
         Velocity = _velocity;
@@ -72,24 +87,25 @@ public partial class Player : CharacterBody3D {
     }
 
     private void HandleIdleState(double delta) {
-        Move();
+        Move(delta);
 
-        if (IsOnFloor() && (Input.IsActionPressed("jump") || _jumpBufferFrames > 0)) {
+        if (IsOnFloor() && WantsToJump()) {
             _jumpBufferFrames = 0;
+            _jumpModifier = 1.0f;
             CurrentState = PlayerState.Jumping;
-        } else {
-            if (Input.IsActionPressed("jump")) {
-                _jumpBufferFrames = 5;
+        } else if (!IsOnFloor()) {
+            if (Input.IsActionJustPressed("jump")) {
+                _jumpBufferFrames = 6;
             }
             CurrentState = PlayerState.Falling;
         }
     } 
 
     private void HandleJumpingState(double delta) {
-        Move();
+        Move(delta);
 
         if (IsOnFloor() || _numberOfFramesInJump > 0) {
-            _velocity.Y = JumpVelocity * (float)delta;
+            _velocity.Y = JumpVelocity * _jumpModifier * (float)delta;
 
             if (IsOnCeiling()) {
                 _numberOfFramesInJump = 0;
@@ -115,13 +131,39 @@ public partial class Player : CharacterBody3D {
     }
 
     private void HandleFallingState(double delta) {
-        Move();
+        Move(delta);
 
         if (IsOnFloor()) {
             CurrentState = PlayerState.Idle;
             _velocity.Y = 0;
+        } else if (IsOnWall()) {
+            CurrentState = PlayerState.OnWall;
+            _velocity.Y = WallSlideVelocity * (float)delta;
         } else {
-            _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity, Gravity * (float)delta);
+            _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * (float)delta, Gravity * (float)delta);
+            if (Input.IsActionJustPressed("jump")) {
+                _jumpBufferFrames = 6;
+            }
+        }
+    }
+
+    private void HandleOnWallState(double delta) {
+        Move(delta);
+        if (IsOnWall()) {
+            _velocity.Y = WallSlideVelocity * (float)delta;
+
+            if (WantsToJump()) {
+                _jumpModifier = WallJumpVelocityModifier;
+                Vector3 wallNormal = GetLastSlideCollision().GetNormal();
+                _velocity.X = (wallNormal * WallJumpHorizontalVelocity * (float)delta).X;
+                _velocity.Y = JumpVelocity * _jumpModifier * (float)delta;
+                CurrentState = PlayerState.Jumping;
+            }
+        } else if (IsOnFloor()) {
+            CurrentState = PlayerState.Idle;
+            _velocity.Y = 0;
+        } else {
+            CurrentState = PlayerState.Falling;
         }
     }
 
@@ -138,9 +180,9 @@ public partial class Player : CharacterBody3D {
         return direction.Normalized();
     }
 
-    private void Move() {
+    private void Move(double delta) {
         float yVelocity = _velocity.Y;
-        _velocity = _velocity.MoveToward(GetInputDirection() * MovementSpeed, MovementSpeed);
+        _velocity = _velocity.MoveToward(GetInputDirection() * MovementSpeed * (float)delta, MovementSpeed/4*(float)delta);
         _velocity.Y = yVelocity;
     }
 
@@ -149,11 +191,15 @@ public partial class Player : CharacterBody3D {
             _jumpBufferFrames--;
         }
     }
-    
+
     private void MoveCamera() {
         if (PlayerCamera != null) {
             PlayerCamera.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
         }
+    }
+
+    private bool WantsToJump() {
+        return (Input.IsActionJustPressed("jump") || _jumpBufferFrames > 0);
     }
 }
 

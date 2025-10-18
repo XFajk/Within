@@ -99,10 +99,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_byvq7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9594393, 0.14151347)
 PlayerCamera = NodePath("../Camera3D")
 CameraDistance = 2.0
-MovementSpeed = 2.0
-Gravity = 15.0
-TerminalVelocity = -200.0
-JumpVelocity = 130.0
+Gravity = 17.0
+WallJumpHorizontalVelocity = 200.0
+WallSlideVelocity = -70.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9594393, 2.2275662)

@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://crfbqc3un0hio"]
+
+[ext_resource type="Shader" uid="uid://bm4j1r4qnkla5" path="res://src/shaders/transition/transition_shader.gdshader" id="1_u6oft"]
+[ext_resource type="Texture2D" uid="uid://do8lqf6igporq" path="res://src/shaders/transition/transition_texture.tres" id="2_60jig"]
+
+[resource]
+shader = ExtResource("1_u6oft")
+shader_parameter/noise_texture = ExtResource("2_60jig")
+shader_parameter/progress = 1.0

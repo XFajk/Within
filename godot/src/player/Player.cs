@@ -1,14 +1,19 @@
 using Godot;
 using System;
+using Godot.Collections;
 
-public partial class Player : CharacterBody3D {
+public partial class Player : CharacterBody3D, ISavable {
 
-    private enum PlayerState {
+    public enum PlayerState {
         Idle,
         Jumping,
         Falling,
         OnWall,
         Dashing,
+        EnteringArea,
+        ExitingArea,
+
+        NoControl,
     }
 
     private enum HorizontalDirection {
@@ -16,7 +21,9 @@ public partial class Player : CharacterBody3D {
         Right = 1,
     }
 
-    private PlayerState CurrentState = PlayerState.Idle;
+    public PlayerState CurrentState = PlayerState.ExitingArea;
+
+    public PackedScene PlayerAreaToEnter = null;
 
     [ExportGroup("Combat Settings")]
     [Export]
@@ -28,11 +35,14 @@ public partial class Player : CharacterBody3D {
     public int Health = 3;
 
     [ExportGroup("Camera Settings")]
-    [Export]
-    public Camera3D PlayerCamera;
+    public Camera3D Camera;
+
+    public ColorRect PostProcessRect;
+
+    public ShaderMaterial TransitionMaterial = GD.Load<ShaderMaterial>("res://src/shaders/transition/transition_material.tres");
 
     [Export]
-    public float CameraDistance = 10.0f;
+    public float CameraDistance = 2.0f;
 
     [Export]
     public float CameraFov = 70.0f;
@@ -76,11 +86,11 @@ public partial class Player : CharacterBody3D {
 
     [ExportGroup("Wall Jump Settings")]
     [Export]
-    public bool CanWallJump = false;
+    private bool _canWallJump = false;
 
     [Export]
     public float WallJumpHorizontalVelocity = 200.0f;
-    
+
     [Export]
     public float WallJumpVelocityModifier = 2.0f;
 
@@ -88,8 +98,7 @@ public partial class Player : CharacterBody3D {
     public float WallSlideVelocity = -70.0f;
 
     [ExportGroup("Dash Settings")]
-    [Export]
-    public bool CanDash = false;
+    private bool _canDash = false;
 
     [Export]
     public float DashVelocity = 500.0f;
@@ -106,8 +115,7 @@ public partial class Player : CharacterBody3D {
     private Timer _dashDurationTimer = new();
 
     [ExportGroup("Double Jump Settings")]
-    [Export]
-    public bool CanDoubleJump = false;
+    private bool _canDoubleJump = false;
 
     [Export]
     public int SecondJumpFrames = 10;
@@ -115,6 +123,11 @@ public partial class Player : CharacterBody3D {
     private bool _doubleJumpReady = true;
 
     public override void _Ready() {
+
+        _canWallJump = Global.Instance.PlayerHasWallJumpAbility;
+        _canDash = Global.Instance.PlayerHasDashAbility;
+        _canDoubleJump = Global.Instance.PlayerHasDoubleJumpAbility;
+
         AddChild(_dashRecoverTimer);
         AddChild(_dashDurationTimer);
 
@@ -127,12 +140,21 @@ public partial class Player : CharacterBody3D {
         _dashDurationTimer.OneShot = true;
         _dashDurationTimer.WaitTime = DashTime;
 
-        if (PlayerCamera == null) {
-            PlayerCamera = new();
+        if (Camera == null) {
+            Camera = GetNode<Camera3D>("Camera");
+            PostProcessRect = Camera.GetNode<ColorRect>("PostProcessRect");
+            PostProcessRect.Visible = false;
+            Camera.TopLevel = true;
         }
 
-        PlayerCamera.Fov = CameraFov;
-        PlayerCamera.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
+        Camera.Fov = CameraFov;
+        Camera.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
+
+        HandleExitingAreaState(1.0);
+
+        // this so that the player when first loading into the game from the menu takes the position
+        // that was last saved manualy at a save point if this wasent here the player would at a radom auto save position
+        CallDeferred(nameof(OverrideTransformOnFirstLoadIn));
     }
 
     public override void _Process(double delta) {
@@ -142,15 +164,15 @@ public partial class Player : CharacterBody3D {
     }
 
     private void MoveCamera(double delta) {
-        if (PlayerCamera != null) {
+        if (Camera != null) {
             // Calculate the forward position based on the player's velocity and direction
             Vector3 targetPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
 
             if (_cameraMovementBuffer > CameraDurationForMovement && CurrentState == PlayerState.Idle) {
-                targetPosition += new Vector3(0, GetCameraMovementDirection()*CameraMovementAmount, 0);
-            } 
+                targetPosition += new Vector3(0, GetCameraMovementDirection() * CameraMovementAmount, 0);
+            }
 
-            PlayerCamera.GlobalPosition = PlayerCamera.GlobalPosition.Lerp(targetPosition, CameraLerpSpeed * (float)delta);
+            Camera.GlobalPosition = Camera.GlobalPosition.Lerp(targetPosition, CameraLerpSpeed * (float)delta);
         }
     }
 
@@ -177,7 +199,7 @@ public partial class Player : CharacterBody3D {
             // Do nothing, conflicting inputs
         } else if (Input.IsActionPressed("move_left")) {
             _horizontalDirection = HorizontalDirection.Left;
-            Rotation = new Vector3(0, Mathf.DegToRad(180), 0); 
+            Rotation = new Vector3(0, Mathf.DegToRad(180), 0);
         } else if (Input.IsActionPressed("move_right")) {
             _horizontalDirection = HorizontalDirection.Right;
             Rotation = new Vector3(0, 0, 0);
@@ -203,6 +225,14 @@ public partial class Player : CharacterBody3D {
                 break;
             case PlayerState.Dashing:
                 HandleDashingState(delta);
+                break;
+            case PlayerState.EnteringArea:
+                HandleEnteringAreaState(delta);
+                break;
+            case PlayerState.ExitingArea:
+                HandleExitingAreaState(delta);
+                break;
+            case PlayerState.NoControl:
                 break;
         }
 
@@ -265,12 +295,12 @@ public partial class Player : CharacterBody3D {
         if (IsOnFloor()) {
             CurrentState = PlayerState.Idle;
             _velocity.Y = 0;
-        } else if (IsOnWall() && CanWallJump) {
+        } else if (IsOnWall() && _canWallJump) {
             CurrentState = PlayerState.OnWall;
             _velocity.Y = WallSlideVelocity * (float)delta;
         } else {
             _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * (float)delta, Gravity * (float)delta);
-            if (Input.IsActionJustPressed("jump") && CanDoubleJump && _doubleJumpReady) {
+            if (Input.IsActionJustPressed("jump") && _canDoubleJump && _doubleJumpReady) {
                 _jumpBufferFrames = 0;
                 _jumpModifier = 1.0f;
                 _doubleJumpReady = false;
@@ -321,6 +351,51 @@ public partial class Player : CharacterBody3D {
         }
     }
 
+    private void HandleEnteringAreaState(double delta) {
+
+        var tween = GetTree().CreateTween();
+
+        PostProcessRect.Visible = true;
+        PostProcessRect.Material = TransitionMaterial;
+
+        var noiseTexture = (NoiseTexture2D)TransitionMaterial.GetShaderParameter("noise_texture");
+        noiseTexture.Noise.Set("seed", GD.Randi());
+
+        TransitionMaterial.SetShaderParameter("progress", 0.0f);
+
+        tween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 1.0f, 0.5f).SetDelay(0.1);
+        tween.TweenCallback(Callable.From(() => {
+            if (PlayerAreaToEnter != null) {
+                CurrentState = PlayerState.NoControl;
+                if (GetTree().CurrentScene is Level level) {
+                    level.SaveState();
+                }
+                GetTree().ChangeSceneToPacked(PlayerAreaToEnter);
+            }
+        })).SetDelay(0.5f);
+        CurrentState = PlayerState.NoControl;
+
+    }
+
+    private void HandleExitingAreaState(double delta) {
+    
+        var tween = GetTree().CreateTween();
+
+        PostProcessRect.Visible = true;
+        PostProcessRect.Material = TransitionMaterial;
+
+        var noiseTexture = (NoiseTexture2D)TransitionMaterial.GetShaderParameter("noise_texture");
+        noiseTexture.Noise.Set("seed", GD.Randi());
+
+        TransitionMaterial.SetShaderParameter("progress", 1.0f);
+
+        tween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 0.0f, 0.5f).SetDelay(0.4);
+        tween.TweenCallback(Callable.From(() => {
+            PostProcessRect.Visible = false;
+        })).SetDelay(0.5f);
+        CurrentState = PlayerState.Idle;        
+    }
+
     private Vector3 GetInputDirection() {
         Vector3 direction = Vector3.Zero;
 
@@ -341,7 +416,7 @@ public partial class Player : CharacterBody3D {
     }
 
     private void CheckDash() {
-        if (Input.IsActionJustPressed("dash") && CanDash && _dashReadyToUse) {
+        if (Input.IsActionJustPressed("dash") && _canDash && _dashReadyToUse) {
             CurrentState = PlayerState.Dashing;
             _dashReadyToUse = false;
             _dashDurationTimer.Start();
@@ -359,10 +434,52 @@ public partial class Player : CharacterBody3D {
         if (IsOnFloor() || IsOnWall()) _doubleJumpReady = true;
     }
 
-
     private bool WantsToJump() {
         return (Input.IsActionJustPressed("jump") || _jumpBufferFrames > 0);
     }
+
+
+    public string GetSaveID() {
+        return GetPath();
+    }
+
+    public Dictionary<string, Variant> SaveState() {
+        var state = new Dictionary<string, Variant> { };
+
+        state["health"] = Health;
+        state["global_position"] = GlobalPosition;
+        state["can_dash"] = _canDash;
+        state["can_wall_jump"] = _canWallJump;
+        state["can_double_jump"] = _canDoubleJump;
+
+        return state;
+    }
+
+    public void LoadState(Dictionary<string, Variant> state) {
+        if (state.ContainsKey("health")) {
+            Health = (int)state["health"];
+        }
+        if (state.ContainsKey("global_position")) {
+            GlobalPosition = (Vector3)state["global_position"];
+        }
+        if (state.ContainsKey("can_dash")) {
+            _canDash = (bool)state["can_dash"];
+        }
+        if (state.ContainsKey("can_wall_jump")) {
+            _canWallJump = (bool)state["can_wall_jump"];
+        }
+        if (state.ContainsKey("can_double_jump")) {
+            _canDoubleJump = (bool)state["can_double_jump"];
+        }
+    }
+
+    private void OverrideTransformOnFirstLoadIn() { 
+        if (!Global.Instance.PlayerHasTakenTransform && Global.Instance.PlayerLastSavedTransform is Transform3D newTransform) {
+            GlobalTransform = newTransform;
+            Global.Instance.PlayerHasTakenTransform = true;
+        }
+    }
+
 }
 
 

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhymcdaiyny71"]
+
+[ext_resource type="Script" uid="uid://bvvsggdyfn5hg" path="res://src/player/PlayerCamera.cs" id="1_7pa0d"]
+[ext_resource type="Material" uid="uid://crfbqc3un0hio" path="res://src/shaders/transition/transition_material.tres" id="2_eanys"]
+
+[node name="PlayerCamera" type="Camera3D"]
+cull_mask = 1048573
+script = ExtResource("1_7pa0d")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InWorldUiSubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="InWorldUiCamera" type="Camera3D" parent="SubViewportContainer/InWorldUiSubViewport"]
+cull_mask = 2
+
+[node name="PostProcessRect" type="ColorRect" parent="."]
+material = ExtResource("2_eanys")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

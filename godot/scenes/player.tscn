@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://gr81ocgxgyw2"]
+[gd_scene load_steps=8 format=3 uid="uid://gr81ocgxgyw2"]
 
 [ext_resource type="Script" uid="uid://bf0j4e7xpq53u" path="res://src/player/Player.cs" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://dhymcdaiyny71" path="res://scenes/player_camera.tscn" id="2_g2els"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2els"]
+size = Vector3(0.6387329, 0.5951309, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 radius = 0.15
 height = 0.6
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3vyb7"]
-size = Vector3(0.31, 0.55, 0.23)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vyb7"]
 radius = 0.12
@@ -19,19 +20,24 @@ height = 0.6
 
 [sub_resource type="SphereMesh" id="SphereMesh_g2els"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Savable"]]
 script = ExtResource("1_3vyb7")
+
+[node name="Camera" parent="." instance=ExtResource("2_g2els")]
+
+[node name="InteractionBox" type="Area3D" parent="." groups=["InteractableCollider"]]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionBox"]
+shape = SubResource("BoxShape3D_g2els")
 
 [node name="CollisionBox" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_u8vuu")
 
-[node name="HurtBox" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2218172, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
-shape = SubResource("BoxShape3D_3vyb7")
-
 [node name="HitBox" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape3D" parent="HitBox"]
 shape = SubResource("CapsuleShape3D_3vyb7")

@@ -1,29 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6u0t514evp4x"]
+[gd_scene load_steps=2 format=3 uid="uid://c6u0t514evp4x"]
 
 [ext_resource type="FontFile" uid="uid://nlvl0qhy4rw5" path="res://assets/fonts/Poesing.otf" id="1_xrsyx"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_xrsyx"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="LabelSettings" id="LabelSettings_vviy2"]
-font = ExtResource("1_xrsyx")
-font_size = 100
-
-[node name="Title" type="Sprite3D"]
-transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0, 0)
+[node name="InteractableTitle" type="Label3D"]
 billboard = 1
-texture = SubResource("ViewportTexture_xrsyx")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-transparent_bg = true
-size = Vector2i(512, 100)
-
-[node name="TitleLabel" type="Label" parent="SubViewport"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+outline_modulate = Color(1, 1, 1, 1)
 text = "<placeholder>"
-label_settings = SubResource("LabelSettings_vviy2")
-horizontal_alignment = 1
+font = ExtResource("1_xrsyx")
+font_size = 125
+outline_size = 3

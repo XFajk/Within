@@ -1,15 +1,13 @@
-[gd_scene load_steps=27 format=3 uid="uid://ccke4a6ipe2i4"]
+[gd_scene load_steps=25 format=3 uid="uid://ccke4a6ipe2i4"]
 
 [ext_resource type="Script" uid="uid://b2u288mrgr3kt" path="res://src/interactables/EnterableAreaInteractable.cs" id="1_70mov"]
 [ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player.tscn" id="1_suwj3"]
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_tt5i0"]
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="3_25nyk"]
 [ext_resource type="Script" uid="uid://cvga7nhg6e82n" path="res://src/interactables/DialogInteractable.cs" id="4_25nyk"]
-[ext_resource type="JSON" path="res://assets/test_dialog.json" id="5_25nyk"]
 [ext_resource type="Script" uid="uid://b7jsj5yrf217d" path="res://src/interactables/SaveInteractable.cs" id="6_70mov"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_tt5i0"]
-viewport_path = NodePath("SubViewport")
+[ext_resource type="JSON" path="res://assets/example_dialog.json" id="6_tt5i0"]
+[ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="7_tt5i0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_byvq7"]
 size = Vector3(0.48425293, 1.1063232, 1.3204346)
@@ -20,9 +18,6 @@ size = Vector3(0.55, 1.01, 0.6)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tt5i0"]
 albedo_color = Color(0.39215687, 0.6392157, 0.92156863, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_25nyk"]
-viewport_path = NodePath("SubViewport")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2mrem"]
 albedo_color = Color(0.39215687, 0.74509805, 0, 1)
 
@@ -31,9 +26,6 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vviy2"]
 size = Vector3(1, 1, 1.390625)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_70mov"]
-viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BoxMesh" id="BoxMesh_byavc"]
 size = Vector3(4.68, 0.05, 1.99)
@@ -79,7 +71,6 @@ metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
 [node name="Title" parent="EnterableAreaInteractable" instance=ExtResource("3_25nyk")]
 transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.710763, 0)
-texture = SubResource("ViewportTexture_tt5i0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnterableAreaInteractable"]
 shape = SubResource("BoxShape3D_byvq7")
@@ -99,7 +90,6 @@ metadata/_custom_type_script = "uid://b7jsj5yrf217d"
 
 [node name="Title" parent="SaveInteractable" instance=ExtResource("3_25nyk")]
 transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.75413346, 0)
-texture = SubResource("ViewportTexture_25nyk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SaveInteractable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0446167, 0.05316162, 0.16021729)
@@ -115,7 +105,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5633998)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("4_25nyk")
-DialogData = ExtResource("5_25nyk")
+DialogData = Array[JSON]([ExtResource("6_tt5i0")])
 InteractionTitle = "Talk"
 metadata/_custom_type_script = "uid://cvga7nhg6e82n"
 
@@ -130,7 +120,9 @@ shape = SubResource("BoxShape3D_vviy2")
 
 [node name="Title" parent="DialogInteractable" instance=ExtResource("3_25nyk")]
 transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.7646898, 0)
-texture = SubResource("ViewportTexture_70mov")
+
+[node name="TextBox" parent="DialogInteractable" instance=ExtResource("7_tt5i0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.81570387, 0)
 
 [node name="Wall" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 2.3268125, 0.9220492, -0.5633998)
@@ -204,3 +196,4 @@ TerminalVelocity = -500.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.40549266, 0.9140983, 0, -0.9140983, 0.40549266, 0, 6.643165, 2.3957636)
+layers = 3

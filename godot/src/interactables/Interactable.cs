@@ -5,7 +5,7 @@ using System;
 public abstract partial class Interactable : Area3D {
     protected Player _player;
 
-    protected Label _interactionTitleLabel;
+    protected Label3D _interactionTitleLabel;
 
     [Export]
     public string InteractionTitle = "Interact";
@@ -15,18 +15,15 @@ public abstract partial class Interactable : Area3D {
         AreaEntered += OnAreaEntered;
         AreaExited += OnAreaExited;
 
-        _interactionTitleLabel = GetNode<Label>("Title/SubViewport/TitleLabel");
+        _interactionTitleLabel = GetNode<Label3D>("Title");
         _interactionTitleLabel.Text = InteractionTitle;
         _interactionTitleLabel.Visible = false;
     }
 
     public override void _Process(double delta) {
-        if (_player != null) {
+        if (_player != null && _player.CurrentState == Player.PlayerState.Idle && Mathf.Abs(0.0f -_player.GetInputDirection().X ) < 0.1f) {
             _interactionTitleLabel.Visible = true;
-            if (Input.IsActionJustPressed("look_up")
-                && _player.CurrentState != Player.PlayerState.NoControl
-                && _player.CurrentState != Player.PlayerState.EnteringArea
-                && _player.CurrentState != Player.PlayerState.ExitingArea)
+            if (Input.IsActionJustPressed("look_up"))
                 Interact();
         } else {
             _interactionTitleLabel.Visible = false;

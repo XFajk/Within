@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhymcdaiyny71"]
+[gd_scene load_steps=5 format=3 uid="uid://dhymcdaiyny71"]
 
 [ext_resource type="Script" uid="uid://bvvsggdyfn5hg" path="res://src/player/PlayerCamera.cs" id="1_7pa0d"]
-[ext_resource type="Material" uid="uid://crfbqc3un0hio" path="res://src/shaders/transition/transition_material.tres" id="2_eanys"]
+[ext_resource type="Material" uid="uid://caa3gbywl77g8" path="res://src/shaders/low_health/low_health_material.tres" id="2_eanys"]
+[ext_resource type="Texture2D" uid="uid://dl1lifow8x603" path="res://assets/sprites/wrench.png" id="3_vtnai"]
+[ext_resource type="Texture2D" uid="uid://dkqn88b1hms17" path="res://assets/sprites/heart.png" id="4_e80xl"]
 
 [node name="PlayerCamera" type="Camera3D"]
 cull_mask = 1048573
@@ -17,7 +19,7 @@ grow_vertical = 2
 [node name="InWorldUiSubViewport" type="SubViewport" parent="SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1152, 648)
+size = Vector2i(480, 270)
 render_target_update_mode = 4
 
 [node name="InWorldUiCamera" type="Camera3D" parent="SubViewportContainer/InWorldUiSubViewport"]
@@ -30,3 +32,39 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Wrench" type="Sprite2D" parent="UserInterface"]
+texture_filter = 1
+position = Vector2(54, 25.000004)
+rotation = -0.2662607
+scale = Vector2(0.3828125, 0.3828125)
+texture = ExtResource("3_vtnai")
+
+[node name="Heart" type="Sprite2D" parent="UserInterface/Wrench"]
+texture_filter = 1
+position = Vector2(-56.13154, -12.601555)
+rotation = 0.26605633
+scale = Vector2(1.1836735, 1.1836735)
+texture = ExtResource("4_e80xl")
+
+[node name="Heart2" type="Sprite2D" parent="UserInterface/Wrench"]
+texture_filter = 1
+position = Vector2(4.3530807, 3.8948822)
+rotation = 0.26605633
+scale = Vector2(1.1836735, 1.1836735)
+texture = ExtResource("4_e80xl")
+
+[node name="Heart3" type="Sprite2D" parent="UserInterface/Wrench"]
+texture_filter = 1
+position = Vector2(67.35788, 21.078598)
+rotation = 0.26605633
+scale = Vector2(1.1836735, 1.1836735)
+texture = ExtResource("4_e80xl")

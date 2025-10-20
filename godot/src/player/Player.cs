@@ -4,7 +4,7 @@ using Godot.Collections;
 
 public partial class Player : CharacterBody3D, ISavable {
 
-    private const float UnitTransformer = 1.0f/60.0f;
+    private const float UnitTransformer = 1.0f / 60.0f;
 
     public enum PlayerState {
         Idle,
@@ -14,6 +14,7 @@ public partial class Player : CharacterBody3D, ISavable {
         Dashing,
         EnteringArea,
         ExitingArea,
+        Hit,
         MiniDeath,
         Death,
         NoControl,
@@ -36,6 +37,10 @@ public partial class Player : CharacterBody3D, ISavable {
     private float _dashAnimationBlend = 0.0f;
 
     private Tween _animationTransitionTween = null;
+    private Tween _transitionTween = null;
+
+    // Dialog System Variables
+    public Label3D TextBox;
 
     [ExportGroup("Combat Settings")]
     [Export]
@@ -52,6 +57,7 @@ public partial class Player : CharacterBody3D, ISavable {
     public ColorRect PostProcessRect;
 
     public ShaderMaterial TransitionMaterial = GD.Load<ShaderMaterial>("res://src/shaders/transition/transition_material.tres");
+    public ShaderMaterial HitMaterial = GD.Load<ShaderMaterial>("res://src/shaders/low_health/low_health_material.tres");
 
     [Export]
     public float CameraDistance = 2.0f;
@@ -166,6 +172,8 @@ public partial class Player : CharacterBody3D, ISavable {
 
         _animationTree = GetNode<AnimationTree>("AnimationTree");
 
+        TextBox = GetNode<Label3D>("TextBox");
+
         HandleExitingAreaState(1.0);
 
         // this so that the player when first loading into the game from the menu takes the position
@@ -173,7 +181,7 @@ public partial class Player : CharacterBody3D, ISavable {
         CallDeferred(nameof(OverrideTransformOnFirstLoadIn));
     }
 
-    public override void _Process(double delta) {   
+    public override void _Process(double delta) {
         Position = new Vector3(Position.X, Position.Y, 0);
 
         UpdateAnimationTree();
@@ -226,6 +234,12 @@ public partial class Player : CharacterBody3D, ISavable {
         }
     }
 
+    private void CheckForDeath() {
+        if (Health <= 0 && CurrentState != PlayerState.Death) {
+            CurrentState = PlayerState.Death;
+        }
+    }
+
     public override void _PhysicsProcess(double delta) {
         ProcessJumpBuffer();
         ResetDoubleJump();
@@ -255,8 +269,10 @@ public partial class Player : CharacterBody3D, ISavable {
             case PlayerState.MiniDeath:
                 HandleMiniDeathState(delta);
                 break;
+            case PlayerState.Death:
+                HandleDeathState(delta);
+                break;
             case PlayerState.NoControl:
-                _velocity = Vector3.Zero;
                 break;
         }
 
@@ -351,7 +367,7 @@ public partial class Player : CharacterBody3D, ISavable {
     private bool IsWallClimbable() {
         var collision = GetLastSlideCollision();
         var collider = collision.GetCollider() as CollisionObject3D;
-        
+
         if (collider != null) {
             return (collider.CollisionLayer & (1u << ((int)ClimbableWallLayer - 1))) != 0;
         }
@@ -391,8 +407,8 @@ public partial class Player : CharacterBody3D, ISavable {
             if (IsOnFloor()) {
                 TransitionAnimationTo(PlayerState.Idle);
                 CurrentState = PlayerState.Idle;
-            } else if (IsOnWall() && IsWallClimbable()) {
-                TransitionAnimationTo(PlayerState.OnWall); 
+            } else if (IsOnWall() && IsWallClimbable() && _canWallJump) {
+                TransitionAnimationTo(PlayerState.OnWall);
                 CurrentState = PlayerState.OnWall;
             } else {
                 TransitionAnimationTo(PlayerState.Falling);
@@ -402,7 +418,10 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void HandleEnteringAreaState(double delta) {
-        var tween = GetTree().CreateTween();
+        if (_transitionTween != null) {
+            _transitionTween.Kill();
+        }
+        _transitionTween = GetTree().CreateTween();
 
         PostProcessRect.Visible = true;
         PostProcessRect.Material = TransitionMaterial;
@@ -412,8 +431,8 @@ public partial class Player : CharacterBody3D, ISavable {
 
         TransitionMaterial.SetShaderParameter("progress", 0.0f);
 
-        tween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 1.0f, 0.5f).SetDelay(0.1);
-        tween.TweenCallback(Callable.From(() => {
+        _transitionTween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 1.0f, 0.5f).SetDelay(0.1);
+        _transitionTween.TweenCallback(Callable.From(() => {
             if (PlayerAreaToEnter != null) {
                 CurrentState = PlayerState.NoControl;
                 if (GetTree().CurrentScene is Level level) {
@@ -428,8 +447,11 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void HandleExitingAreaState(double delta) {
+        if (_transitionTween != null) {
+            _transitionTween.Kill();
+        }
 
-        var tween = GetTree().CreateTween();
+        _transitionTween = GetTree().CreateTween();
 
         PostProcessRect.Visible = true;
         PostProcessRect.Material = TransitionMaterial;
@@ -439,27 +461,32 @@ public partial class Player : CharacterBody3D, ISavable {
 
         TransitionMaterial.SetShaderParameter("progress", 1.0f);
 
-        tween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 0.0f, 0.5f).SetDelay(0.4);
-        tween.TweenCallback(Callable.From(() => {
+        _transitionTween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 0.0f, 0.5f).SetDelay(0.4);
+        _transitionTween.TweenCallback(Callable.From(() => {
             PostProcessRect.Visible = false;
         })).SetDelay(0.5f);
         TransitionAnimationTo(PlayerState.Idle);
         CurrentState = PlayerState.Idle;
     }
-    
+
     private void HandleMiniDeathState(double delta) {
-        var tween = GetTree().CreateTween();
+        if (_transitionTween != null) {
+            _transitionTween.Kill();
+        }
+        _transitionTween = GetTree().CreateTween().SetParallel(true);
 
         PostProcessRect.Visible = true;
-        PostProcessRect.Material = TransitionMaterial;
+        PostProcessRect.Material = HitMaterial;
 
-        var noiseTexture = (NoiseTexture2D)TransitionMaterial.GetShaderParameter("noise_texture");
+        var noiseTexture = (NoiseTexture2D)HitMaterial.GetShaderParameter("noise_texture");
         noiseTexture.Noise.Set("seed", GD.Randi());
 
-        TransitionMaterial.SetShaderParameter("progress", 0.0f);
+        HitMaterial.SetShaderParameter("progress", 0.2f);
+        HitMaterial.SetShaderParameter("smooth_amount", 0.3f);
 
-        tween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 1.0f, 0.5f).SetDelay(0.1);
-        tween.TweenCallback(Callable.From(() => {
+        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 1.0f, 0.7f);
+        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/smooth_amount", 0.0f, 0.7f);
+        _transitionTween.TweenCallback(Callable.From(() => {
             if (Global.Instance.MiniCheckPointSavedPosition is Vector3 savedPosition) {
                 GlobalPosition = savedPosition;
             } else {
@@ -468,12 +495,16 @@ public partial class Player : CharacterBody3D, ISavable {
             TransitionAnimationTo(PlayerState.Idle);
             CurrentState = PlayerState.ExitingArea;
             HandleExitingAreaState(1.0);
-        })).SetDelay(0.5f);
+        })).SetDelay(1.3f);
 
         CurrentState = PlayerState.NoControl;
     }
 
-    private Vector3 GetInputDirection() {
+    private void HandleDeathState(double delta) {
+
+    }
+
+    public Vector3 GetInputDirection() {
         Vector3 direction = Vector3.Zero;
 
         if (Input.IsActionPressed("move_left")) {
@@ -509,7 +540,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void ResetDoubleJump() {
-        if (IsOnFloor() || IsOnWall()) _doubleJumpReady = true;
+        if (IsOnFloor() || (IsOnWall() && _canWallJump && IsWallClimbable())) _doubleJumpReady = true;
     }
 
     private bool WantsToJump() {
@@ -598,7 +629,7 @@ public partial class Player : CharacterBody3D, ISavable {
         }
     }
 
-    private void OverrideTransformOnFirstLoadIn() { 
+    private void OverrideTransformOnFirstLoadIn() {
         if (!Global.Instance.PlayerHasTakenTransform && Global.Instance.PlayerLastSavedTransform is Transform3D newTransform) {
             GlobalTransform = newTransform;
             Global.Instance.PlayerHasTakenTransform = true;

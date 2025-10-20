@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpyiw8cyc80xd"]
+
+[ext_resource type="FontFile" uid="uid://nlvl0qhy4rw5" path="res://assets/fonts/Poesing.otf" id="1_7daji"]
+
+[node name="TextBox" type="Label3D"]
+layers = 2
+billboard = 1
+outline_modulate = Color(1, 1, 1, 1)
+font = ExtResource("1_7daji")
+font_size = 35
+outline_size = 2
+autowrap_mode = 3
+width = 350.0

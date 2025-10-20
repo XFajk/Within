@@ -4,32 +4,120 @@ using Godot.Collections;
 [GlobalClass]
 public partial class DialogInteractable : Interactable {
     [Export]
-    public Json DialogData;
+    public Array<Json> DialogData;
+
+    public int CurrentDialogIndex = 0;
+
+    private Label3D _textBox;
+
+    private bool _isDialogActive = false;
+    private bool _isDialogPaused = false;
+
+    private string _currentDialogText = null;
+
+    private double _timeAccumulator = 0.0;
+
+    private int _currentSectionIndex = 0;
+    private int _currentCharIndex = 0;
+
+    private Dictionary _currentDialogSections = null;
+
+    private bool _interactionBuffer = false; // To prevent immediate skiping of dialog
+
+
+
+    public override void _Ready() {
+        base._Ready();
+        _textBox = GetNode<Label3D>("TextBox");
+        if (_textBox != null) {
+            _textBox.Text = "";
+        }
+    }
+
+    public override void _Process(double delta) {
+        base._Process(delta);
+
+        if (Input.IsActionJustPressed("look_up") && !_interactionBuffer) {
+            if (_isDialogActive) {
+                if (_isDialogPaused) {
+                    // End of current section
+                    _currentSectionIndex++;
+                    _currentCharIndex = 0;
+                    _currentDialogText = "";
+
+                    _textBox.Text = "";
+                    _player.TextBox.Text = "";
+
+                    if (_currentSectionIndex >= ((Array)DialogData[CurrentDialogIndex].Data).Count) {
+                        // End of dialog
+                        _isDialogActive = false;
+                        _interactionTitleLabel.Visible = true;
+                        _player.CurrentState = Player.PlayerState.Idle;
+                        _currentSectionIndex = 0;
+                        return;
+                    } else {
+                        Array sections = (Array)DialogData[CurrentDialogIndex].Data;
+                        _currentDialogSections = (Dictionary)sections[_currentSectionIndex];
+                    }
+
+                    _isDialogPaused = false;
+                } else {
+                    // Fast-forward current section
+                    _currentDialogText = (string)_currentDialogSections["text"];
+                    if ((int)_currentDialogSections["speaker"] == 0) {
+                        _player.TextBox.Text = _currentDialogText;
+                    } else {
+                        _textBox.Text = _currentDialogText;
+                    }
+                    _isDialogPaused = true;
+                }
+            }
+        }
+        if (_isDialogActive && !_isDialogPaused) {
+            _timeAccumulator += delta;
+            if (_timeAccumulator >= (double)_currentDialogSections["typing_speed"]) {
+                _timeAccumulator = 0.0;
+
+                if (_currentCharIndex >= ((string)_currentDialogSections["text"]).Length) {
+                    _isDialogPaused = true;
+                    return;
+                }
+
+                _currentDialogText += ((string)_currentDialogSections["text"])[_currentCharIndex];
+                if ((int)_currentDialogSections["speaker"] == 0) {
+                    _player.TextBox.Text = _currentDialogText;
+                } else {
+                    _textBox.Text = _currentDialogText;
+                }
+                _currentCharIndex++;
+            }
+        }
+        _interactionBuffer = false;
+    }
 
     protected override void Interact() {
-        // Expecting DialogData to be a JSON Resource (imported .json file)
         if (DialogData == null) {
             GD.PushWarning($"{nameof(DialogInteractable)}: No DialogData assigned.");
             return;
         }
 
-        Variant data = DialogData.Data;
+        Variant data = DialogData[CurrentDialogIndex].Data;
         if (data.VariantType != Variant.Type.Array) {
             GD.PushWarning($"{nameof(DialogInteractable)}: DialogData has no parsed data.");
             return;
         }
 
-        Array dialogArray = data.AsGodotArray();
+        _currentCharIndex = 0;
+        _currentSectionIndex = 0;
+        _isDialogPaused = false;
 
-        foreach (Variant item in dialogArray) {
-            if (item.VariantType != Variant.Type.Dictionary) {
-                GD.PushWarning($"{nameof(DialogInteractable)}: Dialog item is not a Dictionary.");
-                continue;
-            }
+        Array sections = (Array)data;
 
-            Dictionary dialogEntry = item.AsGodotDictionary();
-            GD.Print(dialogEntry["speaker"] + ": " + dialogEntry["speech"]);
-        }
+        _currentDialogSections = (Dictionary)sections[_currentSectionIndex];
+
+        _interactionTitleLabel.Visible = false;
+        _player.CurrentState = Player.PlayerState.NoControl;
+        _isDialogActive = true;
+        _interactionBuffer = true;
     }
-
 }

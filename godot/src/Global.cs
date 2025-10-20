@@ -9,7 +9,7 @@ public partial class Global : Node {
         Instance = this;
     }
 
-    public string LastSavedScenePath = null;
+    public string LastSavedScenePath = "res://scenes/player_controller_testing.tscn";
 
     public Transform3D? PlayerLastSavedTransform = null;
     public bool PlayerHasTakenTransform = false;
@@ -54,7 +54,6 @@ public partial class Global : Node {
             // Process loaded data here
             if (loadedData.ContainsKey("last_scene")) {
                 LastSavedScenePath = (string)loadedData["last_scene"];
-                GetTree().CallDeferred("change_scene_to_file", LastSavedScenePath);
             }
 
             if (loadedData.ContainsKey("player_last_saved_transform")) {
@@ -70,6 +69,8 @@ public partial class Global : Node {
                 PlayerHasDoubleJumpAbility = (bool)loadedData["player_has_double_jump_ability"];
             }
         }
+
+        GetTree().CallDeferred("change_scene_to_file", LastSavedScenePath);
     }
 
     public void ResetProgressData() {

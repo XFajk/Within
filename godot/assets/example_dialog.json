@@ -1,0 +1,13 @@
+[
+	{
+		"speaker": 0,
+		"text": "Hello. Can you tell me where I am?",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "You're in a mysterious place.",
+		"typing_speed": 0.1
+	}
+
+]

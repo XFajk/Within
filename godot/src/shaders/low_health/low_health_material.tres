@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://caa3gbywl77g8"]
+
+[ext_resource type="Shader" uid="uid://cs4djv4roigob" path="res://src/shaders/low_health/low_health_shaderl.gdshader" id="1_45kph"]
+[ext_resource type="Texture2D" uid="uid://dx52eccb88p1e" path="res://src/shaders/low_health/low_health_noise.tres" id="2_sg0x2"]
+
+[resource]
+shader = ExtResource("1_45kph")
+shader_parameter/noise_texture = ExtResource("2_sg0x2")
+shader_parameter/progress = 0.0
+shader_parameter/smooth_amount = 0.3

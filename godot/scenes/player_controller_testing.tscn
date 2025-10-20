@@ -69,7 +69,7 @@ albedo_color = Color(0.9308557, 0.6232569, 0.4280404, 1)
 script = ExtResource("1_tt5i0")
 
 [node name="EnterableAreaInteractable" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.77249897, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.77249897, -0.5633998)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("1_70mov")
@@ -90,7 +90,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_tt5i0")
 
 [node name="SaveInteractable" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0142154, 0.76945895, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0142154, 0.76945895, -0.5633998)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("6_70mov")
@@ -111,6 +111,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_2mrem")
 
 [node name="DialogInteractable" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5633998)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("4_25nyk")
@@ -132,17 +133,18 @@ transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.7646898, 0)
 texture = SubResource("ViewportTexture_70mov")
 
 [node name="Wall" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 2.3268125, 0.9220492, 0)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 2.3268125, 0.9220492, -0.5633998)
 mesh = SubResource("BoxMesh_byavc")
 skeleton = NodePath("../Floor")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Wall"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_suwj3")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45689774, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45689774, -0.5633998)
 mesh = SubResource("BoxMesh_byavc")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
@@ -151,17 +153,18 @@ mesh = SubResource("BoxMesh_byavc")
 shape = SubResource("ConcavePolygonShape3D_23udb")
 
 [node name="Wall2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -2.3694768, 0.9220492, 0)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -2.3694768, 0.9220492, -0.5633998)
 mesh = SubResource("BoxMesh_byavc")
 skeleton = NodePath("../Floor")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Wall2"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_anidj")
 
 [node name="Floor2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4688413, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4688413, -0.5633998)
 mesh = SubResource("BoxMesh_byavc")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor2"]
@@ -170,7 +173,7 @@ mesh = SubResource("BoxMesh_byavc")
 shape = SubResource("ConcavePolygonShape3D_4thdb")
 
 [node name="Floor3" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.9999925, 0.0038746211, 0, -0.0038746211, 0.9999925, 0, 0, 0, 1, -0.92626715, 0.27225995, 0)
+transform = Transform3D(0.9999925, 0.0038746211, 0, -0.0038746211, 0.9999925, 0, 0, 0, 1, -0.92626715, 0.27225995, -0.5633998)
 mesh = SubResource("BoxMesh_vviy2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor3"]
@@ -179,7 +182,7 @@ mesh = SubResource("BoxMesh_vviy2")
 shape = SubResource("ConcavePolygonShape3D_25nyk")
 
 [node name="Floor4" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.9999925, 0.0038746211, 0, -0.0038746211, 0.9999925, 0, 0, 0, 1, 1.0033296, 0.27225995, 0)
+transform = Transform3D(0.9999925, 0.0038746211, 0, -0.0038746211, 0.9999925, 0, 0, 0, 1, 1.0033296, 0.27225995, -0.5633998)
 mesh = SubResource("BoxMesh_vviy2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor4"]
@@ -188,12 +191,12 @@ mesh = SubResource("BoxMesh_vviy2")
 shape = SubResource("ConcavePolygonShape3D_70mov")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92906547, -0.42473304)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92906547, -0.98813283)
 mesh = SubResource("QuadMesh_tt5i0")
 surface_material_override/0 = SubResource("StandardMaterial3D_byvq7")
 
 [node name="Player" parent="." instance=ExtResource("1_suwj3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9594393, 0.56733567)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.959, 0)
 CameraLerpSpeed = 6.0
 CameraMovementAmount = 0.5
 Gravity = 17.0

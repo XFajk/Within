@@ -19,6 +19,13 @@ config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 Global="*res://src/Global.cs"
 SaveSystem="*res://src/save_system/SaveSystem.cs"
 
+[display]
+
+window/size/viewport_width=480
+window/size/viewport_height=270
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [dotnet]
 
 project/assembly_name="Within"
@@ -79,3 +86,4 @@ reset_everything={
 3d_physics/layer_2="Player Demage "
 3d_physics/layer_3="Enemy Demage"
 3d_physics/layer_4="Interactable"
+3d_physics/layer_5="Climable"

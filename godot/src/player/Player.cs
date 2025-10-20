@@ -4,6 +4,8 @@ using Godot.Collections;
 
 public partial class Player : CharacterBody3D, ISavable {
 
+    private const float UnitTransformer = 1.0f/60.0f;
+
     public enum PlayerState {
         Idle,
         Jumping,
@@ -24,6 +26,15 @@ public partial class Player : CharacterBody3D, ISavable {
     public PlayerState CurrentState = PlayerState.ExitingArea;
 
     public PackedScene PlayerAreaToEnter = null;
+
+    private AnimationTree _animationTree;
+
+    private float _runningAnimationBlend = 0.0f;
+    private float _jumpAnimationBlend = 0.0f;
+    private float _wallHugAnimationBlend = 0.0f;
+    private float _dashAnimationBlend = 0.0f;
+
+    private Tween _animationTransitionTween = null;
 
     [ExportGroup("Combat Settings")]
     [Export]
@@ -85,7 +96,6 @@ public partial class Player : CharacterBody3D, ISavable {
     private float _jumpModifier = 1.0f;
 
     [ExportGroup("Wall Jump Settings")]
-    [Export]
     private bool _canWallJump = false;
 
     [Export]
@@ -96,6 +106,9 @@ public partial class Player : CharacterBody3D, ISavable {
 
     [Export]
     public float WallSlideVelocity = -70.0f;
+
+    [Export]
+    public uint ClimbableWallLayer = 5; // Layer 5 will be for climbable walls
 
     [ExportGroup("Dash Settings")]
     private bool _canDash = false;
@@ -150,6 +163,8 @@ public partial class Player : CharacterBody3D, ISavable {
         Camera.Fov = CameraFov;
         Camera.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
 
+        _animationTree = GetNode<AnimationTree>("AnimationTree");
+
         HandleExitingAreaState(1.0);
 
         // this so that the player when first loading into the game from the menu takes the position
@@ -157,7 +172,11 @@ public partial class Player : CharacterBody3D, ISavable {
         CallDeferred(nameof(OverrideTransformOnFirstLoadIn));
     }
 
-    public override void _Process(double delta) {
+    public override void _Process(double delta) {   
+        Position = new Vector3(Position.X, Position.Y, 0);
+
+        UpdateAnimationTree();
+
         UpdateCameraMovementBuffer(delta);
         MoveCamera(delta);
         FigureOutHorizontalDirection();
@@ -233,6 +252,7 @@ public partial class Player : CharacterBody3D, ISavable {
                 HandleExitingAreaState(delta);
                 break;
             case PlayerState.NoControl:
+                _velocity = Vector3.Zero;
                 break;
         }
 
@@ -247,11 +267,13 @@ public partial class Player : CharacterBody3D, ISavable {
             _jumpBufferFrames = 0;
             _jumpModifier = 1.0f;
             _amountJumpFrames = FirstJumpFrames;
+            TransitionAnimationTo(PlayerState.Jumping);
             CurrentState = PlayerState.Jumping;
         } else if (!IsOnFloor()) {
             if (Input.IsActionJustPressed("jump")) {
                 _jumpBufferFrames = 6;
             }
+            TransitionAnimationTo(PlayerState.Jumping);
             CurrentState = PlayerState.Falling;
         }
 
@@ -262,11 +284,12 @@ public partial class Player : CharacterBody3D, ISavable {
         Move(delta);
 
         if (IsOnFloor() || _numberOfFramesInJump > 0) {
-            _velocity.Y = JumpVelocity * _jumpModifier * (float)delta;
+            _velocity.Y = JumpVelocity * _jumpModifier * UnitTransformer;
 
             if (IsOnCeiling()) {
                 _numberOfFramesInJump = 0;
-                _velocity.Y = -Gravity * (float)delta;
+                _velocity.Y = -Gravity * UnitTransformer;
+                TransitionAnimationTo(PlayerState.Falling);
                 CurrentState = PlayerState.Falling;
             }
 
@@ -275,14 +298,17 @@ public partial class Player : CharacterBody3D, ISavable {
                     _numberOfFramesInJump++;
                 } else {
                     _numberOfFramesInJump = 0;
+                    TransitionAnimationTo(PlayerState.Falling);
                     CurrentState = PlayerState.Falling;
                 }
             } else {
                 _numberOfFramesInJump = 0;
+                TransitionAnimationTo(PlayerState.Falling);
                 CurrentState = PlayerState.Falling;
             }
         } else {
             _numberOfFramesInJump = 0;
+            TransitionAnimationTo(PlayerState.Falling);
             CurrentState = PlayerState.Falling;
         }
 
@@ -293,19 +319,22 @@ public partial class Player : CharacterBody3D, ISavable {
         Move(delta);
 
         if (IsOnFloor()) {
+            TransitionAnimationTo(PlayerState.Idle);
             CurrentState = PlayerState.Idle;
             _velocity.Y = 0;
-        } else if (IsOnWall() && _canWallJump) {
+        } else if (IsOnWall() && _canWallJump && IsWallClimbable()) {
+            TransitionAnimationTo(PlayerState.OnWall);
             CurrentState = PlayerState.OnWall;
-            _velocity.Y = WallSlideVelocity * (float)delta;
+            _velocity.Y = WallSlideVelocity * UnitTransformer;
         } else {
-            _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * (float)delta, Gravity * (float)delta);
+            _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * UnitTransformer, Gravity * UnitTransformer);
             if (Input.IsActionJustPressed("jump") && _canDoubleJump && _doubleJumpReady) {
                 _jumpBufferFrames = 0;
                 _jumpModifier = 1.0f;
                 _doubleJumpReady = false;
                 _numberOfFramesInJump = 1;
                 _amountJumpFrames = SecondJumpFrames;
+                TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
             } else if (Input.IsActionJustPressed("jump")) {
                 _jumpBufferFrames = 6;
@@ -315,23 +344,37 @@ public partial class Player : CharacterBody3D, ISavable {
         CheckDash();
     }
 
+    private bool IsWallClimbable() {
+        var collision = GetLastSlideCollision();
+        var collider = collision.GetCollider() as CollisionObject3D;
+        
+        if (collider != null) {
+            return (collider.CollisionLayer & (1u << ((int)ClimbableWallLayer - 1))) != 0;
+        }
+        return false;
+    }
+
     private void HandleOnWallState(double delta) {
         Move(delta);
-        if (IsOnWall()) {
-            _velocity.Y = WallSlideVelocity * (float)delta;
+        if (IsOnFloor()) {
+            TransitionAnimationTo(PlayerState.Idle);
+            CurrentState = PlayerState.Idle;
+            _velocity.Y = 0;
+        } else if (IsOnWall()) {
+            _velocity.Y = WallSlideVelocity * UnitTransformer;
+            var collision = GetLastSlideCollision();
 
             if (WantsToJump()) {
                 _jumpModifier = WallJumpVelocityModifier;
-                Vector3 wallNormal = GetLastSlideCollision().GetNormal();
-                _velocity.X = (wallNormal * WallJumpHorizontalVelocity * (float)delta).X;
-                _velocity.Y = JumpVelocity * _jumpModifier * (float)delta;
+                Vector3 wallNormal = collision.GetNormal();
+                _velocity.X = (wallNormal * WallJumpHorizontalVelocity * UnitTransformer).X;
+                _velocity.Y = JumpVelocity * _jumpModifier * UnitTransformer;
                 _amountJumpFrames = FirstJumpFrames;
+                TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
             }
-        } else if (IsOnFloor()) {
-            CurrentState = PlayerState.Idle;
-            _velocity.Y = 0;
         } else {
+            TransitionAnimationTo(PlayerState.Falling);
             CurrentState = PlayerState.Falling;
         }
         CheckDash();
@@ -339,20 +382,22 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private void HandleDashingState(double delta) {
         Vector3 dashDirection = new Vector3((float)_horizontalDirection, 0, 0).Normalized();
-        _velocity = dashDirection * DashVelocity * (float)delta;
+        _velocity = dashDirection * DashVelocity * UnitTransformer;
         if (_dashDurationTimer.IsStopped()) {
             if (IsOnFloor()) {
+                TransitionAnimationTo(PlayerState.Idle);
                 CurrentState = PlayerState.Idle;
-            } else if (IsOnWall()) {
+            } else if (IsOnWall() && IsWallClimbable()) {
+                TransitionAnimationTo(PlayerState.OnWall); 
                 CurrentState = PlayerState.OnWall;
             } else {
+                TransitionAnimationTo(PlayerState.Falling);
                 CurrentState = PlayerState.Falling;
             }
         }
     }
 
     private void HandleEnteringAreaState(double delta) {
-
         var tween = GetTree().CreateTween();
 
         PostProcessRect.Visible = true;
@@ -373,6 +418,7 @@ public partial class Player : CharacterBody3D, ISavable {
                 GetTree().ChangeSceneToPacked(PlayerAreaToEnter);
             }
         })).SetDelay(0.5f);
+
         CurrentState = PlayerState.NoControl;
 
     }
@@ -393,6 +439,7 @@ public partial class Player : CharacterBody3D, ISavable {
         tween.TweenCallback(Callable.From(() => {
             PostProcessRect.Visible = false;
         })).SetDelay(0.5f);
+        TransitionAnimationTo(PlayerState.Idle);
         CurrentState = PlayerState.Idle;        
     }
 
@@ -411,12 +458,13 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private void Move(double delta) {
         float yVelocity = _velocity.Y;
-        _velocity = _velocity.MoveToward(GetInputDirection() * MovementSpeed * (float)delta, MovementSpeed / 4 * (float)delta);
+        _velocity = _velocity.MoveToward(GetInputDirection() * MovementSpeed * UnitTransformer, MovementSpeed / 4 * UnitTransformer);
         _velocity.Y = yVelocity;
     }
 
     private void CheckDash() {
         if (Input.IsActionJustPressed("dash") && _canDash && _dashReadyToUse) {
+            TransitionAnimationTo(PlayerState.Dashing);
             CurrentState = PlayerState.Dashing;
             _dashReadyToUse = false;
             _dashDurationTimer.Start();
@@ -438,6 +486,53 @@ public partial class Player : CharacterBody3D, ISavable {
         return (Input.IsActionJustPressed("jump") || _jumpBufferFrames > 0);
     }
 
+
+    private void UpdateAnimationTree() {
+        if (CurrentState == PlayerState.Idle) {
+            _runningAnimationBlend = Mathf.Clamp(Mathf.Abs(_velocity.X) / MovementSpeed / (float)GetPhysicsProcessDeltaTime(), 0.0f, 1.0f);
+        } else {
+            _runningAnimationBlend = 0.0f;
+        }
+        _animationTree.Set("parameters/Run/blend_amount", _runningAnimationBlend);
+        _animationTree.Set("parameters/Jump/blend_amount", _jumpAnimationBlend);
+        _animationTree.Set("parameters/WallHug/blend_amount", _wallHugAnimationBlend);
+        _animationTree.Set("parameters/Dash/blend_amount", _dashAnimationBlend);
+    }
+
+    private void TransitionAnimationTo(PlayerState targetState) {
+        if (_animationTransitionTween != null) {
+            _animationTransitionTween.Kill();
+        }
+        var tween = GetTree().CreateTween().SetParallel(true);
+        _animationTransitionTween = tween;
+
+        switch (targetState) {
+            case PlayerState.Idle:
+                tween.TweenProperty(this, nameof(_jumpAnimationBlend), 0.0f, 0.2f);
+                tween.TweenProperty(this, nameof(_wallHugAnimationBlend), 0.0f, 0.2f);
+                tween.TweenProperty(this, nameof(_dashAnimationBlend), 0.0f, 0.1f);
+                break;
+            case PlayerState.Jumping:
+            case PlayerState.Falling:
+                tween.TweenProperty(this, nameof(_jumpAnimationBlend), 1.0f, 0.2f);
+                tween.TweenProperty(this, nameof(_runningAnimationBlend), 0.0f, 0.2f);
+                tween.TweenProperty(this, nameof(_wallHugAnimationBlend), 0.0f, 0.2f);
+                tween.TweenProperty(this, nameof(_dashAnimationBlend), 0.0f, 0.1f);
+                break;
+            case PlayerState.OnWall:
+                tween.TweenProperty(this, nameof(_wallHugAnimationBlend), 1.0f, 0.1f);
+                tween.TweenProperty(this, nameof(_runningAnimationBlend), 0.0f, 0.1f);
+                tween.TweenProperty(this, nameof(_jumpAnimationBlend), 0.0f, 0.1f);
+                tween.TweenProperty(this, nameof(_dashAnimationBlend), 0.0f, 0.1f);
+                break;
+            case PlayerState.Dashing:
+                tween.TweenProperty(this, nameof(_dashAnimationBlend), 1.0f, 0.01f);
+                tween.TweenProperty(this, nameof(_runningAnimationBlend), 0.0f, 0.01f);
+                tween.TweenProperty(this, nameof(_jumpAnimationBlend), 0.0f, 0.01f);
+                tween.TweenProperty(this, nameof(_wallHugAnimationBlend), 0.0f, 0.01f);
+                break;
+        }
+    }
 
     public string GetSaveID() {
         return GetPath();

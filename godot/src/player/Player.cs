@@ -14,7 +14,8 @@ public partial class Player : CharacterBody3D, ISavable {
         Dashing,
         EnteringArea,
         ExitingArea,
-
+        MiniDeath,
+        Death,
         NoControl,
     }
 
@@ -251,6 +252,9 @@ public partial class Player : CharacterBody3D, ISavable {
             case PlayerState.ExitingArea:
                 HandleExitingAreaState(delta);
                 break;
+            case PlayerState.MiniDeath:
+                HandleMiniDeathState(delta);
+                break;
             case PlayerState.NoControl:
                 _velocity = Vector3.Zero;
                 break;
@@ -424,7 +428,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void HandleExitingAreaState(double delta) {
-    
+
         var tween = GetTree().CreateTween();
 
         PostProcessRect.Visible = true;
@@ -440,7 +444,33 @@ public partial class Player : CharacterBody3D, ISavable {
             PostProcessRect.Visible = false;
         })).SetDelay(0.5f);
         TransitionAnimationTo(PlayerState.Idle);
-        CurrentState = PlayerState.Idle;        
+        CurrentState = PlayerState.Idle;
+    }
+    
+    private void HandleMiniDeathState(double delta) {
+        var tween = GetTree().CreateTween();
+
+        PostProcessRect.Visible = true;
+        PostProcessRect.Material = TransitionMaterial;
+
+        var noiseTexture = (NoiseTexture2D)TransitionMaterial.GetShaderParameter("noise_texture");
+        noiseTexture.Noise.Set("seed", GD.Randi());
+
+        TransitionMaterial.SetShaderParameter("progress", 0.0f);
+
+        tween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 1.0f, 0.5f).SetDelay(0.1);
+        tween.TweenCallback(Callable.From(() => {
+            if (Global.Instance.MiniCheckPointSavedPosition is Vector3 savedPosition) {
+                GlobalPosition = savedPosition;
+            } else {
+                GlobalPosition = Global.Instance.PlayerLastSavedTransform is Transform3D lastTransform ? lastTransform.Origin : Vector3.Zero;
+            }
+            TransitionAnimationTo(PlayerState.Idle);
+            CurrentState = PlayerState.ExitingArea;
+            HandleExitingAreaState(1.0);
+        })).SetDelay(0.5f);
+
+        CurrentState = PlayerState.NoControl;
     }
 
     private Vector3 GetInputDirection() {

@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dba3juoq0rmr1"]
+[gd_scene load_steps=17 format=3 uid="uid://dba3juoq0rmr1"]
 
 [ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player.tscn" id="1_kphhb"]
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_ohlwy"]
 [ext_resource type="Script" uid="uid://b2u288mrgr3kt" path="res://src/interactables/EnterableAreaInteractable.cs" id="2_kdgrv"]
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="3_ohlwy"]
+[ext_resource type="Script" uid="uid://dkaeyvdlboftn" path="res://src/misc/EnvironmentalHazard.cs" id="5_3ss5u"]
+[ext_resource type="Script" uid="uid://b6cnh7o45fys" path="res://src/misc/MiniCheckPoint.cs" id="6_e5rdt"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wdftw"]
 top_radius = 5.0
@@ -24,6 +26,17 @@ size = Vector3(0.55, 1.01, 0.6)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ss5u"]
 albedo_color = Color(0.39215687, 0.6392157, 0.92156863, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_e5rdt"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e1vt2"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jva2"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e1vt2"]
+
 [node name="PlayerCombatTesting" type="Node3D"]
 script = ExtResource("1_ohlwy")
 
@@ -36,13 +49,13 @@ mesh = SubResource("CylinderMesh_wdftw")
 shape = SubResource("ConcavePolygonShape3D_kdgrv")
 
 [node name="Player" parent="." instance=ExtResource("1_kphhb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18, 1.7033603, 0.271)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18, 1.703, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.90073615, 0.43436664, 0, -0.43436664, 0.90073615, 0, 4.5975895, 0)
 
 [node name="EnterableAreaInteractable" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5053607, -0.34814548)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5053607, -0.75246805)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("2_kdgrv")
@@ -61,3 +74,43 @@ shape = SubResource("BoxShape3D_kdgrv")
 mesh = SubResource("BoxMesh_ohlwy")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3ss5u")
+
+[node name="EnvironmentalHazard" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.020944, -0.42358303, 0)
+script = ExtResource("5_3ss5u")
+metadata/_custom_type_script = "uid://dkaeyvdlboftn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnvironmentalHazard"]
+shape = SubResource("BoxShape3D_e5rdt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EnvironmentalHazard"]
+mesh = SubResource("BoxMesh_e1vt2")
+surface_material_override/0 = SubResource("StandardMaterial3D_1jva2")
+
+[node name="EnvironmentalHazard2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.991258, -0.42358303, 0)
+script = ExtResource("5_3ss5u")
+metadata/_custom_type_script = "uid://dkaeyvdlboftn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnvironmentalHazard2"]
+shape = SubResource("BoxShape3D_e5rdt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EnvironmentalHazard2"]
+mesh = SubResource("BoxMesh_e1vt2")
+surface_material_override/0 = SubResource("StandardMaterial3D_1jva2")
+
+[node name="MiniCheckPoint" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.336543, 1.4708667, 0)
+script = ExtResource("6_e5rdt")
+metadata/_custom_type_script = "uid://b6cnh7o45fys"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCheckPoint"]
+shape = SubResource("BoxShape3D_e1vt2")
+
+[node name="MiniCheckPoint2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5311832, 1.4708667, 0)
+script = ExtResource("6_e5rdt")
+metadata/_custom_type_script = "uid://b6cnh7o45fys"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCheckPoint2"]
+shape = SubResource("BoxShape3D_e1vt2")

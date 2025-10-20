@@ -87,3 +87,6 @@ reset_everything={
 3d_physics/layer_3="Enemy Demage"
 3d_physics/layer_4="Interactable"
 3d_physics/layer_5="Climable"
+3d_physics/layer_6="Enviromental hazard"
+3d_physics/layer_7="Mini checkpoint"
+3d_physics/layer_8="Scripted event"

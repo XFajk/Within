@@ -18,6 +18,9 @@ public partial class Global : Node {
     public bool PlayerHasWallJumpAbility = true;
     public bool PlayerHasDoubleJumpAbility = true;
 
+
+    public Vector3? MiniCheckPointSavedPosition = null;
+
     public void SaveProgressData() {
         var data = new Dictionary<string, Variant> { };
 

@@ -1,0 +1,103 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvns6r155f3jf"]
+
+[sub_resource type="Curve" id="Curve_ra3m7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1x1bc"]
+curve = SubResource("Curve_ra3m7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5wph8"]
+direction = Vector3(0, -1, 0)
+spread = 180.0
+flatness = 0.755
+initial_velocity_min = 4.7999997
+initial_velocity_max = 7.1499996
+scale_curve = SubResource("CurveTexture_1x1bc")
+hue_variation_min = -0.09000002
+hue_variation_max = 0.19999997
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjl8o"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(1, 0, 0, 1)
+distance_fade_min_distance = 10.0
+distance_fade_max_distance = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_5o5i1"]
+material = SubResource("StandardMaterial3D_yjl8o")
+radius = 0.05
+height = 0.1
+radial_segments = 10
+rings = 5
+
+[sub_resource type="Animation" id="Animation_ra3m7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_1x1bc"]
+resource_name = "run"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5wph8"]
+_data = {
+&"RESET": SubResource("Animation_ra3m7"),
+&"run": SubResource("Animation_1x1bc")
+}
+
+[node name="SmallDeathParticles" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+emitting = false
+amount = 30
+lifetime = 0.6
+one_shot = true
+preprocess = 0.04
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_5wph8")
+draw_pass_1 = SubResource("SphereMesh_5o5i1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5wph8")
+}
+autoplay = "run"

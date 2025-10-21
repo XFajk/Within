@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://dba3juoq0rmr1"]
 
-[ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player.tscn" id="1_kphhb"]
+[ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player/player.tscn" id="1_kphhb"]
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_ohlwy"]
 [ext_resource type="Script" uid="uid://b2u288mrgr3kt" path="res://src/interactables/EnterableAreaInteractable.cs" id="2_kdgrv"]
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="3_ohlwy"]

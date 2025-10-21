@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://ccke4a6ipe2i4"]
 
 [ext_resource type="Script" uid="uid://b2u288mrgr3kt" path="res://src/interactables/EnterableAreaInteractable.cs" id="1_70mov"]
-[ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player.tscn" id="1_suwj3"]
+[ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player/player.tscn" id="1_suwj3"]
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_tt5i0"]
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="3_25nyk"]
 [ext_resource type="Script" uid="uid://cvga7nhg6e82n" path="res://src/interactables/DialogInteractable.cs" id="4_25nyk"]

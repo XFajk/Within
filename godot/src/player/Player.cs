@@ -6,6 +6,9 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private const float UnitTransformer = 1.0f / 60.0f;
 
+    [Signal]
+    public delegate void HitEventHandler(int damage);
+
     public enum PlayerState {
         Idle,
         Jumping,
@@ -29,6 +32,10 @@ public partial class Player : CharacterBody3D, ISavable {
 
     public PackedScene PlayerAreaToEnter = null;
 
+    // Visual Effects Variables
+    private PackedScene _hitUiParticles = GD.Load<PackedScene>("res://scenes/VFX/small_death_particles.tscn");
+
+    // Animation Variables    
     private AnimationTree _animationTree;
 
     private float _runningAnimationBlend = 0.0f;
@@ -37,29 +44,23 @@ public partial class Player : CharacterBody3D, ISavable {
     private float _dashAnimationBlend = 0.0f;
 
     private Tween _animationTransitionTween = null;
+
+    // Transition Variables
     private Tween _transitionTween = null;
 
     // Dialog System Variables
     public Label3D TextBox;
 
+    // Wrench Trail Variables
+    private Skeleton3D _playerSkeleton;
+    private Node3D _wrenchTrail;
+
     [ExportGroup("Combat Settings")]
-    [Export]
-    public int MaxHealth = 3;
 
     [Export]
-    public int MaxDemage = 5;
+    public int MaxDamage = 5;
 
-    private int _health = 3;
-    public int Health {
-        get { return _health; }
-        set {
-            _health = Mathf.Clamp(value, 0, MaxHealth);
-            UpdateHealthBar();
-            CheckForDeath();
-        }
-    }
-
-    private Node _healthBar;
+    private HealthBar _healthBar;
 
     [ExportGroup("Camera Settings")]
     public Camera3D Camera;
@@ -184,7 +185,10 @@ public partial class Player : CharacterBody3D, ISavable {
 
         TextBox = GetNode<Label3D>("TextBox");
 
-        _healthBar = Camera.GetNode<Node>("UserInterface/HealthBar");
+        _healthBar = Camera.GetNode<HealthBar>("UserInterface/HealthBar");
+
+        _playerSkeleton = GetNode<Skeleton3D>("Armature/Skeleton3D");
+        _wrenchTrail = GetNode<Node3D>("Armature/Skeleton3D/WrenchTrail");
 
         HandleExitingAreaState(1.0);
 
@@ -197,6 +201,7 @@ public partial class Player : CharacterBody3D, ISavable {
         Position = new Vector3(Position.X, Position.Y, 0);
 
         UpdateAnimationTree();
+        UpdateWrenchTransform();
 
         CheckForDeath();
 
@@ -249,22 +254,14 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void CheckForDeath() {
-        if (Health <= 0 && CurrentState != PlayerState.Death) {
+        if (_healthBar.Health <= 0 && CurrentState != PlayerState.Death) {
             CurrentState = PlayerState.Death;
         }
     }
 
-    private void UpdateHealthBar() {
-        if (_healthBar is Node bar) {
-            for (int i = 0; i < MaxHealth; i++) {
-                var heart = bar.GetChild<Node2D>(i);
-                if (i < Health) {
-                    heart.SelfModulate = Colors.White;
-                } else {
-                    heart.SelfModulate = Colors.Black;
-                }
-            }
-        }
+    private void UpdateWrenchTransform() {
+        int boneIndex = _playerSkeleton.FindBone("Bone");
+        _wrenchTrail.Transform = _playerSkeleton.GetBoneGlobalPose(boneIndex);
     }
 
     public override void _PhysicsProcess(double delta) {
@@ -445,6 +442,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void HandleEnteringAreaState(double delta) {
+        _velocity = Vector3.Zero;
         if (_transitionTween != null) {
             _transitionTween.Kill();
         }
@@ -474,6 +472,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void HandleExitingAreaState(double delta) {
+        _velocity = Vector3.Zero;
         if (_transitionTween != null) {
             _transitionTween.Kill();
         }
@@ -487,7 +486,6 @@ public partial class Player : CharacterBody3D, ISavable {
         noiseTexture.Noise.Set("seed", GD.Randi());
 
         TransitionMaterial.SetShaderParameter("progress", 1.0f);
-
         _transitionTween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 0.0f, 0.5f).SetDelay(0.4);
         _transitionTween.TweenCallback(Callable.From(() => {
             PostProcessRect.Visible = false;
@@ -496,12 +494,21 @@ public partial class Player : CharacterBody3D, ISavable {
         CurrentState = PlayerState.Idle;
     }
 
-    private void HandleMiniDeathState(double delta) {
-        Health -= 1;
+    private async void HandleMiniDeathState(double delta) {
+        _velocity = Vector3.Zero;
         if (_transitionTween != null) {
             _transitionTween.Kill();
         }
         _transitionTween = GetTree().CreateTween().SetParallel(true);
+
+        PostProcessRect.Visible = false;
+
+        HitFrame(0.4f);
+
+        Node3D particles = (Node3D)_hitUiParticles.Instantiate();
+        GetParent().AddChild(particles);
+        particles.GlobalPosition = GlobalPosition;
+        EmitSignalHit(1);
 
         PostProcessRect.Visible = true;
         PostProcessRect.Material = HitMaterial;
@@ -520,6 +527,7 @@ public partial class Player : CharacterBody3D, ISavable {
             } else {
                 GlobalPosition = Global.Instance.PlayerLastSavedTransform is Transform3D lastTransform ? lastTransform.Origin : Vector3.Zero;
             }
+            PostProcessRect.Visible = false;
             TransitionAnimationTo(PlayerState.Idle);
             CurrentState = PlayerState.ExitingArea;
             HandleExitingAreaState(1.0);
@@ -529,7 +537,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void HandleDeathState(double delta) {
-        
+
     }
 
     public Vector3 GetInputDirection() {
@@ -630,7 +638,7 @@ public partial class Player : CharacterBody3D, ISavable {
     public Dictionary<string, Variant> SaveState() {
         var state = new Dictionary<string, Variant> { };
 
-        state["health"] = Health;
+        state["health"] = _healthBar.Health;
         state["global_position"] = GlobalPosition;
         state["can_dash"] = _canDash;
         state["can_wall_jump"] = _canWallJump;
@@ -641,7 +649,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
     public void LoadState(Dictionary<string, Variant> state) {
         if (state.ContainsKey("health")) {
-            Health = (int)state["health"];
+            _healthBar.Health = (int)state["health"];
         }
         if (state.ContainsKey("global_position")) {
             GlobalPosition = (Vector3)state["global_position"];
@@ -662,6 +670,14 @@ public partial class Player : CharacterBody3D, ISavable {
             GlobalTransform = newTransform;
             Global.Instance.PlayerHasTakenTransform = true;
         }
+    }
+
+    private async void HitFrame(float duration) {
+        PostProcessRect.Visible = false;
+        GetTree().Paused = true;
+        await ToSignal(GetTree().CreateTimer(duration, true, false, true), SceneTreeTimer.SignalName.Timeout);
+        GetTree().Paused = false;
+        PostProcessRect.Visible = true;
     }
 
 }

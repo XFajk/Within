@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn3jpq2w8ctxj"]
+
+[ext_resource type="Texture2D" uid="uid://dl1lifow8x603" path="res://assets/sprites/wrench.png" id="1_ycjss"]
+[ext_resource type="Script" uid="uid://dy24ckw106uxk" path="res://src/player/HealthBar.cs" id="2_nicdr"]
+[ext_resource type="Texture2D" uid="uid://dkqn88b1hms17" path="res://assets/sprites/heart.png" id="3_mltte"]
+
+[node name="HealthBar" type="Sprite2D"]
+z_index = 2
+texture_filter = 1
+rotation = -0.2662607
+texture = ExtResource("1_ycjss")
+script = ExtResource("2_nicdr")
+
+[node name="Heart" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(-56.13154, -12.601555)
+rotation = 0.26605633
+scale = Vector2(1.1836735, 1.1836735)
+texture = ExtResource("3_mltte")
+
+[node name="Heart2" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(4.3530807, 3.8948822)
+rotation = 0.26605633
+scale = Vector2(1.1836735, 1.1836735)
+texture = ExtResource("3_mltte")
+
+[node name="Heart3" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(67.35788, 21.078598)
+rotation = 0.26605633
+scale = Vector2(1.1836735, 1.1836735)
+texture = ExtResource("3_mltte")

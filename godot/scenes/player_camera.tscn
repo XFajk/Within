@@ -41,28 +41,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Wrench" type="Sprite2D" parent="UserInterface"]
+[node name="HealthBar" type="Sprite2D" parent="UserInterface"]
 texture_filter = 1
 position = Vector2(54, 25.000004)
 rotation = -0.2662607
 scale = Vector2(0.3828125, 0.3828125)
 texture = ExtResource("3_vtnai")
 
-[node name="Heart" type="Sprite2D" parent="UserInterface/Wrench"]
+[node name="Heart" type="Sprite2D" parent="UserInterface/HealthBar"]
 texture_filter = 1
 position = Vector2(-56.13154, -12.601555)
 rotation = 0.26605633
 scale = Vector2(1.1836735, 1.1836735)
 texture = ExtResource("4_e80xl")
 
-[node name="Heart2" type="Sprite2D" parent="UserInterface/Wrench"]
+[node name="Heart2" type="Sprite2D" parent="UserInterface/HealthBar"]
 texture_filter = 1
 position = Vector2(4.3530807, 3.8948822)
 rotation = 0.26605633
 scale = Vector2(1.1836735, 1.1836735)
 texture = ExtResource("4_e80xl")
 
-[node name="Heart3" type="Sprite2D" parent="UserInterface/Wrench"]
+[node name="Heart3" type="Sprite2D" parent="UserInterface/HealthBar"]
 texture_filter = 1
 position = Vector2(67.35788, 21.078598)
 rotation = 0.26605633

@@ -49,7 +49,17 @@ public partial class Player : CharacterBody3D, ISavable {
     [Export]
     public int MaxDemage = 5;
 
-    public int Health = 3;
+    private int _health = 3;
+    public int Health {
+        get { return _health; }
+        set {
+            _health = Mathf.Clamp(value, 0, MaxHealth);
+            UpdateHealthBar();
+            CheckForDeath();
+        }
+    }
+
+    private Node _healthBar;
 
     [ExportGroup("Camera Settings")]
     public Camera3D Camera;
@@ -174,6 +184,8 @@ public partial class Player : CharacterBody3D, ISavable {
 
         TextBox = GetNode<Label3D>("TextBox");
 
+        _healthBar = Camera.GetNode<Node>("UserInterface/HealthBar");
+
         HandleExitingAreaState(1.0);
 
         // this so that the player when first loading into the game from the menu takes the position
@@ -185,6 +197,8 @@ public partial class Player : CharacterBody3D, ISavable {
         Position = new Vector3(Position.X, Position.Y, 0);
 
         UpdateAnimationTree();
+
+        CheckForDeath();
 
         UpdateCameraMovementBuffer(delta);
         MoveCamera(delta);
@@ -237,6 +251,19 @@ public partial class Player : CharacterBody3D, ISavable {
     private void CheckForDeath() {
         if (Health <= 0 && CurrentState != PlayerState.Death) {
             CurrentState = PlayerState.Death;
+        }
+    }
+
+    private void UpdateHealthBar() {
+        if (_healthBar is Node bar) {
+            for (int i = 0; i < MaxHealth; i++) {
+                var heart = bar.GetChild<Node2D>(i);
+                if (i < Health) {
+                    heart.SelfModulate = Colors.White;
+                } else {
+                    heart.SelfModulate = Colors.Black;
+                }
+            }
         }
     }
 
@@ -470,6 +497,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void HandleMiniDeathState(double delta) {
+        Health -= 1;
         if (_transitionTween != null) {
             _transitionTween.Kill();
         }
@@ -501,7 +529,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void HandleDeathState(double delta) {
-
+        
     }
 
     public Vector3 GetInputDirection() {

@@ -9,6 +9,8 @@ public partial class SaveInteractable : Interactable {
         SaveSystem.Instance.SaveGame();
         Global.Instance.LastSavedScenePath = GetTree().CurrentScene.SceneFilePath;
         Global.Instance.PlayerLastSavedTransform = _player.GlobalTransform;
+        Global.Instance.PlayerHasTakenTransform = true;
         Global.Instance.SaveProgressData();
+        _player.EmitSignal(nameof(Player.Heal));
     }
 }

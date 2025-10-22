@@ -11,37 +11,65 @@ public partial class HealthBar : Sprite2D {
     private bool _particlesSpawned = false;
     private Vector2 _lastHeartOriginalPosition;
 
+    // reference to the instantiated last-heart particle so we can free it reliably
+    private Node2D _lastHeartParticleInstance = null;
+
     [Export]
     public int MaxHealth = 3;
 
     private int _health = 0;
+
+    public bool Healing = false;
     public int Health {
         get => _health;
         set {
+            // keep previous value to detect healing correctly
+            int previous = _health;
             _health = Math.Clamp(value, 0, MaxHealth);
-            if (value > _health) {
+
+            // if healed, remove last-heart particle (use stored instance)
+            if (_health > previous) {
                 _particlesSpawned = false;
-                GetNode<Node>("UiLastHeartParticle").QueueFree();
+                if (_lastHeartParticleInstance != null && IsInstanceValid(_lastHeartParticleInstance)) {
+                    _lastHeartParticleInstance.QueueFree();
+                    _lastHeartParticleInstance = null;
+                }
             }
         }
     }
 
     public override void _Ready() {
+        Health = Global.Instance.PlayerLastSavedHealth;
+        GD.Print("Loaded Health: " + Health);
+
         _player = GetNode<Player>("../../../");
         _player.Hit += OnPlayerHit;
+        _player.Heal += OnPlayerHealed;
+
         _lastHeartOriginalPosition = GetChild<Node2D>(0).Position;
+    }
+
+    public override void _ExitTree() {
+        Global.Instance.PlayerLastSavedHealth = Health;
+        GD.Print("Saved Health: " + Global.Instance.PlayerLastSavedHealth);
     }
 
     public override void _Process(double delta) {
         for (int i = 0; i < MaxHealth; i++) {
             if (i < Health) {
-                GetChild<Sprite2D>(i).Visible = true;
+                Sprite2D heart = GetChild<Sprite2D>(i);
+                if (!heart.Visible) {
+                    heart.Scale = new Vector2(0.01f, 0.01f);
+                    Tween tween = GetTree().CreateTween();
+                    tween.TweenProperty(heart, "scale", new Vector2(1.184f, 1.184f), 0.3f);
+                    heart.Visible = true;
+                }
             } else {
                 GetChild<Sprite2D>(i).Visible = false;
             }
         }
 
-        if (Health == 1) {
+        if (Health == 1 && !Healing) {
             Node2D lastHeart = GetChild<Node2D>(0);
             lastHeart.Position = new Vector2(GD.RandRange(-2, 2), GD.RandRange(-2, 2)) + _lastHeartOriginalPosition;
             lastHeart.RotationDegrees = GD.RandRange(-10, 10);
@@ -49,22 +77,52 @@ public partial class HealthBar : Sprite2D {
 
         if (Health == 1 && !_particlesSpawned) {
             Node2D particles = (Node2D)LastHeartParticles.Instantiate();
+            // optional: set a name to make debugging easier
+            particles.Name = "UiLastHeartParticle";
             AddChild(particles);
             particles.GlobalPosition = GetChild<Node2D>(0).GlobalPosition;
             _particlesSpawned = true;
+            _lastHeartParticleInstance = particles;
         }
 
         if (Health <= 0 && _particlesSpawned) {
-            GetNode<Node>("UiLastHeartParticle").QueueFree();
+            if (_lastHeartParticleInstance != null && IsInstanceValid(_lastHeartParticleInstance)) {
+                _lastHeartParticleInstance.QueueFree();
+                _lastHeartParticleInstance = null;
+            }
             _particlesSpawned = false;
         }
     }
 
     private void OnPlayerHit(int damage) {
-        Node2D heartToDestroy = GetChild<Node2D>(Health - 1);
-        Node2D particles = (Node2D)HitUiParticles.Instantiate();
-        GetParent().AddChild(particles);
-        particles.GlobalPosition = heartToDestroy.GlobalPosition;
+        // guard against negative index
+        int idx = Health - 1;
+        if (idx >= 0) {
+            Node2D heartToDestroy = GetChild<Node2D>(idx);
+            Node2D particles = (Node2D)HitUiParticles.Instantiate();
+            GetParent().AddChild(particles);
+            particles.GlobalPosition = heartToDestroy.GlobalPosition;
+        }
         Health -= damage;
+    }
+
+    private void OnPlayerHealed() {
+        // free via stored reference
+        if (_lastHeartParticleInstance != null && IsInstanceValid(_lastHeartParticleInstance)) {
+            _lastHeartParticleInstance.QueueFree();
+            _lastHeartParticleInstance = null;
+        }
+        Healing = true;
+
+        Node2D lastHeart = GetChild<Node2D>(0);
+        lastHeart.Position = _lastHeartOriginalPosition;
+        lastHeart.RotationDegrees = 15.2f;
+
+        Tween tween = GetTree().CreateTween();
+        tween.TweenProperty(this, "Health", MaxHealth, 1.0f).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+        tween.TweenCallback(Callable.From(() => {
+            Healing = false;
+            Global.Instance.RespawningInProgress = false;
+        }));
     }
 }

@@ -24,6 +24,7 @@ SaveSystem="*res://src/save_system/SaveSystem.cs"
 window/size/viewport_width=480
 window/size/viewport_height=270
 window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [dotnet]
 

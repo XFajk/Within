@@ -9,6 +9,9 @@ public partial class Player : CharacterBody3D, ISavable {
     [Signal]
     public delegate void HitEventHandler(int damage);
 
+    [Signal]
+    public delegate void HealEventHandler();
+
     public enum PlayerState {
         Idle,
         Jumping,
@@ -53,7 +56,8 @@ public partial class Player : CharacterBody3D, ISavable {
 
     // Wrench Trail Variables
     private Skeleton3D _playerSkeleton;
-    private Node3D _wrenchTrail;
+    private PackedScene _wrenchTrail = GD.Load<PackedScene>("res://scenes/VFX/wrench_trail.tscn");
+    private Node3D _wrenchTrailInstance;
 
     [ExportGroup("Combat Settings")]
 
@@ -145,6 +149,9 @@ public partial class Player : CharacterBody3D, ISavable {
     private Timer _dashRecoverTimer = new();
     private Timer _dashDurationTimer = new();
 
+    private PackedScene _dashTrail = GD.Load<PackedScene>("res://scenes/VFX/dash_trail.tscn");
+    private Node3D _dashTrailInstance;
+
     [ExportGroup("Double Jump Settings")]
     private bool _canDoubleJump = false;
 
@@ -188,9 +195,12 @@ public partial class Player : CharacterBody3D, ISavable {
         _healthBar = Camera.GetNode<HealthBar>("UserInterface/HealthBar");
 
         _playerSkeleton = GetNode<Skeleton3D>("Armature/Skeleton3D");
-        _wrenchTrail = GetNode<Node3D>("Armature/Skeleton3D/WrenchTrail");
 
         HandleExitingAreaState(1.0);
+
+        if (Global.Instance.RespawningInProgress) {
+            EmitSignalHeal();
+        }
 
         // this so that the player when first loading into the game from the menu takes the position
         // that was last saved manualy at a save point if this wasent here the player would at a radom auto save position
@@ -261,12 +271,16 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private void UpdateWrenchTransform() {
         int boneIndex = _playerSkeleton.FindBone("Bone");
-        _wrenchTrail.Transform = _playerSkeleton.GetBoneGlobalPose(boneIndex);
+        //_wrenchTrail.Transform = _playerSkeleton.GetBoneGlobalPose(boneIndex);
     }
 
     public override void _PhysicsProcess(double delta) {
         ProcessJumpBuffer();
         ResetDoubleJump();
+
+        if (_healthBar.Health < 2 && CurrentState == PlayerState.MiniDeath) {
+            CurrentState = PlayerState.Death;
+        }
 
         switch (CurrentState) {
             case PlayerState.Idle:
@@ -427,7 +441,15 @@ public partial class Player : CharacterBody3D, ISavable {
     private void HandleDashingState(double delta) {
         Vector3 dashDirection = new Vector3((float)_horizontalDirection, 0, 0).Normalized();
         _velocity = dashDirection * DashVelocity * UnitTransformer;
+
+        if (_dashTrailInstance == null || !GodotObject.IsInstanceValid(_dashTrailInstance)) {
+            _dashTrailInstance = _dashTrail.Instantiate<Node3D>();
+            AddChild(_dashTrailInstance);
+            _dashTrailInstance.Position = Vector3.Up * 0.06f;
+        }
+
         if (_dashDurationTimer.IsStopped()) {
+
             if (IsOnFloor()) {
                 TransitionAnimationTo(PlayerState.Idle);
                 CurrentState = PlayerState.Idle;
@@ -488,14 +510,24 @@ public partial class Player : CharacterBody3D, ISavable {
         TransitionMaterial.SetShaderParameter("progress", 1.0f);
         _transitionTween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 0.0f, 0.5f).SetDelay(0.4);
         _transitionTween.TweenCallback(Callable.From(() => {
+            TransitionAnimationTo(PlayerState.Idle);
+            CurrentState = PlayerState.Idle;
+        }));
+        _transitionTween.TweenCallback(Callable.From(() => {
             PostProcessRect.Visible = false;
         })).SetDelay(0.5f);
-        TransitionAnimationTo(PlayerState.Idle);
-        CurrentState = PlayerState.Idle;
+
+        CurrentState = PlayerState.NoControl;
     }
 
     private async void HandleMiniDeathState(double delta) {
+        if (_healthBar.Health == 1) {
+            CurrentState = PlayerState.Death;
+            return;
+        }
+
         _velocity = Vector3.Zero;
+
         if (_transitionTween != null) {
             _transitionTween.Kill();
         }
@@ -508,6 +540,7 @@ public partial class Player : CharacterBody3D, ISavable {
         Node3D particles = (Node3D)_hitUiParticles.Instantiate();
         GetParent().AddChild(particles);
         particles.GlobalPosition = GlobalPosition;
+
         EmitSignalHit(1);
 
         PostProcessRect.Visible = true;
@@ -525,19 +558,55 @@ public partial class Player : CharacterBody3D, ISavable {
             if (Global.Instance.MiniCheckPointSavedPosition is Vector3 savedPosition) {
                 GlobalPosition = savedPosition;
             } else {
-                GlobalPosition = Global.Instance.PlayerLastSavedTransform is Transform3D lastTransform ? lastTransform.Origin : Vector3.Zero;
+
+                if (Global.Instance.PlayerLastSavedTransform is Transform3D lastTransform) {
+                    GlobalPosition = lastTransform.Origin;
+                }
             }
             PostProcessRect.Visible = false;
             TransitionAnimationTo(PlayerState.Idle);
             CurrentState = PlayerState.ExitingArea;
-            HandleExitingAreaState(1.0);
         })).SetDelay(1.3f);
 
         CurrentState = PlayerState.NoControl;
     }
 
     private void HandleDeathState(double delta) {
+        _velocity = Vector3.Zero;
+        if (Global.Instance.RespawningInProgress) {
+            return;
+        }
 
+        if (_transitionTween != null) {
+            _transitionTween.Kill();
+        }
+        _transitionTween = GetTree().CreateTween().SetParallel(true);
+
+        HitFrame(0.4f);
+
+        Node3D particles = (Node3D)_hitUiParticles.Instantiate();
+        GetParent().AddChild(particles);
+        particles.GlobalPosition = GlobalPosition;
+
+        EmitSignalHit(1);
+
+        PostProcessRect.Visible = true;
+        PostProcessRect.Material = HitMaterial;
+
+        var noiseTexture = (NoiseTexture2D)HitMaterial.GetShaderParameter("noise_texture");
+        noiseTexture.Noise.Set("seed", GD.Randi());
+
+        HitMaterial.SetShaderParameter("progress", 0.0f);
+        HitMaterial.SetShaderParameter("smooth_amount", 1.0f);
+
+        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 1.0f, 1.0f);
+        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/smooth_amount", 0.0f, 1.0f);
+        _transitionTween.TweenCallback(Callable.From(() => {
+            Global.Instance.LoadProgressData();
+            Global.Instance.PlayerHasTakenTransform = false;
+        })).SetDelay(1.6f);
+
+        Global.Instance.RespawningInProgress = true;
     }
 
     public Vector3 GetInputDirection() {
@@ -638,7 +707,6 @@ public partial class Player : CharacterBody3D, ISavable {
     public Dictionary<string, Variant> SaveState() {
         var state = new Dictionary<string, Variant> { };
 
-        state["health"] = _healthBar.Health;
         state["global_position"] = GlobalPosition;
         state["can_dash"] = _canDash;
         state["can_wall_jump"] = _canWallJump;

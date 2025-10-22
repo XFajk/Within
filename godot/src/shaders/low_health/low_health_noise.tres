@@ -10,5 +10,7 @@ fractal_type = 2
 fractal_lacunarity = 3.025
 
 [resource]
+width = 960
+height = 540
 noise = SubResource("FastNoiseLite_i8rwd")
 color_ramp = SubResource("Gradient_3eklh")

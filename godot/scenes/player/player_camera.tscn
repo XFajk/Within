@@ -38,6 +38,7 @@ position = Vector2(54.999996, 23.999998)
 scale = Vector2(0.315, 0.315)
 
 [node name="PostProcessRect" type="ColorRect" parent="."]
+z_index = 100
 material = ExtResource("2_44dvt")
 anchors_preset = 15
 anchor_right = 1.0

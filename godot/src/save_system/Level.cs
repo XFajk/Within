@@ -25,7 +25,11 @@ public partial class Level : Node {
         if (loadFile == null) {
             return; // No save file found
         }
-
+        if (loadFile.GetLength() == 0) {
+            loadFile.Close();
+            return; // Empty save file
+        }
+        
         string savedData = loadFile.GetAsText();
         loadFile.Close();
 

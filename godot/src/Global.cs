@@ -20,6 +20,8 @@ public partial class Global : Node {
 
 
     public Vector3? MiniCheckPointSavedPosition = null;
+    public int PlayerLastSavedHealth = 3;
+    public bool RespawningInProgress = false;
 
     public void SaveProgressData() {
         var data = new Dictionary<string, Variant> { };

@@ -15,7 +15,7 @@ script = ExtResource("2_nicdr")
 z_index = 1
 texture_filter = 1
 position = Vector2(-56.13154, -12.601555)
-rotation = 0.26605633
+rotation = 0.26529005
 scale = Vector2(1.1836735, 1.1836735)
 texture = ExtResource("3_mltte")
 

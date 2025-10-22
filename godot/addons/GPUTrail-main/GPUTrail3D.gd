@@ -196,7 +196,8 @@ func _process(delta):
 
 		RenderingServer.instance_set_transform(get_instance(), _billboard_transform)
 	
-	_old_pos = global_position
+	if is_inside_tree():
+		_old_pos = global_position
 
 func _update_billboard_transform(tangent : Vector3):
 	_billboard_transform = global_transform

@@ -41,10 +41,7 @@ public partial class Player : CharacterBody3D, ISavable {
     // Animation Variables    
     private AnimationTree _animationTree;
 
-    private float _runningAnimationBlend = 0.0f;
-    private float _jumpAnimationBlend = 0.0f;
-    private float _wallHugAnimationBlend = 0.0f;
-    private float _dashAnimationBlend = 0.0f;
+    private PlayerAnimationBlender _animationBlender;
 
     private Tween _animationTransitionTween = null;
 
@@ -149,7 +146,6 @@ public partial class Player : CharacterBody3D, ISavable {
     private Timer _dashRecoverTimer = new();
     private Timer _dashDurationTimer = new();
 
-    private PackedScene _dashTrail = GD.Load<PackedScene>("res://scenes/VFX/dash_trail.tscn");
     private Node3D _dashTrailInstance;
 
     [ExportGroup("Double Jump Settings")]
@@ -189,6 +185,9 @@ public partial class Player : CharacterBody3D, ISavable {
         Camera.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
 
         _animationTree = GetNode<AnimationTree>("AnimationTree");
+
+        _animationBlender = new PlayerAnimationBlender() { PlayerAnimationTree = _animationTree, Name = "PlayerAnimationBlender" };
+        AddChild(_animationBlender);
 
         TextBox = GetNode<Label3D>("TextBox");
 
@@ -442,14 +441,7 @@ public partial class Player : CharacterBody3D, ISavable {
         Vector3 dashDirection = new Vector3((float)_horizontalDirection, 0, 0).Normalized();
         _velocity = dashDirection * DashVelocity * UnitTransformer;
 
-        if (_dashTrailInstance == null || !GodotObject.IsInstanceValid(_dashTrailInstance)) {
-            _dashTrailInstance = _dashTrail.Instantiate<Node3D>();
-            AddChild(_dashTrailInstance);
-            _dashTrailInstance.Position = Vector3.Up * 0.06f;
-        }
-
         if (_dashDurationTimer.IsStopped()) {
-
             if (IsOnFloor()) {
                 TransitionAnimationTo(PlayerState.Idle);
                 CurrentState = PlayerState.Idle;
@@ -520,7 +512,7 @@ public partial class Player : CharacterBody3D, ISavable {
         CurrentState = PlayerState.NoControl;
     }
 
-    private async void HandleMiniDeathState(double delta) {
+    private void HandleMiniDeathState(double delta) {
         if (_healthBar.Health == 1) {
             CurrentState = PlayerState.Death;
             return;
@@ -655,50 +647,15 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private void UpdateAnimationTree() {
         if (CurrentState == PlayerState.Idle) {
-            _runningAnimationBlend = Mathf.Clamp(Mathf.Abs(_velocity.X) / MovementSpeed / (float)GetPhysicsProcessDeltaTime(), 0.0f, 1.0f);
+            _animationTree.Set("parameters/Run/blend_amount", Mathf.Clamp(Mathf.Abs(_velocity.X) / MovementSpeed / (float)GetPhysicsProcessDeltaTime(), 0.0f, 1.0f));
         } else {
-            _runningAnimationBlend = 0.0f;
+            _animationTree.Set("parameters/Run/blend_amount", 0.0f);
         }
-        _animationTree.Set("parameters/Run/blend_amount", _runningAnimationBlend);
-        _animationTree.Set("parameters/Jump/blend_amount", _jumpAnimationBlend);
-        _animationTree.Set("parameters/WallHug/blend_amount", _wallHugAnimationBlend);
-        _animationTree.Set("parameters/Dash/blend_amount", _dashAnimationBlend);
     }
 
     private void TransitionAnimationTo(PlayerState targetState) {
-        if (_animationTransitionTween != null) {
-            _animationTransitionTween.Kill();
-        }
-        var tween = GetTree().CreateTween().SetParallel(true);
-        _animationTransitionTween = tween;
-
-        switch (targetState) {
-            case PlayerState.Idle:
-                tween.TweenProperty(this, nameof(_jumpAnimationBlend), 0.0f, 0.2f);
-                tween.TweenProperty(this, nameof(_wallHugAnimationBlend), 0.0f, 0.2f);
-                tween.TweenProperty(this, nameof(_dashAnimationBlend), 0.0f, 0.1f);
-                break;
-            case PlayerState.Jumping:
-            case PlayerState.Falling:
-                tween.TweenProperty(this, nameof(_jumpAnimationBlend), 1.0f, 0.2f);
-                tween.TweenProperty(this, nameof(_runningAnimationBlend), 0.0f, 0.2f);
-                tween.TweenProperty(this, nameof(_wallHugAnimationBlend), 0.0f, 0.2f);
-                tween.TweenProperty(this, nameof(_dashAnimationBlend), 0.0f, 0.1f);
-                break;
-            case PlayerState.OnWall:
-                tween.TweenProperty(this, nameof(_wallHugAnimationBlend), 1.0f, 0.1f);
-                tween.TweenProperty(this, nameof(_runningAnimationBlend), 0.0f, 0.1f);
-                tween.TweenProperty(this, nameof(_jumpAnimationBlend), 0.0f, 0.1f);
-                tween.TweenProperty(this, nameof(_dashAnimationBlend), 0.0f, 0.1f);
-                break;
-            case PlayerState.Dashing:
-                tween.TweenProperty(this, nameof(_dashAnimationBlend), 1.0f, 0.01f);
-                tween.TweenProperty(this, nameof(_runningAnimationBlend), 0.0f, 0.01f);
-                tween.TweenProperty(this, nameof(_jumpAnimationBlend), 0.0f, 0.01f);
-                tween.TweenProperty(this, nameof(_wallHugAnimationBlend), 0.0f, 0.01f);
-                break;
-        }
-    }
+        _animationBlender.CurrentAnimationState = targetState;
+    } 
 
     public string GetSaveID() {
         return GetPath();

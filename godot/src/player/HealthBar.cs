@@ -40,7 +40,6 @@ public partial class HealthBar : Sprite2D {
 
     public override void _Ready() {
         Health = Global.Instance.PlayerLastSavedHealth;
-        GD.Print("Loaded Health: " + Health);
 
         _player = GetNode<Player>("../../../");
         _player.Hit += OnPlayerHit;
@@ -51,7 +50,6 @@ public partial class HealthBar : Sprite2D {
 
     public override void _ExitTree() {
         Global.Instance.PlayerLastSavedHealth = Health;
-        GD.Print("Saved Health: " + Global.Instance.PlayerLastSavedHealth);
     }
 
     public override void _Process(double delta) {

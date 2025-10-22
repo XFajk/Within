@@ -10,13 +10,13 @@ public partial class PlayerAnimationBlender : Node {
 
 
     private Dictionary<Player.PlayerState, (string, float)> _blendValuesLookUp = new Dictionary<Player.PlayerState, (string, float)> {
-        { Player.PlayerState.Idle, ("parameters/Run/blend_amount", 0.2f) },
+        { Player.PlayerState.Idle, ("parameters/Run/", 0.2f) },
 
-        { Player.PlayerState.Jumping, ("parameters/Jump/blend_amount", 0.2f) },
-        { Player.PlayerState.Falling, ("parameters/Jump/blend_amount", 0.2f) },
+        { Player.PlayerState.Jumping, ("parameters/Jump/", 0.2f) },
+        { Player.PlayerState.Falling, ("parameters/Jump/", 0.2f) },
 
-        { Player.PlayerState.OnWall, ("parameters/WallHug/blend_amount", 0.1f) },
-        { Player.PlayerState.Dashing, ("parameters/Dash/blend_amount", 0.01f) },
+        { Player.PlayerState.OnWall, ("parameters/WallHug/", 0.1f) },
+        { Player.PlayerState.Dashing, ("parameters/Dash/", 0.01f) },
     };
 
     private Tween _animationBlendTween = null;
@@ -33,20 +33,23 @@ public partial class PlayerAnimationBlender : Node {
             }
             _animationBlendTween = GetTree().CreateTween().SetParallel(true);
 
+            if (value == Player.PlayerState.Jumping)
+                PlayerAnimationTree.Set("parameters/JumpSeek/seek_request", 0.0f);
+
             if (value != Player.PlayerState.Idle) {
                 foreach (var k in _blendValuesLookUp.Keys) {
                     if (k == value) {
-                        _animationBlendTween.TweenProperty(PlayerAnimationTree, _blendValuesLookUp[k].Item1, 1.0f, _blendValuesLookUp[k].Item2);
+                        _animationBlendTween.TweenProperty(PlayerAnimationTree, _blendValuesLookUp[k].Item1 + "blend_amount", 1.0f, _blendValuesLookUp[k].Item2);
                     } else if (_blendValuesLookUp[k].Item1 == _blendValuesLookUp[value].Item1) {
                        // Do Nothing 
                     } else {
-                        _animationBlendTween.TweenProperty(PlayerAnimationTree, _blendValuesLookUp[k].Item1, 0.0f, _blendValuesLookUp[k].Item2);
+                        _animationBlendTween.TweenProperty(PlayerAnimationTree, _blendValuesLookUp[k].Item1 + "blend_amount", 0.0f, _blendValuesLookUp[k].Item2);
                     }
                 }
             } else {
                 foreach (var k in _blendValuesLookUp.Keys) {
                     if (k != Player.PlayerState.Idle) {
-                        _animationBlendTween.TweenProperty(PlayerAnimationTree, _blendValuesLookUp[k].Item1, 0.0f, _blendValuesLookUp[k].Item2);
+                        _animationBlendTween.TweenProperty(PlayerAnimationTree, _blendValuesLookUp[k].Item1 + "blend_amount", 0.0f, _blendValuesLookUp[k].Item2);
                     }
                 }
             }

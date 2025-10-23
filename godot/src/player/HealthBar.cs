@@ -20,6 +20,9 @@ public partial class HealthBar : Sprite2D {
     private int _health = 0;
 
     public bool Healing = false;
+
+    public bool IsInvincible = false; 
+
     public int Health {
         get => _health;
         set {
@@ -90,10 +93,22 @@ public partial class HealthBar : Sprite2D {
             }
             _particlesSpawned = false;
         }
+
+        if (IsInvincible) {
+            var modulator = (Mathf.Sin(Time.GetTicksMsec() / 100f) + 1f) / 2f;
+
+            Modulate = new Color(modulator, modulator, modulator, 1f);
+        } else {
+            Modulate = new Color(1, 1, 1, 1f);
+        }
     }
 
     private void OnPlayerHit(int damage) {
         // guard against negative index
+        if (IsInvincible) {
+            return;
+        }
+
         int idx = Health - 1;
         if (idx >= 0) {
             Node2D heartToDestroy = GetChild<Node2D>(idx);
@@ -122,5 +137,17 @@ public partial class HealthBar : Sprite2D {
             Healing = false;
             Global.Instance.RespawningInProgress = false;
         }));
+    }
+
+
+    public void MakeInvincible(float duration) {
+        if (IsInvincible) {
+            return;
+        }
+        IsInvincible = true;
+        Tween invincibilityTween = GetTree().CreateTween();
+        invincibilityTween.TweenCallback(Callable.From(() => {
+            IsInvincible = false;
+        })).SetDelay(duration);
     }
 }

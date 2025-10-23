@@ -68,6 +68,8 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private HealthBar _healthBar;
 
+    private Area3D _hitBoxArea;
+
     private Timer _attackDurationTimer = new();
 
     [ExportGroup("Camera Settings")]
@@ -179,14 +181,16 @@ public partial class Player : CharacterBody3D, ISavable {
         
         // Force an immediate update of the raycast
         _floorDetector.ForceRaycastUpdate();
-        
+
         // If we hit something, position the player above it with proper offset
-        if (_floorDetector.IsColliding())
-        {
+        if (_floorDetector.IsColliding()) {
             Vector3 collisionPoint = _floorDetector.GetCollisionPoint();
             // Add 0.3 units (half of the player's height) to position player properly
             GlobalPosition = new Vector3(GlobalPosition.X, collisionPoint.Y + 0.3f, GlobalPosition.Z);
         }
+
+        _hitBoxArea = GetNode<Area3D>("HitBox");
+        _hitBoxArea.AreaEntered += OnDemaged;
 
         AddChild(_attackDurationTimer);
 
@@ -261,6 +265,9 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void FigureOutHorizontalDirection() {
+        if (CurrentState == PlayerState.Damaged) {
+            return;
+        }
         if (Input.IsActionPressed("move_left") && Input.IsActionPressed("move_right")) {
             // Do nothing, conflicting inputs
         } else if (Input.IsActionPressed("move_left")) {
@@ -316,6 +323,17 @@ public partial class Player : CharacterBody3D, ISavable {
                 Move(delta);
                 if (!IsOnFloor()) {
                     _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * UnitTransformer, Gravity * UnitTransformer);
+                }
+                break;
+            case PlayerState.Damaged:
+                float yVelocity = _velocity.Y;
+                _velocity = _velocity.MoveToward(Vector3.Zero, MovementSpeed / 4 * UnitTransformer);
+                _velocity.Y = yVelocity;
+                if (!IsOnFloor()) {
+                    _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * UnitTransformer, Gravity * UnitTransformer);
+                } else {
+                    TransitionAnimationTo(PlayerState.Idle);
+                    CurrentState = PlayerState.Idle;
                 }
                 break;
             case PlayerState.EnteringArea:
@@ -702,6 +720,17 @@ public partial class Player : CharacterBody3D, ISavable {
         return (Input.IsActionJustPressed("jump") || _jumpBufferFrames > 0);
     }
 
+    private void OnDemaged(Area3D area) {
+        if (_healthBar.IsInvincible) return;
+
+        TransitionAnimationTo(PlayerState.Damaged);
+        CurrentState = PlayerState.Damaged;
+        _velocity = new Vector3((float)_horizontalDirection * -5.0f, 3.0f, 0);
+
+        _healthBar.MakeInvincible(2.0f);
+
+        HitFrame(0.2f);
+    }
 
     private void UpdateAnimationTree() {
         if (CurrentState == PlayerState.Idle) {
@@ -776,5 +805,3 @@ public partial class Player : CharacterBody3D, ISavable {
         }
     }
 }
-
-

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dba3juoq0rmr1"]
+[gd_scene load_steps=17 format=3 uid="uid://dba3juoq0rmr1"]
 
 [ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player/player.tscn" id="1_kphhb"]
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_ohlwy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="3_ohlwy"]
 [ext_resource type="Script" uid="uid://dkaeyvdlboftn" path="res://src/misc/EnvironmentalHazard.cs" id="5_3ss5u"]
 [ext_resource type="Script" uid="uid://b6cnh7o45fys" path="res://src/misc/MiniCheckPoint.cs" id="6_e5rdt"]
+[ext_resource type="PackedScene" uid="uid://b38rwifkmdfjm" path="res://scenes/entities/test_enemy.tscn" id="7_e1vt2"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wdftw"]
 top_radius = 5.0
@@ -114,3 +115,6 @@ metadata/_custom_type_script = "uid://b6cnh7o45fys"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCheckPoint2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50039005, 0, 0)
 shape = SubResource("BoxShape3D_e1vt2")
+
+[node name="TestEnemy" parent="." instance=ExtResource("7_e1vt2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.597, 1.506, 0)

@@ -17,7 +17,7 @@ public partial class PlayerAnimationBlender : Node {
 
         { Player.PlayerState.Dashing, ("parameters/Dash/", 0f) },
 
-        { Player.PlayerState.Damaged, ("parameters/TakingDemage/", 0.1f) },
+        { Player.PlayerState.Damaged, ("parameters/TakingDemage/", 0.02f) },
         { Player.PlayerState.MiniDeath, ("parameters/TakingDemage/", 0.1f) },
 
         { Player.PlayerState.AttackingFront, ("parameters/AttackingFront/", 0f) },

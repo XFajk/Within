@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://b38rwifkmdfjm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3217h"]
+size = Vector3(0.62, 1, 0.615)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ebs7f"]
+size = Vector3(0.62, 1, 0.615)
+
+[node name="TestEnemy" type="CharacterBody3D"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_3217h")
+debug_color = Color(1, 0.9882353, 0, 1)
+
+[node name="HitBox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("BoxShape3D_3217h")
+debug_color = Color(1, 0.9882353, 0, 1)
+
+[node name="AttackBox" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackBox"]
+shape = SubResource("BoxShape3D_3217h")
+debug_color = Color(1, 0.9882353, 0, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ebs7f")

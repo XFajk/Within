@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dba3juoq0rmr1"]
+[gd_scene load_steps=16 format=3 uid="uid://dba3juoq0rmr1"]
 
 [ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player/player.tscn" id="1_kphhb"]
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_ohlwy"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="3_ohlwy"]
 [ext_resource type="Script" uid="uid://dkaeyvdlboftn" path="res://src/misc/EnvironmentalHazard.cs" id="5_3ss5u"]
 [ext_resource type="Script" uid="uid://b6cnh7o45fys" path="res://src/misc/MiniCheckPoint.cs" id="6_e5rdt"]
-[ext_resource type="FontFile" uid="uid://nlvl0qhy4rw5" path="res://assets/fonts/Poesing.otf" id="7_e1vt2"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wdftw"]
 top_radius = 5.0
@@ -36,24 +35,11 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e1vt2"]
 size = Vector3(0.303833, 1, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_e5rdt"]
-size = Vector3(1.62, 1.585, 0.055)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1vt2"]
-albedo_color = Color(0.36132482, 0.3613248, 0.3613248, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_e1vt2"]
-viewport_path = NodePath("Sprite3D/SubViewport")
-
-[sub_resource type="LabelSettings" id="LabelSettings_1jva2"]
-font = ExtResource("7_e1vt2")
-font_size = 490
-outline_size = 3
-
 [node name="PlayerCombatTesting" type="Node3D"]
 script = ExtResource("1_ohlwy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012666225, 0.0061159134, 0.021022797)
 mesh = SubResource("CylinderMesh_wdftw")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -128,32 +114,3 @@ metadata/_custom_type_script = "uid://b6cnh7o45fys"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCheckPoint2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50039005, 0, 0)
 shape = SubResource("BoxShape3D_e1vt2")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.141693, 1.4766213, -0.478984)
-mesh = SubResource("BoxMesh_e5rdt")
-surface_material_override/0 = SubResource("StandardMaterial3D_e1vt2")
-
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.53, 0, 0, 0, 0.53, 0, 0, 0, 0.53, 1.425456, 1.8669052, 0)
-billboard = 1
-texture = SubResource("ViewportTexture_e1vt2")
-
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
-transparent_bg = true
-size = Vector2i(477, 30)
-
-[node name="Label" type="Label" parent="Sprite3D/SubViewport"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "This is some Text that the player will read "
-label_settings = SubResource("LabelSettings_1jva2")

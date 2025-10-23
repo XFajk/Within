@@ -155,6 +155,8 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private Node3D _dashTrailInstance;
 
+    private RayCast3D _floorDetector;
+
     [ExportGroup("Double Jump Settings")]
     private bool _canDoubleJump = false;
 
@@ -169,6 +171,22 @@ public partial class Player : CharacterBody3D, ISavable {
         _canDash = Global.Instance.PlayerHasDashAbility;
         _canDoubleJump = Global.Instance.PlayerHasDoubleJumpAbility;
 
+        // Create and set up floor detector raycast
+        _floorDetector = new RayCast3D();
+        AddChild(_floorDetector);
+        _floorDetector.TargetPosition = new Vector3(0, -20, 0); // 20 units down
+        _floorDetector.CollisionMask = (1 << 0) | (1 << 4); // Layer 1 and 5 (0-based index)
+        
+        // Force an immediate update of the raycast
+        _floorDetector.ForceRaycastUpdate();
+        
+        // If we hit something, position the player above it with proper offset
+        if (_floorDetector.IsColliding())
+        {
+            Vector3 collisionPoint = _floorDetector.GetCollisionPoint();
+            // Add 0.3 units (half of the player's height) to position player properly
+            GlobalPosition = new Vector3(GlobalPosition.X, collisionPoint.Y + 0.3f, GlobalPosition.Z);
+        }
 
         AddChild(_attackDurationTimer);
 
@@ -546,11 +564,22 @@ public partial class Player : CharacterBody3D, ISavable {
             if (Global.Instance.MiniCheckPointSavedPosition is Vector3 savedPosition) {
                 GlobalPosition = savedPosition;
             } else {
-
                 if (Global.Instance.PlayerLastSavedTransform is Transform3D lastTransform) {
                     GlobalPosition = lastTransform.Origin;
                 }
             }
+
+            // Check for floor below the current position and adjust if needed
+            _floorDetector.GlobalPosition = GlobalPosition;
+            _floorDetector.ForceRaycastUpdate();
+            
+            if (_floorDetector.IsColliding())
+            {
+                Vector3 collisionPoint = _floorDetector.GetCollisionPoint();
+                // Add 0.3 units (half of the player's height) to position player properly
+                GlobalPosition = new Vector3(GlobalPosition.X, collisionPoint.Y + 0.3f, GlobalPosition.Z);
+            }
+
             PostProcessRect.Visible = false;
             TransitionAnimationTo(PlayerState.Idle);
             CurrentState = PlayerState.ExitingArea;

@@ -37,7 +37,7 @@ public partial class DialogInteractable : Interactable {
     public override void _Process(double delta) {
         base._Process(delta);
 
-        if (Input.IsActionJustPressed("look_up") && !_interactionBuffer) {
+        if (Input.IsActionJustPressed("interact") && !_interactionBuffer) {
             if (_isDialogActive) {
                 if (_isDialogPaused) {
                     // End of current section

@@ -190,7 +190,6 @@ public partial class Player : CharacterBody3D, ISavable {
         }
 
         _hitBoxArea = GetNode<Area3D>("HitBox");
-        _hitBoxArea.AreaEntered += OnDemaged;
 
         AddChild(_attackDurationTimer);
 
@@ -245,6 +244,10 @@ public partial class Player : CharacterBody3D, ISavable {
 
     public override void _Process(double delta) {
         Position = new Vector3(Position.X, Position.Y, 0);
+
+        if (_hitBoxArea.GetOverlappingAreas().Count > 0 && !_healthBar.IsInvincible) {
+            OnDamaged();
+        }
 
         UpdateAnimationTree();
         UpdateWrenchTransform();
@@ -720,13 +723,24 @@ public partial class Player : CharacterBody3D, ISavable {
         return (Input.IsActionJustPressed("jump") || _jumpBufferFrames > 0);
     }
 
-    private void OnDemaged(Area3D area) {
-        if (_healthBar.IsInvincible) return;
+    private void OnDamaged() {
+        if (_healthBar.IsInvincible || CurrentState == PlayerState.Death) return;
+        if (_healthBar.Health == 1) {
+            TransitionAnimationTo(PlayerState.Death);
+            CurrentState = PlayerState.Death;
+            return;
+        }
+
 
         TransitionAnimationTo(PlayerState.Damaged);
         CurrentState = PlayerState.Damaged;
         _velocity = new Vector3((float)_horizontalDirection * -5.0f, 3.0f, 0);
 
+         Node3D particles = (Node3D)_hitUiParticles.Instantiate();
+        GetParent().AddChild(particles);
+        particles.GlobalPosition = GlobalPosition;
+
+        EmitSignalHit(1);
         _healthBar.MakeInvincible(2.0f);
 
         HitFrame(0.2f);

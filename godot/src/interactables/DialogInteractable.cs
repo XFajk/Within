@@ -37,9 +37,16 @@ public partial class DialogInteractable : Interactable {
     public override void _Process(double delta) {
         base._Process(delta);
 
-        if (_player == null)
+        if (_player == null) {
+            _textBox.Text = "";
+            _isDialogActive = false;
+            _isDialogPaused = false;
+            _currentDialogText = "";
+            _currentCharIndex = 0;
+            _currentSectionIndex = 0;
             return;
-        
+        }
+
         if (Input.IsActionJustPressed("interact") && !_interactionBuffer) {
             if (_isDialogActive) {
                 if (_isDialogPaused) {

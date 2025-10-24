@@ -314,6 +314,9 @@ public partial class Player : CharacterBody3D, ISavable {
             CurrentState = PlayerState.Death;
         }
 
+
+        float yVelocity = _velocity.Y;
+
         switch (CurrentState) {
             case PlayerState.Idle:
                 HandleIdleState(delta);
@@ -338,7 +341,7 @@ public partial class Player : CharacterBody3D, ISavable {
                 }
                 break;
             case PlayerState.Damaged:
-                float yVelocity = _velocity.Y;
+                yVelocity = _velocity.Y;
                 _velocity = _velocity.MoveToward(Vector3.Zero, MovementSpeed / 4 * UnitTransformer);
                 _velocity.Y = yVelocity;
                 if (!IsOnFloor()) {
@@ -361,6 +364,9 @@ public partial class Player : CharacterBody3D, ISavable {
                 HandleDeathState(delta);
                 break;
             case PlayerState.NoControl:
+                yVelocity = _velocity.Y;
+                _velocity = _velocity.MoveToward(Vector3.Zero, MovementSpeed / 4 * UnitTransformer);
+                _velocity.Y = yVelocity;
                 break;
         }
 

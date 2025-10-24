@@ -38,9 +38,11 @@ public abstract partial class Interactable : Area3D {
 
     protected void OnAreaExited(Area3D area) {
         if (area.IsInGroup("InteractableCollider")) {
-            _player.TextBox.Text = "";
-            if (_player.CurrentState == Player.PlayerState.NoControl)
-                _player.CurrentState = Player.PlayerState.Idle;
+            if (_player != null) {
+                _player.TextBox.Text = "";
+                if (_player.CurrentState == Player.PlayerState.NoControl)
+                    _player.CurrentState = Player.PlayerState.Idle;
+            }
             _player = null;
         }
     }

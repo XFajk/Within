@@ -1,4 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b38rwifkmdfjm"]
+[gd_scene load_steps=6 format=3 uid="uid://b38rwifkmdfjm"]
+
+[ext_resource type="Script" uid="uid://o7a28dufj6g7" path="res://src/entities/TestEnemy.cs" id="1_ebs7f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ebs7f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3217h"]
 size = Vector3(0.62, 1, 0.615)
@@ -6,8 +10,15 @@ size = Vector3(0.62, 1, 0.615)
 [sub_resource type="BoxMesh" id="BoxMesh_ebs7f"]
 size = Vector3(0.62, 1, 0.615)
 
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_ebs7f"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.9405656, 0.85955566, 2.3102762e-06, 1)
+
 [node name="TestEnemy" type="CharacterBody3D"]
 collision_layer = 0
+script = ExtResource("1_ebs7f")
+HitMaterial = SubResource("StandardMaterial3D_ebs7f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_3217h")
@@ -29,5 +40,6 @@ collision_mask = 0
 shape = SubResource("BoxShape3D_3217h")
 debug_color = Color(1, 0.9882353, 0, 1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_ebs7f")
+surface_material_override/0 = SubResource("ORMMaterial3D_ebs7f")

@@ -64,7 +64,7 @@ public partial class Player : CharacterBody3D, ISavable {
     [ExportGroup("Combat Settings")]
 
     [Export]
-    public int MaxDamage = 5;
+    public int Damage = 5;
 
     private HealthBar _healthBar;
 
@@ -181,7 +181,7 @@ public partial class Player : CharacterBody3D, ISavable {
         AddChild(_floorDetector);
         _floorDetector.TargetPosition = new Vector3(0, -20, 0); // 20 units down
         _floorDetector.CollisionMask = (1 << 0) | (1 << 4); // Layer 1 and 5 (0-based index)
-        
+
         // Force an immediate update of the raycast
         _floorDetector.ForceRaycastUpdate();
 
@@ -193,18 +193,20 @@ public partial class Player : CharacterBody3D, ISavable {
         }
 
         _hitBoxArea = GetNode<Area3D>("HitBox");
+
         _frontAttackBoxArea = GetNode<Area3D>("FrontAttackBox");
-        _frontAttackBoxArea.Monitorable = false;
+        _frontAttackBoxArea.Position += Vector3.Back * 1000f;
+
         _aboveAttackBoxArea = GetNode<Area3D>("AboveAttackBox");
-        _aboveAttackBoxArea.Monitorable = false;
+        _aboveAttackBoxArea.Position += Vector3.Back * 1000f;
 
         AddChild(_attackDurationTimer);
 
         _attackDurationTimer.OneShot = true;
         _attackDurationTimer.Timeout += () => {
             FigureOutStateAfterAnimationState();
-            _aboveAttackBoxArea.Monitorable = false;
-            _frontAttackBoxArea.Monitorable = false;
+            _aboveAttackBoxArea.Position += Vector3.Back * 1000f;
+            _frontAttackBoxArea.Position += Vector3.Back * 1000f;
         };
 
         AddChild(_dashRecoverTimer);
@@ -608,9 +610,8 @@ public partial class Player : CharacterBody3D, ISavable {
             // Check for floor below the current position and adjust if needed
             _floorDetector.GlobalPosition = GlobalPosition;
             _floorDetector.ForceRaycastUpdate();
-            
-            if (_floorDetector.IsColliding())
-            {
+
+            if (_floorDetector.IsColliding()) {
                 Vector3 collisionPoint = _floorDetector.GetCollisionPoint();
                 // Add 0.3 units (half of the player's height) to position player properly
                 GlobalPosition = new Vector3(GlobalPosition.X, collisionPoint.Y + 0.3f, GlobalPosition.Z);
@@ -703,7 +704,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
             _numberOfFramesInJump = 0;
 
-            _aboveAttackBoxArea.Monitorable = true;
+            _aboveAttackBoxArea.Position = Vector3.Zero;
 
             if (!IsInstanceValid(_wrenchTrailInstance)) {
                 _wrenchTrailInstance = (Node3D)_wrenchTrail.Instantiate();
@@ -717,13 +718,13 @@ public partial class Player : CharacterBody3D, ISavable {
 
             _numberOfFramesInJump = 0;
 
-            _frontAttackBoxArea.Monitorable = true;
+            _frontAttackBoxArea.Position = Vector3.Zero;
 
             if (!IsInstanceValid(_wrenchTrailInstance)) {
                 _wrenchTrailInstance = (Node3D)_wrenchTrail.Instantiate();
                 _playerSkeleton.AddChild(_wrenchTrailInstance);
             }
-        
+
             _attackDurationTimer.Start(0.2f);
         }
     }
@@ -755,7 +756,7 @@ public partial class Player : CharacterBody3D, ISavable {
         CurrentState = PlayerState.Damaged;
         _velocity = new Vector3((float)_horizontalDirection * -5.0f, 3.0f, 0);
 
-         Node3D particles = (Node3D)_hitUiParticles.Instantiate();
+        Node3D particles = (Node3D)_hitUiParticles.Instantiate();
         GetParent().AddChild(particles);
         particles.GlobalPosition = GlobalPosition;
 

@@ -21,7 +21,7 @@ public abstract partial class Interactable : Area3D {
     }
 
     public override void _Process(double delta) {
-        if (_player != null && _player.CurrentState == Player.PlayerState.Idle && Mathf.Abs(0.0f -_player.GetInputDirection().X ) < 0.1f) {
+        if (_player != null && _player.CurrentState == Player.PlayerState.Idle && Mathf.Abs(0.0f -_player.GetInputDirection().X ) < 0.01f) {
             _interactionTitleLabel.Visible = true;
             if (Input.IsActionJustPressed("interact"))
                 Interact();

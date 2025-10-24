@@ -10,5 +10,6 @@ public partial class EnterableAreaInteractable : Interactable {
     protected override void Interact() {
         _player.CurrentState = Player.PlayerState.EnteringArea;
         _player.PlayerAreaToEnter = GD.Load<PackedScene>(EnterableAreaScene);
+        _player = null;
     }
 }

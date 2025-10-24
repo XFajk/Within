@@ -70,6 +70,9 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private Area3D _hitBoxArea;
 
+    private Area3D _frontAttackBoxArea;
+    private Area3D _aboveAttackBoxArea;
+
     private Timer _attackDurationTimer = new();
 
     [ExportGroup("Camera Settings")]
@@ -190,12 +193,18 @@ public partial class Player : CharacterBody3D, ISavable {
         }
 
         _hitBoxArea = GetNode<Area3D>("HitBox");
+        _frontAttackBoxArea = GetNode<Area3D>("FrontAttackBox");
+        _frontAttackBoxArea.Monitorable = false;
+        _aboveAttackBoxArea = GetNode<Area3D>("AboveAttackBox");
+        _aboveAttackBoxArea.Monitorable = false;
 
         AddChild(_attackDurationTimer);
 
         _attackDurationTimer.OneShot = true;
         _attackDurationTimer.Timeout += () => {
             FigureOutStateAfterAnimationState();
+            _aboveAttackBoxArea.Monitorable = false;
+            _frontAttackBoxArea.Monitorable = false;
         };
 
         AddChild(_dashRecoverTimer);
@@ -688,6 +697,8 @@ public partial class Player : CharacterBody3D, ISavable {
 
             _numberOfFramesInJump = 0;
 
+            _aboveAttackBoxArea.Monitorable = true;
+
             if (!IsInstanceValid(_wrenchTrailInstance)) {
                 _wrenchTrailInstance = (Node3D)_wrenchTrail.Instantiate();
                 _playerSkeleton.AddChild(_wrenchTrailInstance);
@@ -699,6 +710,8 @@ public partial class Player : CharacterBody3D, ISavable {
             CurrentState = PlayerState.AttackingFront;
 
             _numberOfFramesInJump = 0;
+
+            _frontAttackBoxArea.Monitorable = true;
 
             if (!IsInstanceValid(_wrenchTrailInstance)) {
                 _wrenchTrailInstance = (Node3D)_wrenchTrail.Instantiate();

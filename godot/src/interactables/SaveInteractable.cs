@@ -12,5 +12,6 @@ public partial class SaveInteractable : Interactable {
         Global.Instance.PlayerHasTakenTransform = true;
         Global.Instance.SaveProgressData();
         _player.EmitSignal(nameof(Player.Heal));
+        _player = null;
     }
 }

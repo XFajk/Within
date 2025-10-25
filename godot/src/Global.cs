@@ -9,19 +9,25 @@ public partial class Global : Node {
         Instance = this;
     }
 
-    public string LastSavedScenePath = "res://scenes/player_controller_testing.tscn";
+    public string LastSavedScenePath = "res://scenes/levels/spawn_building.tscn";
 
     public Transform3D? PlayerLastSavedTransform = null;
     public bool PlayerHasTakenTransform = false;
 
-    public bool PlayerHasDashAbility = true;
-    public bool PlayerHasWallJumpAbility = true;
-    public bool PlayerHasDoubleJumpAbility = true;
+    public bool PlayerHasDashAbility = false;
+    public bool PlayerHasWallJumpAbility = false;
+    public bool PlayerHasDoubleJumpAbility = false;
 
 
     public Vector3? MiniCheckPointSavedPosition = null;
+    public Vector3? MiniCheckPointCameraSpawnPoint = null;
+
     public int PlayerLastSavedHealth = 3;
     public bool RespawningInProgress = false;
+
+
+    public bool IsGamePaused = false;
+    public bool IsInMainMenu = true;
 
     public void SaveProgressData() {
         var data = new Dictionary<string, Variant> { };
@@ -33,8 +39,10 @@ public partial class Global : Node {
                 data["last_scene"] = LastSavedScenePath;
             }
 
-            if (PlayerLastSavedTransform is Transform3D transform)
+            if (PlayerLastSavedTransform is Transform3D transform) {
+                GD.Print("Saving player transform: " + transform);
                 data["player_last_saved_transform"] = transform;
+            }
             data["player_has_dash_ability"] = PlayerHasDashAbility;
             data["player_has_wall_jump_ability"] = PlayerHasWallJumpAbility;
             data["player_has_double_jump_ability"] = PlayerHasDoubleJumpAbility;
@@ -57,9 +65,10 @@ public partial class Global : Node {
             if (loadedData.ContainsKey("last_scene")) {
                 LastSavedScenePath = (string)loadedData["last_scene"];
             }
-
             if (loadedData.ContainsKey("player_last_saved_transform")) {
                 PlayerLastSavedTransform = (Transform3D)loadedData["player_last_saved_transform"];
+            } else {
+                SaveSystem.Instance.ResetGame();
             }
             if (loadedData.ContainsKey("player_has_dash_ability")) {
                 PlayerHasDashAbility = (bool)loadedData["player_has_dash_ability"];
@@ -70,6 +79,8 @@ public partial class Global : Node {
             if (loadedData.ContainsKey("player_has_double_jump_ability")) {
                 PlayerHasDoubleJumpAbility = (bool)loadedData["player_has_double_jump_ability"];
             }
+        } else {
+            SaveSystem.Instance.ResetGame();
         }
 
         GetTree().CallDeferred("change_scene_to_file", LastSavedScenePath);

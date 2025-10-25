@@ -1,0 +1,244 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvqyovpsmswsk"]
+
+[ext_resource type="Script" uid="uid://big6d60od0vn2" path="res://src/ui/Settings.cs" id="1_7pacj"]
+[ext_resource type="FontFile" uid="uid://ca03g572uqbwc" path="res://assets/fonts/Handodle-rg38A.ttf" id="1_8wfqe"]
+[ext_resource type="FontFile" uid="uid://nlvl0qhy4rw5" path="res://assets/fonts/Poesing.otf" id="3_h175o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7pacj"]
+font = ExtResource("1_8wfqe")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_8wfqe"]
+font = ExtResource("3_h175o")
+font_size = 18
+
+[node name="Settings" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7pacj")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -112.87
+offset_right = 200.0
+offset_bottom = 87.130005
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="SoundSettings" type="Control" parent="Panel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 117.44)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/ScrollContainer/VBoxContainer/SoundSettings"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.5
+offset_top = 7.39
+offset_right = 71.5
+offset_bottom = 40.39
+grow_horizontal = 2
+text = "Sound Settings"
+label_settings = SubResource("LabelSettings_7pacj")
+
+[node name="SoundFxVolume" type="HSlider" parent="Panel/ScrollContainer/VBoxContainer/SoundSettings"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 23.095
+offset_top = -5.720001
+offset_right = 152.095
+offset_bottom = 63.28
+grow_vertical = 2
+max_value = 3.0
+step = 0.01
+
+[node name="Title" type="Label" parent="Panel/ScrollContainer/VBoxContainer/SoundSettings/SoundFxVolume"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Sound FX"
+label_settings = SubResource("LabelSettings_8wfqe")
+
+[node name="MusicVolume" type="HSlider" parent="Panel/ScrollContainer/VBoxContainer/SoundSettings"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -159.34
+offset_top = -5.720001
+offset_right = -30.339905
+offset_bottom = 63.28
+grow_horizontal = 0
+grow_vertical = 2
+max_value = 3.0
+step = 0.01
+
+[node name="Title" type="Label" parent="Panel/ScrollContainer/VBoxContainer/SoundSettings/MusicVolume"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_8wfqe")
+
+[node name="GraphicalSettigs" type="Control" parent="Panel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 120.325)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/ScrollContainer/VBoxContainer/GraphicalSettigs"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.5
+offset_top = 7.39
+offset_right = 71.5
+offset_bottom = 40.39
+grow_horizontal = 2
+text = "Graphical Settings"
+label_settings = SubResource("LabelSettings_7pacj")
+
+[node name="VSync" type="CheckButton" parent="Panel/ScrollContainer/VBoxContainer/GraphicalSettigs"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 34.83
+offset_top = 12.344505
+offset_right = 133.83
+offset_bottom = 43.34452
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_8wfqe")
+theme_override_font_sizes/font_size = 22
+text = "V-Sync"
+
+[node name="FPSLimit" type="HSlider" parent="Panel/ScrollContainer/VBoxContainer/GraphicalSettigs"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -159.34
+offset_top = -5.720001
+offset_right = -30.339905
+offset_bottom = 63.28
+grow_horizontal = 0
+grow_vertical = 2
+max_value = 240.0
+
+[node name="Title" type="Label" parent="Panel/ScrollContainer/VBoxContainer/GraphicalSettigs/FPSLimit"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "FPS Limit: None"
+label_settings = SubResource("LabelSettings_8wfqe")
+
+[node name="WindowSettings" type="Control" parent="Panel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 152.61)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/ScrollContainer/VBoxContainer/WindowSettings"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.5
+offset_top = 7.39
+offset_right = 71.5
+offset_bottom = 40.39
+grow_horizontal = 2
+text = "Window Settings"
+label_settings = SubResource("LabelSettings_7pacj")
+
+[node name="OptionButton" type="OptionButton" parent="Panel/ScrollContainer/VBoxContainer/WindowSettings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -5.9749985
+offset_right = 65.0
+offset_bottom = 25.025055
+grow_horizontal = 2
+grow_vertical = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+
+[node name="Title" type="Label" parent="Panel/ScrollContainer/VBoxContainer/WindowSettings/OptionButton"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = -26.1
+offset_right = 56.0
+offset_bottom = -1.1000004
+grow_horizontal = 2
+text = "Window Mode"
+label_settings = SubResource("LabelSettings_8wfqe")
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -22.5
+offset_top = 1.3300018
+offset_right = 22.5
+offset_bottom = 32.330154
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"

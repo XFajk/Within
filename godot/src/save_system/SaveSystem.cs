@@ -42,7 +42,10 @@ public partial class SaveSystem : Node {
             string fileName = dir.GetNext();
             while (fileName != "") {
                 if (!dir.CurrentIsDir()) {
-                    dir.Remove(fileName);
+                    // Skip the settings file
+                    if (fileName != "settings.cfg") {
+                        dir.Remove(fileName);
+                    }
                 }
                 fileName = dir.GetNext();
             }

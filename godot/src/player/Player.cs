@@ -40,6 +40,11 @@ public partial class Player : CharacterBody3D, ISavable {
 
     public PackedScene PlayerAreaToEnter = null;
 
+    // MISC Variables
+    public bool EmitBlood = true;
+
+    public Timer WakeUpTimer = new();
+
     // Visual Effects Variables
     private PackedScene _hitUiParticles = GD.Load<PackedScene>("res://scenes/VFX/small_death_particles.tscn");
 
@@ -74,9 +79,10 @@ public partial class Player : CharacterBody3D, ISavable {
     private Area3D _aboveAttackBoxArea;
 
     private Timer _attackDurationTimer = new();
+    private Timer _attackCooldownTimer = new();
 
     [ExportGroup("Camera Settings")]
-    public Camera3D Camera;
+    public PlayerCamera Camera;
 
     public ColorRect PostProcessRect;
 
@@ -122,7 +128,11 @@ public partial class Player : CharacterBody3D, ISavable {
     private HorizontalDirection _horizontalDirection = HorizontalDirection.Right;
 
     private int _jumpBufferFrames = 0;
-    private int _numberOfFramesInJump = 0;
+    private float _jumpTimeElapsed = 0.0f;
+    private float _jumpDuration = 0.333f; // 20 frames at 60fps
+    private float _doubleJumpDuration = 0.167f; // 10 frames at 60fps
+    private float _coyoteTimeElapsed = 0.0f;
+    private const float COYOTE_TIME_DURATION = 0.1f;
 
     private float _jumpModifier = 1.0f;
 
@@ -172,9 +182,18 @@ public partial class Player : CharacterBody3D, ISavable {
 
     public override void _Ready() {
 
+        Global.Instance.MiniCheckPointSavedPosition = GlobalPosition;
+
         _canWallJump = Global.Instance.PlayerHasWallJumpAbility;
         _canDash = Global.Instance.PlayerHasDashAbility;
         _canDoubleJump = Global.Instance.PlayerHasDoubleJumpAbility;
+
+        AddChild(WakeUpTimer);
+        WakeUpTimer.OneShot = true;
+        WakeUpTimer.WaitTime = 8.7917f;
+        WakeUpTimer.Timeout += () => {
+            FigureOutStateAfterAnimationState();
+        };
 
         // Create and set up floor detector raycast
         _floorDetector = new RayCast3D();
@@ -209,6 +228,11 @@ public partial class Player : CharacterBody3D, ISavable {
             _frontAttackBoxArea.Position += Vector3.Back * 1000f;
         };
 
+        AddChild(_attackCooldownTimer);
+
+        _attackCooldownTimer.OneShot = true;
+        _attackCooldownTimer.WaitTime = 0.4f;
+
         AddChild(_dashRecoverTimer);
         AddChild(_dashDurationTimer);
 
@@ -222,7 +246,7 @@ public partial class Player : CharacterBody3D, ISavable {
         _dashDurationTimer.WaitTime = DashTime;
 
         if (Camera == null) {
-            Camera = GetNode<Camera3D>("Camera");
+            Camera = GetNode<PlayerCamera>("Camera");
             PostProcessRect = Camera.GetNode<ColorRect>("PostProcessRect");
             PostProcessRect.Visible = false;
             Camera.TopLevel = true;
@@ -255,6 +279,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
     public override void _Process(double delta) {
         Position = new Vector3(Position.X, Position.Y, 0);
+        Camera.GlobalPosition = new Vector3(Camera.GlobalPosition.X, Camera.GlobalPosition.Y, CameraDistance);
 
         if (_hitBoxArea.GetOverlappingAreas().Count > 0 && !_healthBar.IsInvincible) {
             OnDamaged();
@@ -274,12 +299,19 @@ public partial class Player : CharacterBody3D, ISavable {
             // Calculate the forward position based on the player's velocity and direction
             Vector3 targetPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
 
-            Camera.GlobalPosition = Camera.GlobalPosition.Lerp(targetPosition, CameraLerpSpeed * (float)delta);
+            Camera.Move(Camera.GlobalPosition.Lerp(targetPosition, CameraLerpSpeed * (float)delta));
         }
     }
 
     private void FigureOutHorizontalDirection() {
-        if (CurrentState == PlayerState.Damaged) {
+        if (CurrentState == PlayerState.Damaged
+        || CurrentState == PlayerState.NoControl
+        || CurrentState == PlayerState.EnteringArea
+        || CurrentState == PlayerState.ExitingArea
+        || CurrentState == PlayerState.Death
+        || CurrentState == PlayerState.MiniDeath
+        || CurrentState == PlayerState.Sleeping
+        || CurrentState == PlayerState.WakingUp) {
             return;
         }
         if (Input.IsActionPressed("move_left") && Input.IsActionPressed("move_right")) {
@@ -382,7 +414,8 @@ public partial class Player : CharacterBody3D, ISavable {
         if (IsOnFloor() && WantsToJump()) {
             _jumpBufferFrames = 0;
             _jumpModifier = 1.0f;
-            _amountJumpFrames = FirstJumpFrames;
+            _jumpTimeElapsed = 0.0f;
+            _coyoteTimeElapsed = 0.0f;  // Start coyote time when leaving ground
             TransitionAnimationTo(PlayerState.Jumping);
             CurrentState = PlayerState.Jumping;
         } else if (!IsOnFloor()) {
@@ -398,32 +431,31 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private void HandleJumpingState(double delta) {
         Move(delta);
-
-        if (IsOnFloor() || _numberOfFramesInJump > 0) {
+        _coyoteTimeElapsed = COYOTE_TIME_DURATION + 1000.0f;
+        if (IsOnFloor() || _jumpTimeElapsed < _jumpDuration) {
             _velocity.Y = JumpVelocity * _jumpModifier * UnitTransformer;
 
             if (IsOnCeiling()) {
-                _numberOfFramesInJump = 0;
+                _jumpTimeElapsed = _jumpDuration; // Force jump end
                 _velocity.Y = -Gravity * UnitTransformer;
                 TransitionAnimationTo(PlayerState.Falling);
                 CurrentState = PlayerState.Falling;
             }
 
             if (Input.IsActionPressed("jump")) {
-                if (_numberOfFramesInJump < _amountJumpFrames) {
-                    _numberOfFramesInJump++;
-                } else {
-                    _numberOfFramesInJump = 0;
+                _jumpTimeElapsed += (float)delta;
+                if (_jumpTimeElapsed >= _jumpDuration) {
+                    _jumpTimeElapsed = 0.0f;
                     TransitionAnimationTo(PlayerState.Falling);
                     CurrentState = PlayerState.Falling;
                 }
             } else {
-                _numberOfFramesInJump = 0;
+                _jumpTimeElapsed = _jumpDuration; // Force jump end
                 TransitionAnimationTo(PlayerState.Falling);
                 CurrentState = PlayerState.Falling;
             }
         } else {
-            _numberOfFramesInJump = 0;
+            _jumpTimeElapsed = 0.0f;
             TransitionAnimationTo(PlayerState.Falling);
             CurrentState = PlayerState.Falling;
         }
@@ -439,18 +471,32 @@ public partial class Player : CharacterBody3D, ISavable {
             TransitionAnimationTo(PlayerState.Idle);
             CurrentState = PlayerState.Idle;
             _velocity.Y = 0;
+            _coyoteTimeElapsed = 0.0f;  // Reset coyote time when touching floor
         } else if (IsOnWall() && _canWallJump && IsWallClimbable()) {
             TransitionAnimationTo(PlayerState.OnWall);
             CurrentState = PlayerState.OnWall;
             _velocity.Y = WallSlideVelocity * UnitTransformer;
+            _coyoteTimeElapsed = COYOTE_TIME_DURATION;  // Cancel coyote time on wall
         } else {
+            _coyoteTimeElapsed += (float)delta;
             _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * UnitTransformer, Gravity * UnitTransformer);
+
+            // Regular jump during coyote time
+            if (Input.IsActionJustPressed("jump") && _coyoteTimeElapsed <= COYOTE_TIME_DURATION) {
+                _jumpBufferFrames = 0;
+                _jumpModifier = 1.0f;
+                _jumpTimeElapsed = 0.0f;
+                TransitionAnimationTo(PlayerState.Jumping);
+                CurrentState = PlayerState.Jumping;
+                return;
+            }
+
+            // Double jump check
             if (Input.IsActionJustPressed("jump") && _canDoubleJump && _doubleJumpReady) {
                 _jumpBufferFrames = 0;
                 _jumpModifier = 1.0f;
                 _doubleJumpReady = false;
-                _numberOfFramesInJump = 1;
-                _amountJumpFrames = SecondJumpFrames;
+                _jumpTimeElapsed = 0.0f;
                 TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
             } else if (Input.IsActionJustPressed("jump")) {
@@ -553,14 +599,23 @@ public partial class Player : CharacterBody3D, ISavable {
         TransitionMaterial.SetShaderParameter("progress", 1.0f);
         _transitionTween.TweenProperty(TransitionMaterial, "shader_parameter/progress", 0.0f, 0.5f).SetDelay(0.4);
         _transitionTween.TweenCallback(Callable.From(() => {
-            TransitionAnimationTo(PlayerState.Idle);
-            CurrentState = PlayerState.Idle;
+            if (!Global.Instance.IsInMainMenu) {
+                TransitionAnimationTo(PlayerState.Idle);
+                CurrentState = PlayerState.Idle;
+            }
         }));
         _transitionTween.TweenCallback(Callable.From(() => {
             PostProcessRect.Visible = false;
         })).SetDelay(0.5f);
 
-        CurrentState = PlayerState.NoControl;
+        if (Global.Instance.IsInMainMenu && !Godot.FileAccess.FileExists("user://progress.global.dat")) {
+            GD.Print("Player loading from main menu save data.");
+            TransitionAnimationTo(PlayerState.Sleeping);
+            CurrentState = PlayerState.Sleeping;
+        } else {
+            GD.Print("Player starting new game from main menu.");
+            CurrentState = PlayerState.NoControl;
+        }
     }
 
     private void HandleMiniDeathState(double delta) {
@@ -581,9 +636,11 @@ public partial class Player : CharacterBody3D, ISavable {
 
         HitFrame(0.4f);
 
-        Node3D particles = (Node3D)_hitUiParticles.Instantiate();
-        GetParent().AddChild(particles);
-        particles.GlobalPosition = GlobalPosition;
+        if (EmitBlood) {
+            Node3D particles = (Node3D)_hitUiParticles.Instantiate();
+            GetParent().AddChild(particles);
+            particles.GlobalPosition = GlobalPosition;
+        }
 
         EmitSignalHit(1);
 
@@ -605,6 +662,10 @@ public partial class Player : CharacterBody3D, ISavable {
                 if (Global.Instance.PlayerLastSavedTransform is Transform3D lastTransform) {
                     GlobalPosition = lastTransform.Origin;
                 }
+            }
+
+            if (Global.Instance.MiniCheckPointCameraSpawnPoint is Vector3 cameraSpawnPoint) {
+                Camera.GlobalPosition = cameraSpawnPoint;
             }
 
             // Check for floor below the current position and adjust if needed
@@ -638,9 +699,11 @@ public partial class Player : CharacterBody3D, ISavable {
 
         HitFrame(0.4f);
 
-        Node3D particles = (Node3D)_hitUiParticles.Instantiate();
-        GetParent().AddChild(particles);
-        particles.GlobalPosition = GlobalPosition;
+        if (EmitBlood) {
+            Node3D particles = (Node3D)_hitUiParticles.Instantiate();
+            GetParent().AddChild(particles);
+            particles.GlobalPosition = GlobalPosition;
+        }
 
         EmitSignalHit(1);
 
@@ -685,6 +748,7 @@ public partial class Player : CharacterBody3D, ISavable {
     private void CheckDash() {
         if (Input.IsActionJustPressed("dash") && _canDash && _dashReadyToUse) {
             TransitionAnimationTo(PlayerState.Dashing);
+            _jumpTimeElapsed = _jumpDuration; // Force jump end
             CurrentState = PlayerState.Dashing;
             _dashReadyToUse = false;
             _dashDurationTimer.Start();
@@ -693,7 +757,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void CheckAttack() {
-        bool isAttackAlreadyInProgress = !_attackDurationTimer.IsStopped();
+        bool isAttackAlreadyInProgress = !(_attackDurationTimer.IsStopped() && _attackCooldownTimer.IsStopped());
         if (isAttackAlreadyInProgress) {
             return;
         }
@@ -702,7 +766,7 @@ public partial class Player : CharacterBody3D, ISavable {
             TransitionAnimationTo(PlayerState.AttackingUp);
             CurrentState = PlayerState.AttackingUp;
 
-            _numberOfFramesInJump = 0;
+            _jumpTimeElapsed = _jumpDuration; // Force jump end
 
             _aboveAttackBoxArea.Position = Vector3.Zero;
 
@@ -712,11 +776,12 @@ public partial class Player : CharacterBody3D, ISavable {
             }
 
             _attackDurationTimer.Start(0.2f);
+            _attackCooldownTimer.Start();
         } else if (Input.IsActionJustPressed("hit")) {
             TransitionAnimationTo(PlayerState.AttackingFront);
             CurrentState = PlayerState.AttackingFront;
 
-            _numberOfFramesInJump = 0;
+            _jumpTimeElapsed = _jumpDuration; // Force jump end
 
             _frontAttackBoxArea.Position = Vector3.Zero;
 
@@ -726,6 +791,7 @@ public partial class Player : CharacterBody3D, ISavable {
             }
 
             _attackDurationTimer.Start(0.2f);
+            _attackCooldownTimer.Start();
         }
     }
 
@@ -774,7 +840,7 @@ public partial class Player : CharacterBody3D, ISavable {
         }
     }
 
-    private void TransitionAnimationTo(PlayerState targetState) {
+    public void TransitionAnimationTo(PlayerState targetState) {
         _animationBlender.CurrentAnimationState = targetState;
     }
 

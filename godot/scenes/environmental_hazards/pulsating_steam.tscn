@@ -1,0 +1,74 @@
+[gd_scene load_steps=12 format=3 uid="uid://daht2670cc7m6"]
+
+[ext_resource type="Script" uid="uid://bfjipryu5ds2n" path="res://src/environmental_hazards/PulsatingSteam.cs" id="1_vm530"]
+[ext_resource type="Script" uid="uid://dkaeyvdlboftn" path="res://src/misc/EnvironmentalHazard.cs" id="2_n00dd"]
+
+[sub_resource type="Gradient" id="Gradient_xpq3t"]
+offsets = PackedFloat32Array(0, 0.77130044, 1)
+colors = PackedColorArray(0.34631982, 0.34631985, 0.34631985, 1, 1, 1, 1, 1, 0.34509805, 0.34509805, 0.34509805, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yuh40"]
+gradient = SubResource("Gradient_xpq3t")
+
+[sub_resource type="Curve" id="Curve_ei83u"]
+_data = [Vector2(0, 0.41211605), 0.0, 0.0, 0, 0, Vector2(0.502008, 0.5610932), -5.6112194, -0.9067918, 0, 0, Vector2(1, 0.001706481), -3.4524167, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xnohv"]
+curve = SubResource("Curve_ei83u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_txbx6"]
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 1, 0)
+spread = 7.667
+initial_velocity_min = 1.52
+initial_velocity_max = 6.52
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_xnohv")
+color_ramp = SubResource("GradientTexture1D_yuh40")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6bw0x"]
+load_path = "res://.godot/imported/smoke3(1).png-c3635ed21711b474754e5ae44231affb.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npk7b"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.7063025, 0.7063026, 0.7063024, 1)
+albedo_texture = SubResource("CompressedTexture2D_6bw0x")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_00vtg"]
+material = SubResource("StandardMaterial3D_npk7b")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o2743"]
+size = Vector3(1, 3.268, 1)
+
+[node name="PulsatingSteam" type="Node3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_vm530")
+
+[node name="SteamParticles" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+amount = 50
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_txbx6")
+draw_pass_1 = SubResource("QuadMesh_00vtg")
+
+[node name="SteamArea" type="Area3D" parent="."]
+script = ExtResource("2_n00dd")
+metadata/_custom_type_script = "uid://dkaeyvdlboftn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SteamArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.017089844)
+shape = SubResource("BoxShape3D_o2743")
+debug_color = Color(0.5921569, 0.49411765, 1, 1)

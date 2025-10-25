@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy4eim0axko80"]
+
+[ext_resource type="FontFile" uid="uid://nlvl0qhy4rw5" path="res://assets/fonts/Poesing.otf" id="1_fe2o3"]
+[ext_resource type="Script" uid="uid://ce1mmdu054ilq" path="res://src/ui/MainMenu.cs" id="1_m1kxf"]
+[ext_resource type="FontFile" uid="uid://ca03g572uqbwc" path="res://assets/fonts/Handodle-rg38A.ttf" id="1_sl1te"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fe2o3"]
+font = ExtResource("1_sl1te")
+font_size = 100
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m1kxf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -197.32501
+offset_top = -18.455002
+offset_right = -82.32501
+offset_bottom = 115.545
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fe2o3")
+theme_override_font_sizes/font_size = 30
+text = "Start"
+
+[node name="Settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fe2o3")
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fe2o3")
+theme_override_font_sizes/font_size = 30
+text = "Exit"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 216.0
+offset_top = -3.0
+offset_right = 455.0
+offset_bottom = 127.0
+text = "Within"
+label_settings = SubResource("LabelSettings_fe2o3")

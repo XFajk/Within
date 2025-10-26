@@ -1,0 +1,99 @@
+[gd_scene load_steps=17 format=3 uid="uid://dtoaqlnkvjys4"]
+
+[ext_resource type="Script" uid="uid://dpnd73hp53q41" path="res://src/entities/Drone.cs" id="1_gs6nb"]
+[ext_resource type="Shader" uid="uid://dnn2q6fdrkjgd" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="2_0tq5o"]
+[ext_resource type="Shader" uid="uid://rmk1vqhwv5sh" path="res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader" id="3_6vf5s"]
+[ext_resource type="Script" uid="uid://dp52e6tiex2ay" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="4_in55t"]
+[ext_resource type="PackedScene" uid="uid://wkt6jlqwigqw" path="res://scenes/VFX/drone_broken_smoke.tscn" id="5_6vf5s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gs6nb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_e56ng"]
+radius = 0.132
+
+[sub_resource type="SphereMesh" id="SphereMesh_n87ok"]
+radius = 0.125
+height = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xcp44"]
+albedo_color = Color(0.35980767, 0.3652289, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lvif6"]
+shader = ExtResource("2_0tq5o")
+
+[sub_resource type="Gradient" id="Gradient_h0gm0"]
+offsets = PackedFloat32Array(0.0029498525, 1)
+colors = PackedColorArray(0, 1, 0.9608941, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yxefg"]
+gradient = SubResource("Gradient_h0gm0")
+
+[sub_resource type="Curve" id="Curve_khhpe"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_87gur"]
+curve = SubResource("Curve_khhpe")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_foggq"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_6vf5s")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_yxefg")
+shader_parameter/curve = SubResource("CurveTexture_87gur")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+
+[sub_resource type="QuadMesh" id="QuadMesh_ubxui"]
+material = SubResource("ShaderMaterial_foggq")
+
+[node name="Drone" type="CharacterBody3D"]
+collision_layer = 0
+script = ExtResource("1_gs6nb")
+HitMaterial = SubResource("StandardMaterial3D_gs6nb")
+KnockbackForce = 2.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_e56ng")
+debug_color = Color(0, 1, 0.85740733, 1)
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_n87ok")
+surface_material_override/0 = SubResource("StandardMaterial3D_xcp44")
+
+[node name="HitBox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("SphereShape3D_e56ng")
+debug_color = Color(0, 1, 0.85740733, 1)
+
+[node name="AttackBox" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackBox"]
+shape = SubResource("SphereShape3D_e56ng")
+debug_color = Color(0, 1, 0.85740733, 1)
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.105, 0, 0, 0, 0.105, 0, 0, 0, 0.105, 0, 0, 0)
+amount = 35
+lifetime = 35.0
+explosiveness = 1.0
+fixed_fps = 119
+process_material = SubResource("ShaderMaterial_lvif6")
+draw_pass_1 = SubResource("QuadMesh_ubxui")
+script = ExtResource("4_in55t")
+length = 35
+length_seconds = 0.29411764705882354
+color_ramp = SubResource("GradientTexture1D_yxefg")
+curve = SubResource("CurveTexture_87gur")
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://dp52e6tiex2ay"
+
+[node name="DroneBrokenSmoke" parent="." instance=ExtResource("5_6vf5s")]
+visible = false

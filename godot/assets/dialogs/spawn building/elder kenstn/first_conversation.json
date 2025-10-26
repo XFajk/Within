@@ -1,0 +1,52 @@
+[
+	{
+		"speaker": 0,
+		"text": "Hello Elder Kenstn",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Hello Child, you have finally woken up.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "I was scared that you might have died in your sleep.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "But you look more ready then ever to go to the factory again.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "Yes I do feel alot better then before.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "I dint expect to get over that feaver so quickly.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Well that great.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "I also feel sick, but I dont have the money for the medicine from up TOP",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "I dont think my week old body can take this for long.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Only God knows if we will see each other when you return.",
+		"typing_speed": 0.1
+	},
+]

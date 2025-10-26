@@ -1,0 +1,27 @@
+[
+	{
+		"speaker": 0,
+		"text": "Hello Sir. What should do today",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Hi Sal, I have a special request for you, that I can only entrust to you.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "I need you to pick up medice from the floor ABOVE.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "If you are scared about the security.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Tell them I'v sent you.",
+		"typing_speed": 0.1
+	},
+]

@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://wkt6jlqwigqw"]
+
+[ext_resource type="Texture2D" uid="uid://bmnde0fp8v82o" path="res://assets/sprites/smoke/smoke2.png" id="1_l1cu5"]
+
+[sub_resource type="Curve" id="Curve_c3km2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.35620528), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_px84m"]
+curve = SubResource("Curve_c3km2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c3km2"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.25
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_px84m")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_px84m"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.2737406, 0.30703127, 0.23403408, 1)
+albedo_texture = ExtResource("1_l1cu5")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_3av2y"]
+material = SubResource("StandardMaterial3D_px84m")
+size = Vector2(0.2, 0.2)
+
+[node name="DroneBrokenSmoke" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_c3km2")
+draw_pass_1 = SubResource("QuadMesh_3av2y")

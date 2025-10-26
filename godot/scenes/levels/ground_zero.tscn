@@ -1,4 +1,4 @@
-[gd_scene load_steps=195 format=4 uid="uid://bwxyq0jp71b54"]
+[gd_scene load_steps=197 format=4 uid="uid://bwxyq0jp71b54"]
 
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_ftwb3"]
 [ext_resource type="Texture2D" uid="uid://dxxe55jrke1w8" path="res://assets/3d_models/ground_zero/ground_zero_v2_elevator_frame.png" id="2_ysn8x"]
@@ -42,6 +42,8 @@
 [ext_resource type="Script" uid="uid://b7jsj5yrf217d" path="res://src/interactables/SaveInteractable.cs" id="31_uhtlq"]
 [ext_resource type="PackedScene" uid="uid://dohk8bm4yglqt" path="res://assets/3d_models/light_sources/street_lamp.glb" id="39_7spgn"]
 [ext_resource type="PackedScene" uid="uid://ch8kqtvnwhng1" path="res://assets/3d_models/payphone/payphone.glb" id="40_na0nf"]
+[ext_resource type="PackedScene" uid="uid://dtoaqlnkvjys4" path="res://scenes/entities/drone.tscn" id="43_na0nf"]
+[ext_resource type="PackedScene" uid="uid://dg286301th5vq" path="res://scenes/entities/laser_machine.tscn" id="44_knpfv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xli44"]
 resource_name = "elevator_frame"
@@ -3263,3 +3265,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.896599, 0.3404206, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("22_feopp")
+
+[node name="Drone" parent="." instance=ExtResource("43_na0nf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8666153, 0.7902503, 0.2227211)
+
+[node name="LaserMachine" parent="." instance=ExtResource("44_knpfv")]
+transform = Transform3D(-0.89275104, 0.4505503, 0, -0.4505503, -0.89275104, 0, 0, 0, 1, 19.792606, 0.64763045, 0.24899893)

@@ -44,6 +44,7 @@ Interactable="Things that the player can interact with"
 InteractableCollider=""
 Savable="Thing 's that can be saved across game sessions"
 Level="This is for Level Scenes that will be children of Root "
+Player="a group for the player so other nodes can quickly get a refrence to it "
 
 [input]
 

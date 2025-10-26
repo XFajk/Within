@@ -46,6 +46,10 @@ public partial class DialogInteractable : Interactable {
             _currentSectionIndex = 0;
             return;
         }
+        
+        if (_isDialogActive) {
+            _interactionTitleLabel.Visible = false;
+        }
 
         if (Input.IsActionJustPressed("interact") && !_interactionBuffer) {
             if (_isDialogActive) {

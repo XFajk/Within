@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=4 uid="uid://dps12qsrclx7m"]
+[gd_scene load_steps=106 format=4 uid="uid://dps12qsrclx7m"]
 
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_dec86"]
 [ext_resource type="Texture2D" uid="uid://bpydamrjqm5kp" path="res://assets/3d_models/factory/factory_v2_black_bricks.png" id="1_w0abr"]
@@ -26,6 +26,9 @@
 [ext_resource type="PackedScene" uid="uid://c888mhcqkvcic" path="res://assets/3d_models/light_sources/wall_light2.glb" id="21_menmw"]
 [ext_resource type="PackedScene" uid="uid://srwbwnvjwjqw" path="res://assets/3d_models/light_sources/halogen.glb" id="22_vpo40"]
 [ext_resource type="PackedScene" uid="uid://dcnhu00s3wloo" path="res://assets/3d_models/light_sources/ceiling_light.glb" id="23_n1sjn"]
+[ext_resource type="Script" uid="uid://cvga7nhg6e82n" path="res://src/interactables/DialogInteractable.cs" id="27_hiq7h"]
+[ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="28_8mqil"]
+[ext_resource type="JSON" path="res://assets/dialogs/factory/joseph/first_conversation.json" id="28_pnugb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dw8sw"]
 resource_name = "idk"
@@ -975,8 +978,20 @@ size = Vector3(0.4259796, 1.1063232, 1.3204346)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xelw7"]
 size = Vector3(0.51379395, 1.9414063, 1.6049805)
 
+[sub_resource type="BoxMesh" id="BoxMesh_pnugb"]
+size = Vector3(0.55, 1.01, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cyp1q"]
+albedo_color = Color(0, 0.45546877, 0.03597443, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1su6w"]
+size = Vector3(1.7548828, 1.0158691, 1.390625)
+
 [node name="Factory" type="Node3D"]
 script = ExtResource("1_dec86")
+
+[node name="Player" parent="." instance=ExtResource("14_rbf27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3322096, -0.26434088, 0.24075317)
 
 [node name="factory_v2" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.81, 1.4565871, -1.0883493)
@@ -1312,10 +1327,37 @@ transform = Transform3D(-2.5, 0, 3.774895e-07, 0, 2.5, 0, -3.774895e-07, 0, -2.5
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -6.617445e-24, -0.038868427, 1.698993e-09)
 light_color = Color(1, 0.9828563, 0.63376796, 1)
 shadow_enabled = true
-spot_angle = 80.110306
+spot_angle = 74.21468
 
-[node name="Player" parent="." instance=ExtResource("14_rbf27")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3322096, -0.26434088, 0.24075317)
+[node name="OmniLight3D" type="OmniLight3D" parent="factory_v2/ceiling_light/SpotLight3D"]
+light_color = Color(1, 0.98732156, 0.6727207, 1)
+light_energy = 0.337
+omni_range = 1.6386464
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("18_xelw7")
+
+[node name="JosephStalin" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.781881, 3.7771347, -0.87010425)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("27_hiq7h")
+DialogData = Array[JSON]([ExtResource("28_pnugb")])
+InteractionTitle = "Talk to Boss"
+metadata/_custom_type_script = "uid://cvga7nhg6e82n"
+
+[node name="MeshInstance" type="MeshInstance3D" parent="JosephStalin"]
+mesh = SubResource("BoxMesh_pnugb")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_cyp1q")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="JosephStalin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35785103, 0.00793457, 0.71769655)
+shape = SubResource("BoxShape3D_1su6w")
+
+[node name="Title" parent="JosephStalin" instance=ExtResource("15_bpebr")]
+transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.7646898, 0)
+layers = 2
+
+[node name="TextBox" parent="JosephStalin" instance=ExtResource("28_8mqil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8157041, 0.37722868)

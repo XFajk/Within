@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dg286301th5vq"]
+
+[ext_resource type="Script" uid="uid://01i8ybft3rvh" path="res://src/entities/LaserMachine.cs" id="1_ftl5q"]
+[ext_resource type="Material" uid="uid://bwqggu4bfp4aj" path="res://assets/materials/laser_inactive.tres" id="2_pv1n4"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_7vs1o"]
+length = 0.001
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pv1n4"]
+top_radius = 0.013
+bottom_radius = 0.013
+height = 0.001
+radial_segments = 4
+rings = 0
+cap_top = false
+cap_bottom = false
+
+[node name="LaserMachine" type="Node3D"]
+script = ExtResource("1_ftl5q")
+ActiveTime = 0.5
+
+[node name="AttackBox" type="Area3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackBox"]
+shape = SubResource("SeparationRayShape3D_7vs1o")
+
+[node name="Ray" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -25)
+collide_with_areas = true
+debug_shape_custom_color = Color(0.3524332, 0, 1, 1)
+debug_shape_thickness = 5
+
+[node name="LaserBeam" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_pv1n4")
+surface_material_override/0 = ExtResource("2_pv1n4")

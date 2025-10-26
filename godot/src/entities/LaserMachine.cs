@@ -11,6 +11,8 @@ public partial class LaserMachine : Node3D {
     private RayCast3D _laserRayCast;
     private MeshInstance3D _laserBeam;
 
+    private Node3D _sparks;
+
     private StandardMaterial3D _laserActiveMaterial = GD.Load<StandardMaterial3D>("res://assets/materials/laser_active.tres");
     private StandardMaterial3D _laserInactiveMaterial = GD.Load<StandardMaterial3D>("res://assets/materials/laser_inactive.tres");
 
@@ -24,6 +26,7 @@ public partial class LaserMachine : Node3D {
             _laserAttackShape.Shape.Set("length", _laserLength);
             _laserBeam.Position = new Vector3(0f, 0f, -_laserLength / 2f);
             _laserBeam.Mesh.Set("height", _laserLength);
+            _sparks.Position = new Vector3(0f, 0f, -_laserLength);
         }
     }
 
@@ -47,6 +50,8 @@ public partial class LaserMachine : Node3D {
         _laserAttackShape = GetNode<CollisionShape3D>("AttackBox/CollisionShape3D");
         _laserAttackArea = GetNode<Area3D>("AttackBox");
         _laserAttackArea.GlobalPosition = new Vector3(0f, 0f, 1000f);
+
+        _sparks = GetNode<Node3D>("Sparks");
 
         _laserRayCast = GetNode<RayCast3D>("Ray");
         _laserRayCast.TargetPosition = new Vector3(0f, 0f, -MaxLaserLength);

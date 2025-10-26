@@ -45,6 +45,9 @@ public partial class Player : CharacterBody3D, ISavable {
 
     public Timer WakeUpTimer = new();
 
+    // Inventory Pickup Variables
+    private Array<string> _inventory = new Array<string>();
+
     // Visual Effects Variables
     private PackedScene _hitUiParticles = GD.Load<PackedScene>("res://scenes/VFX/small_death_particles.tscn");
 
@@ -187,6 +190,7 @@ public partial class Player : CharacterBody3D, ISavable {
         _canWallJump = Global.Instance.PlayerHasWallJumpAbility;
         _canDash = Global.Instance.PlayerHasDashAbility;
         _canDoubleJump = Global.Instance.PlayerHasDoubleJumpAbility;
+        _inventory = Global.Instance.PlayerInventory;
 
         AddChild(WakeUpTimer);
         WakeUpTimer.OneShot = true;
@@ -842,6 +846,23 @@ public partial class Player : CharacterBody3D, ISavable {
 
     public void TransitionAnimationTo(PlayerState targetState) {
         _animationBlender.CurrentAnimationState = targetState;
+    }
+
+    public void PickupItem(string itemName, Texture2D iconTexture) {
+        _inventory.Add(itemName);
+        var pickedUpItem = Camera.GetNode<TextureRect>("UserInterface/PickedUpItem");
+        pickedUpItem.Visible = true;
+        pickedUpItem.Texture = iconTexture;
+        var tween = GetTree().CreateTween();
+        tween.TweenProperty(pickedUpItem, "modulate:a", 1.0f, 0.5f);
+        tween.TweenProperty(pickedUpItem, "modulate:a", 0.0f, 2.0f);
+        tween.TweenCallback(Callable.From(() => {
+            pickedUpItem.Visible = false;
+        }));
+    }
+
+    public bool HasItem(string itemName) {
+        return _inventory.Contains(itemName);
     }
 
     public string GetSaveID() {

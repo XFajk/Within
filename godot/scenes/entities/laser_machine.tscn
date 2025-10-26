@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dg286301th5vq"]
+[gd_scene load_steps=6 format=3 uid="uid://dg286301th5vq"]
 
 [ext_resource type="Script" uid="uid://01i8ybft3rvh" path="res://src/entities/LaserMachine.cs" id="1_ftl5q"]
 [ext_resource type="Material" uid="uid://bwqggu4bfp4aj" path="res://assets/materials/laser_inactive.tres" id="2_pv1n4"]
+[ext_resource type="PackedScene" uid="uid://by872wppxdbb3" path="res://scenes/VFX/laser_sparks.tscn" id="3_rlb5r"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_7vs1o"]
 length = 0.001
@@ -37,3 +38,5 @@ debug_shape_thickness = 5
 transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("CylinderMesh_pv1n4")
 surface_material_override/0 = ExtResource("2_pv1n4")
+
+[node name="Sparks" parent="." instance=ExtResource("3_rlb5r")]

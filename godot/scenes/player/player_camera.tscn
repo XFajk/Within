@@ -1,12 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://dhymcdaiyny71"]
+[gd_scene load_steps=12 format=3 uid="uid://dhymcdaiyny71"]
 
 [ext_resource type="Script" uid="uid://bvvsggdyfn5hg" path="res://src/player/PlayerCamera.cs" id="1_sbsl8"]
 [ext_resource type="Material" uid="uid://caa3gbywl77g8" path="res://src/shaders/low_health/low_health_material.tres" id="2_44dvt"]
 [ext_resource type="Script" uid="uid://cgagglsjo3v7n" path="res://src/ui/UserInterface.cs" id="2_menik"]
 [ext_resource type="PackedScene" uid="uid://dn3jpq2w8ctxj" path="res://scenes/player/health_bar.tscn" id="3_2fj6k"]
 [ext_resource type="PackedScene" uid="uid://cy4eim0axko80" path="res://scenes/ui/main_menu.tscn" id="4_44dvt"]
+[ext_resource type="Texture2D" uid="uid://dkmv6x4gbii1n" path="res://assets/sprites/keycard.png" id="4_lgxpg"]
 [ext_resource type="PackedScene" uid="uid://cvqyovpsmswsk" path="res://scenes/ui/settings.tscn" id="5_2fj6k"]
 [ext_resource type="PackedScene" uid="uid://chbeopyr8bi5a" path="res://scenes/ui/pause_menu.tscn" id="5_ggd0v"]
+[ext_resource type="FontFile" uid="uid://nlvl0qhy4rw5" path="res://assets/fonts/Poesing.otf" id="5_qb6jh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bgwtq"]
+font = ExtResource("5_qb6jh")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_sbsl8"]
 radius = 0.2
@@ -32,7 +37,6 @@ render_target_update_mode = 4
 cull_mask = 2
 
 [node name="UserInterface" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,6 +49,29 @@ script = ExtResource("2_menik")
 process_priority = 1
 position = Vector2(54.999996, 23.999998)
 scale = Vector2(0.315, 0.315)
+
+[node name="PickedUpItem" type="TextureRect" parent="UserInterface"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 102.37
+offset_top = 46.54
+offset_right = 130.37
+offset_bottom = 74.54
+texture = ExtResource("4_lgxpg")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="UserInterface/PickedUpItem"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -64.785
+offset_top = -9.0
+offset_right = 2.2149963
+offset_bottom = 9.0
+grow_vertical = 2
+text = "Picked Up: "
+label_settings = SubResource("LabelSettings_bgwtq")
 
 [node name="PostProcessRect" type="ColorRect" parent="."]
 z_index = 100
@@ -62,6 +89,10 @@ collision_mask = 256
 collide_with_areas = true
 
 [node name="MainMenu" parent="." instance=ExtResource("4_44dvt")]
+offset_left = -5.0
+offset_top = -1.0
+offset_right = -5.0
+offset_bottom = -1.0
 
 [node name="PauseMenu" parent="." instance=ExtResource("5_ggd0v")]
 visible = false

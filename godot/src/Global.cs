@@ -18,6 +18,8 @@ public partial class Global : Node {
     public bool PlayerHasWallJumpAbility = false;
     public bool PlayerHasDoubleJumpAbility = false;
 
+    public Array<string> PlayerInventory = new Array<string>();
+
 
     public Vector3? MiniCheckPointSavedPosition = null;
     public Vector3? MiniCheckPointCameraSpawnPoint = null;
@@ -46,6 +48,7 @@ public partial class Global : Node {
             data["player_has_dash_ability"] = PlayerHasDashAbility;
             data["player_has_wall_jump_ability"] = PlayerHasWallJumpAbility;
             data["player_has_double_jump_ability"] = PlayerHasDoubleJumpAbility;
+            data["player_inventory"] = PlayerInventory;
 
             file.StoreString(GD.VarToStr(data));
             file.Close();
@@ -78,6 +81,9 @@ public partial class Global : Node {
             }
             if (loadedData.ContainsKey("player_has_double_jump_ability")) {
                 PlayerHasDoubleJumpAbility = (bool)loadedData["player_has_double_jump_ability"];
+            }
+            if (loadedData.ContainsKey("player_inventory")) {
+                PlayerInventory = (Array<string>)loadedData["player_inventory"];
             }
         } else {
             SaveSystem.Instance.ResetGame();

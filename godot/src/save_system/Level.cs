@@ -5,8 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 [GlobalClass]
 public partial class Level : Node {
-    public Dictionary<string, Variant> SavableObjects = new();
-
 
     public override void _Ready() {
         AddToGroup("Level");
@@ -48,7 +46,18 @@ public partial class Level : Node {
     }
 
     public void SaveState() {
+        // Load the existing saved states first
+        var existingStates = new Dictionary<string, Variant>();
+        var loadFile = FileAccess.Open($"user://{GetName()}.dat", FileAccess.ModeFlags.Read);
+        if (loadFile != null) {
+            string savedData = loadFile.GetAsText();
+            existingStates = (Dictionary<string, Variant>)GD.StrToVar(savedData);
+            loadFile.Close();
+        }
+
         var savableNodes = GetTree().GetNodesInGroup("Savable");
+        var SavableObjects = new Dictionary<string, Variant>(existingStates);
+
         foreach (var node in savableNodes) {
             if (IsAncestorOf(node) && node is ISavable savable) {
                 SavableObjects[savable.GetSaveID()] = savable.SaveState();

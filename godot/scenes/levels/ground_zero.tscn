@@ -1,4 +1,4 @@
-[gd_scene load_steps=197 format=4 uid="uid://bwxyq0jp71b54"]
+[gd_scene load_steps=199 format=4 uid="uid://bwxyq0jp71b54"]
 
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_ftwb3"]
 [ext_resource type="Texture2D" uid="uid://dxxe55jrke1w8" path="res://assets/3d_models/ground_zero/ground_zero_v2_elevator_frame.png" id="2_ysn8x"]
@@ -40,10 +40,11 @@
 [ext_resource type="PackedScene" uid="uid://srwbwnvjwjqw" path="res://assets/3d_models/light_sources/halogen.glb" id="29_uhtlq"]
 [ext_resource type="PackedScene" uid="uid://c68qa0g4sq855" path="res://assets/3d_models/light_sources/hanging_light.glb" id="30_m5wqf"]
 [ext_resource type="Script" uid="uid://b7jsj5yrf217d" path="res://src/interactables/SaveInteractable.cs" id="31_uhtlq"]
+[ext_resource type="Script" uid="uid://cf7jjduehmlil" path="res://src/interactables/specific/EntrenceToGroundOne.cs" id="32_jb0os"]
 [ext_resource type="PackedScene" uid="uid://dohk8bm4yglqt" path="res://assets/3d_models/light_sources/street_lamp.glb" id="39_7spgn"]
 [ext_resource type="PackedScene" uid="uid://ch8kqtvnwhng1" path="res://assets/3d_models/payphone/payphone.glb" id="40_na0nf"]
-[ext_resource type="PackedScene" uid="uid://dtoaqlnkvjys4" path="res://scenes/entities/drone.tscn" id="43_na0nf"]
-[ext_resource type="PackedScene" uid="uid://dg286301th5vq" path="res://scenes/entities/laser_machine.tscn" id="44_knpfv"]
+[ext_resource type="Script" uid="uid://2am74t3x2kbk" path="res://src/interactables/PickupInteractable.cs" id="41_p2ixb"]
+[ext_resource type="Texture2D" uid="uid://dkmv6x4gbii1n" path="res://assets/sprites/keycard.png" id="42_jb0os"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xli44"]
 resource_name = "elevator_frame"
@@ -2099,6 +2100,8 @@ size = Vector3(0.51379395, 1, 1.6049805)
 [sub_resource type="BoxShape3D" id="BoxShape3D_m5wqf"]
 size = Vector3(0.48425293, 1.1063232, 1.3204346)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gpjak"]
+
 [node name="GroundZero" type="Node3D"]
 script = ExtResource("1_ftwb3")
 
@@ -2606,7 +2609,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.565502, 0, -0.10293699)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029724121, 0.9711914, 0.16802976)
 shape = SubResource("BoxShape3D_feopp")
 
-[node name="EnterableAreaInteractable" type="Area3D" parent="ground_zero_v2"]
+[node name="EntrenceToSpawnBuilding" type="Area3D" parent="ground_zero_v2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9911504, 0, 0.066586)
 collision_layer = 0
 collision_mask = 8
@@ -2615,14 +2618,32 @@ EnterableAreaScene = &"res://scenes/levels/spawn_building.tscn"
 InteractionTitle = "Enter Building"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/EnterableAreaInteractable"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/EntrenceToSpawnBuilding"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44037342, 0)
 shape = SubResource("BoxShape3D_v4tua")
 
-[node name="Title" parent="ground_zero_v2/EnterableAreaInteractable" instance=ExtResource("22_v4tua")]
+[node name="Title" parent="ground_zero_v2/EntrenceToSpawnBuilding" instance=ExtResource("22_v4tua")]
 transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.8748493, 0)
 
-[node name="EnterableAreaInteractable2" type="Area3D" parent="ground_zero_v2"]
+[node name="EntrenceToGroundOne" type="Area3D" parent="ground_zero_v2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.05785, 10.482485, 0.06658232)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("32_jb0os")
+LockedTitle = "Locked Need A Keycard"
+KeyItemName = "Elevator Key Card"
+EnterableAreaScene = &"res://scenes/player_controller_testing.tscn"
+InteractionTitle = "Go Up"
+metadata/_custom_type_script = "uid://b2u288mrgr3kt"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/EntrenceToGroundOne"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44037342, 0)
+shape = SubResource("BoxShape3D_v4tua")
+
+[node name="Title" parent="ground_zero_v2/EntrenceToGroundOne" instance=ExtResource("22_v4tua")]
+transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 1.2480698, 0)
+
+[node name="EntrenceToFactory" type="Area3D" parent="ground_zero_v2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.571441, 0, 0.066586)
 collision_layer = 0
 collision_mask = 8
@@ -2631,11 +2652,11 @@ EnterableAreaScene = &"res://scenes/levels/factory.tscn"
 InteractionTitle = "Enter Factory"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/EnterableAreaInteractable2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/EntrenceToFactory"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44037342, 0)
 shape = SubResource("BoxShape3D_v4tua")
 
-[node name="Title" parent="ground_zero_v2/EnterableAreaInteractable2" instance=ExtResource("22_v4tua")]
+[node name="Title" parent="ground_zero_v2/EntrenceToFactory" instance=ExtResource("22_v4tua")]
 transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.8748493, 0)
 
 [node name="SteamSection1" type="Node3D" parent="ground_zero_v2"]
@@ -3260,14 +3281,25 @@ light_color = Color(0.9982898, 1, 0.7718911, 1)
 shadow_enabled = true
 spot_range = 2.7314823
 
+[node name="PickupInteractable" type="Area3D" parent="ground_zero_v2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.515783, 10.9369755, -2.3180833e-06)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("41_p2ixb")
+IconTexture = ExtResource("42_jb0os")
+itemName = "Elevator Key Card"
+InteractionTitle = "Pickup Key Card"
+metadata/_custom_type_script = "uid://2am74t3x2kbk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/PickupInteractable"]
+shape = SubResource("BoxShape3D_gpjak")
+
+[node name="Title" parent="ground_zero_v2/PickupInteractable" instance=ExtResource("22_v4tua")]
+transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.7018175, 0)
+layers = 2
+
 [node name="Player" parent="." instance=ExtResource("21_jl4jv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.896599, 0.3404206, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("22_feopp")
-
-[node name="Drone" parent="." instance=ExtResource("43_na0nf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8666153, 0.7902503, 0.2227211)
-
-[node name="LaserMachine" parent="." instance=ExtResource("44_knpfv")]
-transform = Transform3D(-0.89275104, 0.4505503, 0, -0.4505503, -0.89275104, 0, 0, 0, 1, 19.792606, 0.64763045, 0.24899893)

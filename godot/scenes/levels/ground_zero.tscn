@@ -2615,7 +2615,6 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("21_0tej8")
 EnterableAreaScene = &"res://scenes/levels/spawn_building.tscn"
-ExitPosition = Vector3(10.365899, -0.94846725, 0)
 InteractionTitle = "Enter Building"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -2650,7 +2649,6 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("21_0tej8")
 EnterableAreaScene = &"res://scenes/levels/factory.tscn"
-ExitPosition = Vector3(-6.1592793, -0.002385527, 0)
 InteractionTitle = "Enter Factory"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 

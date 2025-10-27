@@ -542,7 +542,7 @@ public partial class Player : CharacterBody3D, ISavable {
                 Vector3 wallNormal = collision.GetNormal();
                 _velocity.X = (wallNormal * WallJumpHorizontalVelocity * UnitTransformer).X;
                 _velocity.Y = JumpVelocity * _jumpModifier * UnitTransformer;
-                _amountJumpFrames = FirstJumpFrames;
+                _amountJumpFrames = FirstJumpFrames/2;
                 TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
             }

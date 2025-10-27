@@ -948,6 +948,7 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("16_7cgo6")
 EnterableAreaScene = &"res://scenes/levels/ground_zero.tscn"
+ExitPosition = Vector3(-8.93115, 0.3677963, -0.0665853)
 InteractionTitle = "Exit"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -1222,3 +1223,7 @@ transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.7646898, 0)
 
 [node name="TextBox" parent="Winston" instance=ExtResource("28_5rx6v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8157041, 0.37722868)
+
+[node name="GroundZeroPlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.365899, -0.94846725, 0)
+gizmo_extents = 0.6

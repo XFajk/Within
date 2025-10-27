@@ -1210,6 +1210,7 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("14_gmod2")
 EnterableAreaScene = &"res://scenes/levels/ground_zero.tscn"
+ExitPosition = Vector3(5.631441, 0.3677963, -0.06658658)
 InteractionTitle = "Exit"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -1238,12 +1239,12 @@ transform = Transform3D(0.991139, 0, 0.22229728, 0, 1, 0, -0.22229728, 0, 0.9590
 [node name="ConstantSteam6" parent="factory_v2" instance=ExtResource("12_bfwgj")]
 transform = Transform3D(0.991139, 0, 0.22229728, 0, 1, 0, -0.22229728, 0, 0.9590824, -9.09582, -3.6568189, -0.6219389)
 
-[node name="Area3D" type="Area3D" parent="factory_v2"]
+[node name="CameraLimit" type="Area3D" parent="factory_v2"]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.8099993, 0, -6.8531075)
 collision_layer = 256
 collision_mask = 0
 
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="factory_v2/Area3D"]
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="factory_v2/CameraLimit"]
 depth = 7.545
 polygon = PackedVector2Array(3.835, -0.429, 3.835, 2.798, 7.914912, 2.7897778, 7.881946, -2.7147248, -5.018834, -2.7343454, -5.0025067, -0.41048014)
 
@@ -1361,3 +1362,7 @@ layers = 2
 
 [node name="TextBox" parent="JosephStalin" instance=ExtResource("28_8mqil")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8157041, 0.37722868)
+
+[node name="GroundZeroPlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1592793, -0.002385527, 0)
+gizmo_extents = 0.6

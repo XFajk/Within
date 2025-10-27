@@ -2615,6 +2615,7 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("21_0tej8")
 EnterableAreaScene = &"res://scenes/levels/spawn_building.tscn"
+ExitPosition = Vector3(10.365899, -0.94846725, 0)
 InteractionTitle = "Enter Building"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -2649,6 +2650,7 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("21_0tej8")
 EnterableAreaScene = &"res://scenes/levels/factory.tscn"
+ExitPosition = Vector3(-6.1592793, -0.002385527, 0)
 InteractionTitle = "Enter Factory"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -3299,7 +3301,15 @@ transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.7018175, 0)
 layers = 2
 
 [node name="Player" parent="." instance=ExtResource("21_jl4jv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.896599, 0.3404206, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.861187, 0.3404206, 0)
+
+[node name="FactoryExitPlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.631441, 0.3677963, -0.06658658)
+gizmo_extents = 0.55
+
+[node name="SpawnBuildingPlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8.93115, 0.3677963, -0.0665853)
+gizmo_extents = 0.6
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("22_feopp")

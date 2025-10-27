@@ -14,15 +14,17 @@ public partial class Global : Node {
     public Transform3D? PlayerLastSavedTransform = null;
     public bool PlayerHasTakenTransform = false;
 
-    public bool PlayerHasDashAbility = false;
-    public bool PlayerHasWallJumpAbility = false;
-    public bool PlayerHasDoubleJumpAbility = false;
+    public bool PlayerHasDashAbility = true;
+    public bool PlayerHasWallJumpAbility = true;
+    public bool PlayerHasDoubleJumpAbility = true;
 
     public Array<string> PlayerInventory = new Array<string>();
 
 
     public Vector3? MiniCheckPointSavedPosition = null;
     public Vector3? MiniCheckPointCameraSpawnPoint = null;
+
+    public Vector3? TransitionExitPosition = null;
 
     public int PlayerLastSavedHealth = 3;
     public bool RespawningInProgress = false;

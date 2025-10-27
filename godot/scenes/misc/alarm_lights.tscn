@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://jpg07nwqsgkg"]
+
+[sub_resource type="Animation" id="Animation_xa6ec"]
+resource_name = "run"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AlarmAnchor:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AlarmAnchor:rotation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3.142, -0.25, 0, 0.25, 0, 6.283, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1, 2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AlarmAnchor:rotation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_58q0p"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8cxre"]
+_data = {
+&"RESET": SubResource("Animation_58q0p"),
+&"run": SubResource("Animation_xa6ec")
+}
+
+[node name="AlarmLights" type="Node3D"]
+
+[node name="AlarmAnchor" type="Node3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="AlarmAnchor"]
+light_color = Color(1, 0, 0, 1)
+light_energy = 2.0
+shadow_enabled = true
+spot_range = 10.0
+spot_angle = 30.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="AlarmAnchor"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 2.0
+shadow_enabled = true
+spot_range = 10.0
+spot_angle = 30.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="AlarmAnchor"]
+light_color = Color(1, 0, 0, 1)
+omni_range = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8cxre")
+}
+autoplay = "run"

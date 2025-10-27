@@ -53,9 +53,9 @@ scale = Vector2(0.315, 0.315)
 [node name="PickedUpItem" type="TextureRect" parent="UserInterface"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 102.37
+offset_left = 86.21
 offset_top = 46.54
-offset_right = 130.37
+offset_right = 114.21002
 offset_bottom = 74.54
 texture = ExtResource("4_lgxpg")
 expand_mode = 1

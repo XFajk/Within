@@ -190,7 +190,13 @@ public partial class Player : CharacterBody3D, ISavable {
         _canWallJump = Global.Instance.PlayerHasWallJumpAbility;
         _canDash = Global.Instance.PlayerHasDashAbility;
         _canDoubleJump = Global.Instance.PlayerHasDoubleJumpAbility;
+
         _inventory = Global.Instance.PlayerInventory;
+
+        if (Global.Instance.TransitionExitPosition is Vector3 transitionPosition) {
+            CallDeferred(nameof(SetExitPosition), transitionPosition);
+            Global.Instance.TransitionExitPosition = null;
+        }
 
         AddChild(WakeUpTimer);
         WakeUpTimer.OneShot = true;
@@ -811,6 +817,22 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private bool WantsToJump() {
         return (Input.IsActionJustPressed("jump") || _jumpBufferFrames > 0);
+    }
+
+    public void SetExitPosition(Vector3 position) {
+        GlobalPosition = position;
+        _floorDetector.TargetPosition = new Vector3(0, -20, 0); // 20 units down
+        _floorDetector.CollisionMask = (1 << 0) | (1 << 4); // Layer 1 and 5 (0-based index)
+
+        // Force an immediate update of the raycast
+        _floorDetector.ForceRaycastUpdate();
+
+        // If we hit something, position the player above it with proper offset
+        if (_floorDetector.IsColliding()) {
+            Vector3 collisionPoint = _floorDetector.GetCollisionPoint();
+            // Add 0.3 units (half of the player's height) to position player properly
+            GlobalPosition = new Vector3(GlobalPosition.X, collisionPoint.Y + 0.3f, GlobalPosition.Z);
+        }
     }
 
     private void OnDamaged() {

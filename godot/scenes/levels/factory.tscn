@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=4 uid="uid://dps12qsrclx7m"]
+[gd_scene load_steps=109 format=4 uid="uid://dps12qsrclx7m"]
 
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_dec86"]
 [ext_resource type="Texture2D" uid="uid://bpydamrjqm5kp" path="res://assets/3d_models/factory/factory_v2_black_bricks.png" id="1_w0abr"]
@@ -29,6 +29,8 @@
 [ext_resource type="Script" uid="uid://cvga7nhg6e82n" path="res://src/interactables/DialogInteractable.cs" id="27_hiq7h"]
 [ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="28_8mqil"]
 [ext_resource type="JSON" path="res://assets/dialogs/factory/joseph/first_conversation.json" id="28_pnugb"]
+[ext_resource type="Script" uid="uid://b6tr1636xdryq" path="res://src/interactables/specific/FactoryShutoffValve.cs" id="30_cyp1q"]
+[ext_resource type="PackedScene" uid="uid://vcu3pcns5scd" path="res://assets/3d_models/misc/valve.glb" id="31_1su6w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dw8sw"]
 resource_name = "idk"
@@ -987,11 +989,14 @@ albedo_color = Color(0, 0.45546877, 0.03597443, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1su6w"]
 size = Vector3(1.7548828, 1.0158691, 1.390625)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_derrb"]
+size = Vector3(0.765625, 1.0158691, 1.390625)
+
 [node name="Factory" type="Node3D"]
 script = ExtResource("1_dec86")
 
 [node name="Player" parent="." instance=ExtResource("14_rbf27")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3322096, -0.26434088, 0.24075317)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.332, -0.264, 0)
 
 [node name="factory_v2" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.81, 1.4565871, -1.0883493)
@@ -1305,6 +1310,16 @@ shadow_enabled = true
 spot_range = 7.6252995
 spot_angle = 73.04227
 
+[node name="wall_light4" parent="factory_v2" instance=ExtResource("21_menmw")]
+transform = Transform3D(-4.371138e-08, 0, 1, 0, 1, 0, -1, 0, -4.371138e-08, -8.629844, 2.8628924, -1.097588)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="factory_v2/wall_light4"]
+transform = Transform3D(1, 2.470184e-08, 8.344156e-08, -4.6428354e-08, -0.6595427, 0.75166714, 7.360082e-08, -0.75166714, -0.6595427, -7.947277e-09, -0.0715915, 0.06281723)
+light_color = Color(1, 0.89505756, 0.5591286, 1)
+shadow_enabled = true
+spot_range = 7.6252995
+spot_angle = 73.04227
+
 [node name="halogen" parent="factory_v2" instance=ExtResource("22_vpo40")]
 transform = Transform3D(-0.09747879, 0, -0.9952376, 0, 1, 0, 0.9952376, 0, -0.09747879, -3.1892474, -2.1450453, 0.26767746)
 
@@ -1362,6 +1377,35 @@ layers = 2
 
 [node name="TextBox" parent="JosephStalin" instance=ExtResource("28_8mqil")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8157041, 0.37722868)
+
+[node name="ShutoffValve" type="Area3D" parent="." node_paths=PackedStringArray("PistonsToTurnOff", "SteamToTurnOff")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9773016, 3.7771347, -0.87010425)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("30_cyp1q")
+PistonsToTurnOff = [NodePath("../factory_v2/PistonHouding/Piston"), NodePath("../factory_v2/PistonHousing/Piston_001"), NodePath("../factory_v2/PistonHousing_001/Piston_002")]
+SteamToTurnOff = [NodePath("../factory_v2/PulsatingSteam"), NodePath("../factory_v2/PulsatingSteam2"), NodePath("../factory_v2/PulsatingSteam3"), NodePath("../factory_v2/PulsatingSteam4"), NodePath("../factory_v2/PulsatingSteam5")]
+InteractionTitle = "Turn Off Steam"
+metadata/_custom_type_script = "uid://cvga7nhg6e82n"
+
+[node name="MeshInstance" type="MeshInstance3D" parent="ShutoffValve"]
+mesh = SubResource("BoxMesh_pnugb")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_cyp1q")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="ShutoffValve"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.016776085, 0.00793457, 0.71769655)
+shape = SubResource("BoxShape3D_derrb")
+
+[node name="Title" parent="ShutoffValve" instance=ExtResource("15_bpebr")]
+transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.7646898, 0)
+layers = 2
+
+[node name="TextBox" parent="ShutoffValve" instance=ExtResource("28_8mqil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8157041, 0.37722868)
+
+[node name="ValveMesh" parent="ShutoffValve" instance=ExtResource("31_1su6w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41112512)
 
 [node name="GroundZeroPlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1592793, -0.002385527, 0)

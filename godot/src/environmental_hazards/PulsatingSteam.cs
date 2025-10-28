@@ -4,6 +4,9 @@ using System;
 public partial class PulsatingSteam : Node3D {
 
     [Export]
+    public bool Enabled = true;
+
+    [Export]
     public float StartDelay = 2.0f;
 
     [Export]
@@ -32,7 +35,10 @@ public partial class PulsatingSteam : Node3D {
                 // Turn off
                 _steamParticles.Emitting = false;
                 _steamArea.Position = new Vector3(0, 0, 1000f);
-                _switchTimer.Start(PeriodOff);
+                if (Enabled)
+                    _switchTimer.Start(PeriodOff);
+                else
+                    _switchTimer.Stop();
             } else {
                 // Turn on
                 _steamParticles.Emitting = true;
@@ -42,7 +48,13 @@ public partial class PulsatingSteam : Node3D {
             _isActive = !_isActive;
         };
         AddChild(_switchTimer);
-        _switchTimer.Start(StartDelay);
+
+        CallDeferred(nameof(StartTimer));
+    }
+
+    private void StartTimer() {
+        if (Enabled)
+            _switchTimer.Start(StartDelay);
     }
 
 }

@@ -2,6 +2,11 @@ using Godot;
 using System;
 
 public partial class Piston : Node3D {
+    private bool _enabled = true;
+
+    [Export]
+    public bool Enabled = true;
+
     [Export]
     public bool Broken = false;
 
@@ -29,10 +34,14 @@ public partial class Piston : Node3D {
 
         _switchTimer = new Timer();
         _switchTimer.Timeout += () => {
+
             if (_isActive) {
                 // Turn off
                 _killArea.Position = new Vector3(0, 0, 1000f);
-                _switchTimer.Start(CrushPeriod);
+                if (Enabled)
+                    _switchTimer.Start(CrushPeriod);
+                else
+                    _switchTimer.Stop();
 
                 Tween tween = GetTree().CreateTween();
                 tween.TweenProperty(this, "position", new Vector3(Position.X, -0.39f, Position.Z), CrushDuration);
@@ -55,7 +64,12 @@ public partial class Piston : Node3D {
             _isActive = !_isActive;
         };
         AddChild(_switchTimer);
-        _switchTimer.Start(StartDelay);
+        CallDeferred(nameof(StartTimer));
+    }
+
+    private void StartTimer() {
+        if (Enabled)
+            _switchTimer.Start(StartDelay);
     }
 
 }

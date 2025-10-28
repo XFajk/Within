@@ -121,17 +121,13 @@ public partial class Player : CharacterBody3D, ISavable {
     [Export]
     public float JumpVelocity = 130.0f;
 
-    [Export]
-    public int FirstJumpFrames = 20;
-
-    private int _amountJumpFrames = 20;
-
     private Vector3 _velocity = Vector3.Zero;
 
     private HorizontalDirection _horizontalDirection = HorizontalDirection.Right;
 
     private int _jumpBufferFrames = 0;
     private float _jumpTimeElapsed = 0.0f;
+    private float _currentJumpDuration = 0.333f;
     private float _jumpDuration = 0.333f; // 20 frames at 60fps
     private float _doubleJumpDuration = 0.167f; // 10 frames at 60fps
     private float _coyoteTimeElapsed = 0.0f;
@@ -425,13 +421,13 @@ public partial class Player : CharacterBody3D, ISavable {
             _jumpBufferFrames = 0;
             _jumpModifier = 1.0f;
             _jumpTimeElapsed = 0.0f;
-            _coyoteTimeElapsed = 0.0f;  // Start coyote time when leaving ground
             TransitionAnimationTo(PlayerState.Jumping);
             CurrentState = PlayerState.Jumping;
         } else if (!IsOnFloor()) {
             if (Input.IsActionJustPressed("jump")) {
                 _jumpBufferFrames = 6;
             }
+            _coyoteTimeElapsed = 0.0f;  // Start coyote time when leaving ground
             TransitionAnimationTo(PlayerState.Jumping);
             CurrentState = PlayerState.Falling;
         }
@@ -441,7 +437,8 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private void HandleJumpingState(double delta) {
         Move(delta);
-        _coyoteTimeElapsed = COYOTE_TIME_DURATION + 1000.0f;
+        _coyoteTimeElapsed = COYOTE_TIME_DURATION + 1000.0f; // Disable coyote time during jump
+
         if (IsOnFloor() || _jumpTimeElapsed < _jumpDuration) {
             _velocity.Y = JumpVelocity * _jumpModifier * UnitTransformer;
 
@@ -542,7 +539,7 @@ public partial class Player : CharacterBody3D, ISavable {
                 Vector3 wallNormal = collision.GetNormal();
                 _velocity.X = (wallNormal * WallJumpHorizontalVelocity * UnitTransformer).X;
                 _velocity.Y = JumpVelocity * _jumpModifier * UnitTransformer;
-                _amountJumpFrames = FirstJumpFrames/2;
+                _jumpTimeElapsed = 0.0f;
                 TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
             }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=199 format=4 uid="uid://bwxyq0jp71b54"]
+[gd_scene load_steps=200 format=4 uid="uid://bwxyq0jp71b54"]
 
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_ftwb3"]
 [ext_resource type="Texture2D" uid="uid://dxxe55jrke1w8" path="res://assets/3d_models/ground_zero/ground_zero_v2_elevator_frame.png" id="2_ysn8x"]
@@ -2097,6 +2097,9 @@ size = Vector3(1, 0.2208252, 0.24438477)
 [sub_resource type="BoxShape3D" id="BoxShape3D_j5nnc"]
 size = Vector3(0.51379395, 1, 1.6049805)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_47ivp"]
+size = Vector3(0.9529114, 1, 1.6049805)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_m5wqf"]
 size = Vector3(0.48425293, 1.1063232, 1.3204346)
 
@@ -2632,7 +2635,8 @@ collision_mask = 8
 script = ExtResource("32_jb0os")
 LockedTitle = "Locked Need A Keycard"
 KeyItemName = "Elevator Key Card"
-EnterableAreaScene = &"res://scenes/player_controller_testing.tscn"
+EnterableAreaScene = &"res://scenes/levels/boss_fight_room.tscn"
+ExitPosition = Vector3(2.097842, -2.245, 0)
 InteractionTitle = "Go Up"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -2649,6 +2653,7 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("21_0tej8")
 EnterableAreaScene = &"res://scenes/levels/factory.tscn"
+ExitPosition = Vector3(-6.332, -0.264, 0)
 InteractionTitle = "Enter Factory"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -3004,6 +3009,19 @@ transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 shape = SubResource("BoxShape3D_j5nnc")
 
 [node name="CameraPoint" type="Marker3D" parent="ground_zero_v2/MiniCheckPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.299)
+gizmo_extents = 0.56
+
+[node name="MiniCheckPoint2" type="Area3D" parent="ground_zero_v2"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -26.723743, 11.14452, 0.057436373)
+script = ExtResource("27_semkv")
+metadata/_custom_type_script = "uid://b6cnh7o45fys"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/MiniCheckPoint2"]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -0.18104553, -0.22799873, 0)
+shape = SubResource("BoxShape3D_47ivp")
+
+[node name="CameraPoint" type="Marker3D" parent="ground_zero_v2/MiniCheckPoint2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.299)
 gizmo_extents = 0.56
 

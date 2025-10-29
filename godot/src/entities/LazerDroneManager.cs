@@ -45,6 +45,9 @@ public partial class LazerDroneManager : Node3D {
         _activationArea.BodyEntered += OnActivationAreaBodyEntered;
 
         _deactivationArea = GetNode<Area3D>("DeactivationArea");
+        _deactivationArea.BodyExited += (Node3D _) => {
+            _isActive = false;
+        };
     }
 
     private void OnActivationAreaBodyEntered(Node3D body) {
@@ -53,25 +56,43 @@ public partial class LazerDroneManager : Node3D {
 
             var tween = GetTree().CreateTween();
             tween.TweenProperty(_doorHandle, "position", _doorHandle.Position + Vector3.Down * 0.61f, 0.3f);
+
+            for (int i = 0; i < 4; i++) {
+                DroneCycle(tween, i);
+            }
             tween.TweenCallback(Callable.From(() => {
-                var formation = _dronePositions[(int)GD.RandRange(0, _dronePositions.Count)];
-                int i = 0;
                 foreach (var drone in _lazerDrones) {
-                    drone.Goto(formation[i], 1.0f, 2.5f);
-                    i += 1;
+                    drone.ReturnToStart(0.5f, 1.0f);
                 }
-            }));
-            tween.TweenCallback(Callable.From(() => {
-                foreach (var idrone in _lazerDrones) {
-                    foreach (var jdrone in _lazerDrones) {
-                        if (idrone.ConnectToNotherDrone(jdrone)) {
-                            var laserInstance = _laserScene.Instantiate<Laser>();
-                            AddChild(laserInstance);
-                            laserInstance.ConnectTwoPoints(idrone.GlobalPosition, jdrone.GlobalPosition);
-                        }
-                    }
-                }
-            })).SetDelay(4.5f);
+            })).SetDelay(2.0f);
+            tween.TweenProperty(_doorHandle, "position", _doorHandle.Position + Vector3.Zero, 0.3f);
+
         }
     }
+
+    private void DroneCycle(Tween tween, int index) {
+        tween.TweenCallback(Callable.From(() => {
+            var formation = _dronePositions[(int)GD.RandRange(0, _dronePositions.Count - 1)];
+            int i = 0;
+            foreach (var drone in _lazerDrones) {
+                drone.Goto(formation[i], 0.5f, 1.0f);
+                drone.Connections.Clear();
+                i += 1;
+            }
+        })).SetDelay(index == 0 ? 0.01f : 1.0f);
+        tween.TweenCallback(Callable.From(() => {
+            foreach (var idrone in _lazerDrones) {
+                foreach (var jdrone in _lazerDrones) {
+                    if (idrone.ConnectToNotherDrone(jdrone)) {
+                        var laserInstance = _laserScene.Instantiate<Laser>();
+                        AddChild(laserInstance);
+                        laserInstance.ConnectTwoPoints(idrone.GlobalPosition, jdrone.GlobalPosition);
+                    }
+                }
+            }
+        })).SetDelay(2.0f);
+
+    }
 }
+
+

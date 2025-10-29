@@ -1569,6 +1569,20 @@ emission_enabled = true
 emission_energy_multiplier = 0.3
 emission_texture = ExtResource("29_ubvxb")
 
+[sub_resource type="Animation" id="Animation_hkcc5"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:surface_material_override/0:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="Animation" id="Animation_pmog5"]
 resource_name = "pulse"
 length = 2.0
@@ -1583,20 +1597,6 @@ tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0.3, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.3, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1, 2)
-}
-
-[sub_resource type="Animation" id="Animation_hkcc5"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:surface_material_override/0:emission_energy_multiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.3, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rtikm"]
@@ -2426,7 +2426,7 @@ points = PackedVector3Array(0.05982189, 0.3854745, 0.34188583, -0.059821896, 0.3
 size = Vector3(1, 3.182434, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pmog5"]
-size = Vector3(2.702774, 3.1928406, 1)
+size = Vector3(3.183, 3.193, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pmog5"]
 points = PackedVector3Array(0.05982189, 0.3854745, 0.34188583, -0.059821896, 0.3854745, 0.34188583, 0.05982189, -0.38554996, 0.34188583, 0.05982189, 0.3854745, -0.34188583, -0.059821896, 0.3854745, -0.34188583, -0.059821896, -0.38554996, 0.34188583, 0.05982189, -0.38554996, -0.34188583, -0.059821896, -0.38554996, -0.34188583)
@@ -3482,7 +3482,7 @@ surface_material_override/0 = ExtResource("39_rtikm")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.097842, -2.245, 0)
 
 [node name="LazerDroneManager" parent="." instance=ExtResource("42_f0u1s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.357567, 2.9261699, 0.07551178)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.349692, 2.9261699, 0.07551178)
 
 [node name="DangerDoor" type="MeshInstance3D" parent="LazerDroneManager/Doors" index="0"]
 transform = Transform3D(-0.71853113, 0, -1.02408265e-07, 0, 1, 0, 6.2815985e-08, 0, -1.171414, 1.7214336, -2.3902497, -0.1525679)
@@ -3511,33 +3511,6 @@ shape = SubResource("BoxShape3D_un1nv")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LazerDroneManager/DeactivationArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.102211, -1.7690277, 0)
 shape = SubResource("BoxShape3D_pmog5")
-
-[node name="Formation1" parent="LazerDroneManager/Formations" index="0"]
-visible = false
-
-[node name="Formation2" parent="LazerDroneManager/Formations" index="1"]
-visible = false
-
-[node name="Formation3" parent="LazerDroneManager/Formations" index="2"]
-visible = false
-
-[node name="Formation4" parent="LazerDroneManager/Formations" index="3"]
-visible = false
-
-[node name="Formation5" parent="LazerDroneManager/Formations" index="4"]
-visible = false
-
-[node name="Formation6" parent="LazerDroneManager/Formations" index="5"]
-visible = false
-
-[node name="Formation7" parent="LazerDroneManager/Formations" index="6"]
-visible = false
-
-[node name="Formation8" parent="LazerDroneManager/Formations" index="7"]
-visible = false
-
-[node name="Formation9" parent="LazerDroneManager/Formations" index="8"]
-visible = false
 
 [node name="LazerDroneManager2" parent="." instance=ExtResource("42_f0u1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.825687, 5.8323383, 0.07551178)

@@ -389,6 +389,7 @@ public partial class Player : CharacterBody3D, ISavable {
                 } else {
                     TransitionAnimationTo(PlayerState.Idle);
                     CurrentState = PlayerState.Idle;
+                    _velocity = Vector3.Zero;
                 }
                 break;
             case PlayerState.EnteringArea:

@@ -5,7 +5,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ebs7f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3217h"]
-size = Vector3(0.62, 1, 0.615)
+size = Vector3(0.80270505, 1, 0.4259668)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ebs7f"]
 size = Vector3(0.62, 1, 0.615)

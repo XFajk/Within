@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=4 uid="uid://cmo76gbynpwaa"]
+[gd_scene load_steps=95 format=4 uid="uid://cmo76gbynpwaa"]
 
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_6usqr"]
 [ext_resource type="Texture2D" uid="uid://ccrllmojcjc0x" path="res://assets/3d_models/spawn_building/spawn_level_v2_concrete_tile.png" id="1_uqtdq"]
@@ -30,7 +30,6 @@
 [ext_resource type="JSON" path="res://assets/dialogs/spawn building/elder kenstn/first_conversation.json" id="27_js6lf"]
 [ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="28_5rx6v"]
 [ext_resource type="JSON" path="res://assets/dialogs/spawn building/winston/first_conversation.json" id="30_5rx6v"]
-[ext_resource type="PackedScene" uid="uid://3ivrs2v17ixg" path="res://scenes/misc/cctv_camera.tscn" id="31_mp085"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uc4q7"]
 resource_name = "concrete_panels"
@@ -1228,6 +1227,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8157041, 0.37722868)
 [node name="GroundZeroPlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.365899, -0.94846725, 0)
 gizmo_extents = 0.6
-
-[node name="CctvCamera" parent="." instance=ExtResource("31_mp085")]
-transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, 0.05385387, 3.341703, -1.3439707)

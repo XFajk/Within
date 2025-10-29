@@ -1,4 +1,4 @@
-[gd_scene load_steps=214 format=4 uid="uid://ch7t51nqhx2op"]
+[gd_scene load_steps=222 format=4 uid="uid://ch7t51nqhx2op"]
 
 [ext_resource type="Texture2D" uid="uid://fdwslrqafuqm" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_concrete_tile_black.png" id="1_qs8ba"]
 [ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player/player.tscn" id="2_e7ocr"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://c8m6y360p7jkt" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_smooth_green_metal.png" id="23_r2ryn"]
 [ext_resource type="Texture2D" uid="uid://dwwcc3e1qfrc0" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_metal_sheeting.png" id="24_ud8ci"]
 [ext_resource type="Texture2D" uid="uid://bd1lljulhkcyp" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_curved_elevator_door.png" id="25_qm67e"]
+[ext_resource type="Script" uid="uid://v5eig4db7ods" path="res://src/entities/FinalBossServer.cs" id="26_6qq0y"]
 [ext_resource type="Texture2D" uid="uid://p8c43hse2bo1" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_danger_door.png" id="26_fy5es"]
 [ext_resource type="Texture2D" uid="uid://b5ykygipyjivc" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_server_panel1.png" id="27_qnlql"]
 [ext_resource type="Texture2D" uid="uid://bsk8lqnqumg0y" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_server_panel2.png" id="28_d4m5y"]
@@ -43,6 +44,10 @@
 [ext_resource type="Material" uid="uid://bwqggu4bfp4aj" path="res://assets/materials/laser_inactive.tres" id="39_rtikm"]
 [ext_resource type="PackedScene" uid="uid://by872wppxdbb3" path="res://scenes/VFX/laser_sparks.tscn" id="40_6qq0y"]
 [ext_resource type="PackedScene" uid="uid://ctk2dt1usviu2" path="res://scenes/entities/lazer_drone_manager.tscn" id="42_f0u1s"]
+[ext_resource type="Script" uid="uid://cvga7nhg6e82n" path="res://src/interactables/DialogInteractable.cs" id="44_rtikm"]
+[ext_resource type="JSON" path="res://assets/dialogs/factory/joseph/first_conversation.json" id="45_6qq0y"]
+[ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="46_pw1f1"]
+[ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="47_2b4m3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_in0ov"]
 resource_name = "idk"
@@ -1320,6 +1325,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qrd1c")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pw1f1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3217h"]
+size = Vector3(0.80270505, 1, 0.4259668)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqd3h"]
 resource_name = "black.001"
 cull_mode = 2
@@ -2449,6 +2459,9 @@ fog_depth_begin = 3.0
 fog_depth_end = 55.3
 volumetric_fog_albedo = Color(0.6429688, 0.6429688, 0.6429688, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_lclua"]
+size = Vector3(1.63, 1, 1)
+
 [node name="BossFightRoom" type="Node3D"]
 
 [node name="boss_fight_room_v1" type="Node3D" parent="."]
@@ -2574,167 +2587,188 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7614765, 3.8339312, 1.44175
 mesh = SubResource("ArrayMesh_lcth6")
 skeleton = NodePath("")
 
-[node name="Server" type="MeshInstance3D" parent="boss_fight_room_v1"]
+[node name="FinalBossServer" type="CharacterBody3D" parent="boss_fight_room_v1"]
 transform = Transform3D(0.0075956583, 0, 0.9999712, 0, 1, 0, -0.9999712, 0, 0.0075956583, 12.195165, 2.3263433, -0.016132899)
+script = ExtResource("26_6qq0y")
+HitMaterial = SubResource("StandardMaterial3D_pw1f1")
+Health = 30
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_fight_room_v1/FinalBossServer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19581543, 0, 0.01621151)
+shape = SubResource("BoxShape3D_3217h")
+debug_color = Color(1, 0.9882353, 0, 1)
+
+[node name="HitBox" type="Area3D" parent="boss_fight_room_v1/FinalBossServer"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_fight_room_v1/FinalBossServer/HitBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19581543, 0, 0.01621151)
+shape = SubResource("BoxShape3D_3217h")
+debug_color = Color(1, 0.9882353, 0, 1)
+
+[node name="Body" type="Node3D" parent="boss_fight_room_v1/FinalBossServer"]
+
+[node name="Server" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body"]
 mesh = SubResource("ArrayMesh_fd6lw")
 skeleton = NodePath("")
 
-[node name="ServerRack" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4448154, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_001" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_001" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40282345, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_002" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_002" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3591385, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_003" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_003" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31714654, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_004" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_004" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25450802, -0.0024897049)
 mesh = SubResource("ArrayMesh_7ky8b")
 skeleton = NodePath("")
 
-[node name="ServerRack_005" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_005" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1695404, -0.0024897049)
 mesh = SubResource("ArrayMesh_7ky8b")
 skeleton = NodePath("")
 
-[node name="ServerRack_006" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_006" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07152414, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_007" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_007" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.027839184, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_008" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_008" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.014152527, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_009" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_009" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06990194, -0.0024897049)
 mesh = SubResource("ArrayMesh_7ky8b")
 skeleton = NodePath("")
 
-[node name="ServerRack_010" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_010" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16003704, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_011" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_011" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.203722, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_012" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_012" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24571395, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_013" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_013" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28967285, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_014" type="MeshInstance3D" parent="boss_fight_room_v1/Server"]
+[node name="ServerRack_014" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.33166456, -0.0024897049)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="Server_001" type="MeshInstance3D" parent="boss_fight_room_v1"]
-transform = Transform3D(0.27344376, 0, 0.96188796, 0, 1, 0, -0.96188796, 0, 0.27344376, 12.161784, 2.3263433, 0.42458454)
+[node name="Server_001" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body"]
+transform = Transform3D(0.96393704, 0, -0.26612967, 0, 1, 0, 0.26612967, 0, 0.96393704, -0.44095823, 0, -0.030032158)
 mesh = SubResource("ArrayMesh_fd6lw")
 skeleton = NodePath("")
 
-[node name="ServerRack_015" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_015" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36818743, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_016" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_016" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32619548, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_017" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_017" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28251028, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_018" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_018" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15123773, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_019" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_019" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4534495, -0.0024895892)
 mesh = SubResource("ArrayMesh_7ky8b")
 skeleton = NodePath("")
 
-[node name="ServerRack_020" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_020" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23441696, -0.0024895892)
 mesh = SubResource("ArrayMesh_7ky8b")
 skeleton = NodePath("")
 
-[node name="ServerRack_021" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_021" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10442281, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_022" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_022" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06073761, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_023" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_023" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0187459, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_024" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_024" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.021449327, -0.0024895892)
 mesh = SubResource("ArrayMesh_7ky8b")
 skeleton = NodePath("")
 
-[node name="ServerRack_025" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_025" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.102455854, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_026" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_026" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14614081, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_027" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_027" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.26678038, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_028" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_028" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31073904, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_029" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_029" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.352731, -0.0024895892)
 mesh = SubResource("ArrayMesh_bj6cc")
 skeleton = NodePath("")
 
-[node name="ServerRack_030" type="MeshInstance3D" parent="boss_fight_room_v1/Server_001"]
+[node name="ServerRack_030" type="MeshInstance3D" parent="boss_fight_room_v1/FinalBossServer/Body/Server_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18436241, -0.0024895892)
 mesh = SubResource("ArrayMesh_7ky8b")
 skeleton = NodePath("")
@@ -3582,6 +3616,25 @@ transform = Transform3D(-1, 8.940697e-08, 0, -8.940697e-08, -1, 0, 0, 0, 1, 9.42
 
 [node name="AlarmLights9" parent="." instance=ExtResource("36_6s3fw")]
 transform = Transform3D(0.99906564, -0.043218337, -3.778267e-09, -0.043218337, -0.99906564, -8.734109e-08, 0, 8.742278e-08, -1, 2.2120314, 3.571478, -0.05182731)
+
+[node name="Computer" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7036321, -2.086, 0)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("44_rtikm")
+DialogData = Array[JSON]([ExtResource("45_6qq0y")])
+InteractionTitle = "Turn Off AI "
+metadata/_custom_type_script = "uid://cvga7nhg6e82n"
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Computer"]
+shape = SubResource("BoxShape3D_lclua")
+
+[node name="Title" parent="Computer" instance=ExtResource("46_pw1f1")]
+transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.7646898, -0.6564995)
+layers = 2
+
+[node name="TextBox" parent="Computer" instance=ExtResource("47_2b4m3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8157041, 0.37722868)
 
 [editable path="LazerDroneManager"]
 [editable path="LazerDroneManager2"]

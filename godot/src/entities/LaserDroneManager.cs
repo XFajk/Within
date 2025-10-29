@@ -8,10 +8,8 @@ public partial class LaserDroneManager : Node3D {
         get { return _enabled; }
         set {
             _enabled = value;
-            if (!_enabled) {
-                var tween = GetTree().CreateTween();
-                tween.TweenProperty(_doorHandle, "position", _doorHandle.Position + Vector3.Down * 0.61f, 0.3f);
-            } else {
+
+            if (_enabled) {
                 var tween = GetTree().CreateTween();
                 GD.Print("Enabling laser drones");
 

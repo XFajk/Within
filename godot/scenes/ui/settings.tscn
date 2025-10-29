@@ -44,7 +44,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scroll_vertical = 197
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -192,7 +191,7 @@ offset_top = 7.39
 offset_right = 71.5
 offset_bottom = 40.39
 grow_horizontal = 2
-text = "Window Settings"
+text = "Window/Gameplay Settings"
 label_settings = SubResource("LabelSettings_7pacj")
 
 [node name="OptionButton" type="OptionButton" parent="Panel/ScrollContainer/VBoxContainer/WindowSettings"]
@@ -202,9 +201,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -65.0
+offset_left = -157.92
 offset_top = -5.9749985
-offset_right = 65.0
+offset_right = -27.92009
 offset_bottom = 25.025055
 grow_horizontal = 2
 grow_vertical = 2
@@ -231,6 +230,20 @@ grow_horizontal = 2
 text = "Window Mode"
 label_settings = SubResource("LabelSettings_8wfqe")
 horizontal_alignment = 1
+
+[node name="ImpactFrame" type="CheckButton" parent="Panel/ScrollContainer/VBoxContainer/WindowSettings"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 205.315
+offset_top = -8.985001
+offset_right = 376.3152
+offset_bottom = 28.015
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_8wfqe")
+theme_override_font_sizes/font_size = 22
+text = "Impact frame"
 
 [node name="Back" type="Button" parent="Panel"]
 layout_mode = 1

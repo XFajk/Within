@@ -26,6 +26,8 @@ public partial class Settings : Control {
     private bool _vsyncEnabled;
     private int _fpsLimit;
     private WindowMode _windowMode;
+    private bool _impactFrameEnabled;
+
 
     private Button _backButton;
 
@@ -37,6 +39,7 @@ public partial class Settings : Control {
     private Label _fpsLimitLabel;
 
     private OptionButton _windowModeOptionButton;
+    private CheckButton _impactFrameCheckButton;
 
     private const string SETTINGS_FILE = "user://settings.cfg";
     private ConfigFile _config;
@@ -49,6 +52,7 @@ public partial class Settings : Control {
         _config.SetValue("graphics", "vsync", _vsyncEnabled);
         _config.SetValue("graphics", "fps_limit", _fpsLimit);
         _config.SetValue("window", "mode", (int)_windowMode);
+        _config.SetValue("gameplay", "impact_frame", _impactFrameEnabled);
 
         // Get the absolute path for debugging
         string absolutePath = ProjectSettings.GlobalizePath(SETTINGS_FILE);
@@ -76,6 +80,9 @@ public partial class Settings : Control {
 
             // Load window mode
             _windowMode = (WindowMode)(int)_config.GetValue("window", "mode", (int)WindowMode.Windowed);
+
+            // Load gameplay settings
+            _impactFrameEnabled = (bool)_config.GetValue("gameplay", "impact_frame", true);
         } else {
             // Set default values if file doesn't exist
             _soundFxVolume = 1.0f;
@@ -83,6 +90,7 @@ public partial class Settings : Control {
             _vsyncEnabled = true;
             _fpsLimit = 60;
             _windowMode = WindowMode.Windowed;
+            _impactFrameEnabled = true;
         }
     }
 
@@ -106,6 +114,8 @@ public partial class Settings : Control {
 
         _backButton.Pressed += OnBackButtonPressed;
 
+        _impactFrameCheckButton = GetNode<CheckButton>("Panel/ScrollContainer/VBoxContainer/WindowSettings/ImpactFrame");
+
         // Initialize settings values
         _soundFxSlider.Value = _soundFxVolume;
         _soundFxSlider.ValueChanged += (value) => {
@@ -127,6 +137,15 @@ public partial class Settings : Control {
             DisplayServer.WindowSetVsyncMode(_vsyncEnabled ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
             SaveSettings();
         };
+
+        _impactFrameCheckButton.ButtonPressed = _impactFrameEnabled;
+        Global.Instance.ImpactFrameEnabled = _impactFrameEnabled;
+        _impactFrameCheckButton.Toggled += (pressed) => {
+            _impactFrameEnabled = pressed;
+            Global.Instance.ImpactFrameEnabled = _impactFrameEnabled;   
+            SaveSettings();
+        };
+
         _fpsLimitSlider.Value = _fpsLimit;
         Engine.MaxFps = _fpsLimit;
         _fpsLimitSlider.ValueChanged += (value) => {

@@ -26,7 +26,7 @@ public partial class FinalBossComputer : DialogInteractable {
     private PackedScene _droneScene = GD.Load<PackedScene>("res://scenes/entities/drone.tscn");
 
     [Export]
-    public float DroneSpawnDelay = 3.0f;
+    public float DroneSpawnDelay = 5.0f;
 
     private Timer _droneSpawnTimer = new();
     private Array<Drone> _spawnedDrones = new();
@@ -46,11 +46,17 @@ public partial class FinalBossComputer : DialogInteractable {
     public override void _Process(double delta) {
         if (!_hasActivated) {
             foreach (var server in Servers) {
+                if (!IsInstanceValid(server)) {
+                    continue;
+                }
                 var hitBox = server.GetNode<Area3D>("HitBox");
                 hitBox.Monitoring = false;
             }
         } else {
             foreach (var server in Servers) {
+                if (!IsInstanceValid(server)) {
+                    continue;
+                }
                 var hitBox = server.GetNode<Area3D>("HitBox");
                 hitBox.Monitoring = true;
             }
@@ -137,7 +143,7 @@ public partial class FinalBossComputer : DialogInteractable {
 
 
     private void SpawnDrone() {
-        if (_spawnedDrones.Count < 2) {
+        if (_spawnedDrones.Count < 1) {
             var drone = _droneScene.Instantiate<Drone>();
             DroneSpawnPoint.AddChild(drone);
             drone.GlobalPosition = DroneSpawnPoint.GlobalPosition;

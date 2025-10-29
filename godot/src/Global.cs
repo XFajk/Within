@@ -33,6 +33,8 @@ public partial class Global : Node {
     public bool IsGamePaused = false;
     public bool IsInMainMenu = true;
 
+    public bool ImpactFrameEnabled = true;
+
     public void SaveProgressData() {
         var data = new Dictionary<string, Variant> { };
 

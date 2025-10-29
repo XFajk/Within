@@ -2445,7 +2445,7 @@ points = PackedVector3Array(0.05982189, 0.3854745, 0.34188583, -0.059821896, 0.3
 points = PackedVector3Array(0.05982189, 0.3854745, 0.34188583, -0.059821896, 0.3854745, 0.34188583, 0.05982189, -0.38554996, 0.34188583, 0.05982189, 0.3854745, -0.34188583, -0.059821896, 0.3854745, -0.34188583, -0.059821896, -0.38554996, 0.34188583, 0.05982189, -0.38554996, -0.34188583, -0.059821896, -0.38554996, -0.34188583)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rtikm"]
-size = Vector3(0.18939209, 1, 1)
+size = Vector3(0.4550476, 1, 1)
 
 [sub_resource type="Environment" id="Environment_q5a1h"]
 background_mode = 1
@@ -2958,7 +2958,7 @@ mesh = SubResource("ArrayMesh_2874y")
 skeleton = NodePath("")
 
 [node name="Platform" type="MeshInstance3D" parent="boss_fight_room_v1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.958207, 4.287326, 0.11822669)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.958207, 4.8097453, 0.11822669)
 mesh = SubResource("ArrayMesh_3odeg")
 skeleton = NodePath("")
 
@@ -2988,7 +2988,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_2vso8")
 
 [node name="Platform2_002" type="MeshInstance3D" parent="boss_fight_room_v1"]
-transform = Transform3D(0.89251244, 0, 0, 0, 0.89251244, 0, 0, 0, 0.89251244, -1.1983471, 2.9964156, 0.2748631)
+transform = Transform3D(0.89251244, 0, 0, 0, 0.89251244, 0, 0, 0, 0.89251244, -1.1983471, 2.6706076, 0.27486315)
 mesh = SubResource("ArrayMesh_but2d")
 skeleton = NodePath("")
 
@@ -3208,12 +3208,30 @@ collision_mask = 8192
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_rtikm")
 
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.665909, -0.08380288, -0.0990424)
+collision_layer = 16384
+collision_mask = 16384
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31136417, 0, 0)
+shape = SubResource("BoxShape3D_rtikm")
+
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.253586, 2.870797, -0.06048785)
 collision_layer = 8192
 collision_mask = 8192
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_rtikm")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.133069, 2.870797, -0.06048785)
+collision_layer = 16384
+collision_mask = 16384
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13282776, 0, 0)
 shape = SubResource("BoxShape3D_rtikm")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

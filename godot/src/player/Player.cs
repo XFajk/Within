@@ -1003,6 +1003,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private async void HitFrame(float duration) {
+        if (Global.Instance.ImpactFrameEnabled == false) return;
         PostProcessRect.Visible = false;
         GetTree().Paused = true;
         await ToSignal(GetTree().CreateTimer(duration, true, false, true), SceneTreeTimer.SignalName.Timeout);

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8iqlca7e3mm6"]
+
+[ext_resource type="Script" uid="uid://cns2lrqeyjtis" path="res://src/environmental_hazards/Laser.cs" id="1_37g6l"]
+[ext_resource type="Material" uid="uid://bwqggu4bfp4aj" path="res://assets/materials/laser_inactive.tres" id="1_kwpaa"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_37g6l"]
+length = 0.001
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_37g6l"]
+top_radius = 0.013
+bottom_radius = 0.013
+height = 0.001
+radial_segments = 4
+rings = 0
+cap_top = false
+cap_bottom = false
+
+[node name="Laser" type="Node3D"]
+script = ExtResource("1_37g6l")
+
+[node name="AttackBox" type="Area3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackBox"]
+shape = SubResource("SeparationRayShape3D_37g6l")
+
+[node name="LaserBeam" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_37g6l")
+surface_material_override/0 = ExtResource("1_kwpaa")

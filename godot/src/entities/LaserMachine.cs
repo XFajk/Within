@@ -88,6 +88,7 @@ public partial class LaserMachine : Node3D {
     }
 
     public override void _Process(double delta) {
+
         if (Global.Instance.IsGamePaused || Global.Instance.IsInMainMenu || _player == null) return;
 
         if (LockingTimer.IsStopped() && FiringTimer.IsStopped() && ActiveTimer.IsStopped()) {
@@ -96,13 +97,14 @@ public partial class LaserMachine : Node3D {
 
         if (!LockingTimer.IsStopped()) {
             LookAt(_player.GlobalPosition, Vector3.Up);
+            RotationDegrees = new Vector3(RotationDegrees.X, Mathf.Clamp(RotationDegrees.Y, -180.0f, 0), RotationDegrees.Z);
         }
 
         if (_laserRayCast.IsColliding()) {
             var collisionPoint = _laserRayCast.GetCollisionPoint();
             LaserLength = GlobalPosition.DistanceTo(collisionPoint);
         } else {
-            LaserLength = MaxLaserLength;
+            LaserLength = 0.01f;
         }
         
     }

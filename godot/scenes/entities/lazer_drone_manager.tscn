@@ -1,0 +1,175 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctk2dt1usviu2"]
+
+[ext_resource type="PackedScene" uid="uid://b3y5k0q3t8rs1" path="res://scenes/entities/lazer_drone.tscn" id="1_j5x5s"]
+[ext_resource type="Script" uid="uid://br3b4rlrk5x6e" path="res://src/entities/LazerDroneManager.cs" id="1_r8k2u"]
+
+[node name="LazerDroneManager" type="Node3D"]
+script = ExtResource("1_r8k2u")
+
+[node name="Drones" type="Node3D" parent="."]
+
+[node name="LazerDrone2" parent="Drones" instance=ExtResource("1_j5x5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32348582, 0, 0)
+
+[node name="LazerDrone" parent="Drones" instance=ExtResource("1_j5x5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10748172, 0, 0)
+
+[node name="LazerDrone3" parent="Drones" instance=ExtResource("1_j5x5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10801226, 0, 0)
+
+[node name="LazerDrone4" parent="Drones" instance=ExtResource("1_j5x5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30565038, 0, 0)
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="ActivationArea" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 64
+
+[node name="DeactivationArea" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 64
+
+[node name="Formations" type="Node3D" parent="."]
+
+[node name="Formation1" type="Node3D" parent="Formations"]
+
+[node name="Marker3D" type="Marker3D" parent="Formations/Formation1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.1054485, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3297212, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0080051, -1.58215, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1909113, -1.58215, 0)
+
+[node name="Formation2" type="Node3D" parent="Formations"]
+
+[node name="Marker3D" type="Marker3D" parent="Formations/Formation2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0157032, -0.6241996, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2615385, -0.6241996, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0157032, -3.0174935, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2615385, -3.0174935, 0)
+
+[node name="Formation3" type="Node3D" parent="Formations"]
+
+[node name="Marker3D" type="Marker3D" parent="Formations/Formation3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.4149194, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0524721, -3.0781217, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1461859, -3.0781217, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1461859, -0.43252277, 0)
+
+[node name="Formation4" type="Node3D" parent="Formations"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Marker3D" type="Marker3D" parent="Formations/Formation4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.4149194, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0524721, -3.0781217, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1461859, -3.0781217, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1461859, -0.43252277, 0)
+
+[node name="Formation5" type="Node3D" parent="Formations"]
+
+[node name="Marker3D" type="Marker3D" parent="Formations/Formation5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7357926, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0333614, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0452633, -3.0261526, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886673, -1.7357924, 0)
+
+[node name="Formation6" type="Node3D" parent="Formations"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Marker3D" type="Marker3D" parent="Formations/Formation6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7357926, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0333614, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0452633, -3.0261526, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886673, -1.7357924, 0)
+
+[node name="Formation7" type="Node3D" parent="Formations"]
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1101427, -0.52435637, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95258904, -3.076242, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1219072, -2.4510913, 0)
+
+[node name="Marker3D5" type="Marker3D" parent="Formations/Formation7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.97641563, -1.3077338, 0)
+
+[node name="Formation8" type="Node3D" parent="Formations"]
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.8814758, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95154953, -2.9339488, 0)
+
+[node name="Marker3D5" type="Marker3D" parent="Formations/Formation8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.83621216, -0.7929592, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.036042213, -2.955575, 0)
+
+[node name="Formation9" type="Node3D" parent="Formations"]
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8794651, -2.1336033, 0)
+
+[node name="Marker3D5" type="Marker3D" parent="Formations/Formation9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8794651, -1.4970306, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.956089, -3.0606499, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.956089, -0.6839254, 0)
+
+[node name="Formation10" type="Node3D" parent="Formations"]
+
+[node name="Marker3D" type="Marker3D" parent="Formations/Formation10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.48206496, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Formations/Formation10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8158016, -2.929471, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Formations/Formation10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8158045, -1.6686857, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="Formations/Formation10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.97648907, -2.9294705, 0)

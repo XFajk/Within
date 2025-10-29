@@ -35,7 +35,7 @@ public partial class Laser : Node3D {
         }
     }
 
-    public float TimeToActivate = 3.0f;
+    public float TimeToActivate = 1.0f;
     public float TimeActive = 0.5f;
 
     private Timer _activationTimer = new(); 
@@ -44,7 +44,7 @@ public partial class Laser : Node3D {
 
         AddChild(_activationTimer);
         _activationTimer.Timeout += ActivateLaser;
-        _activationTimer.Start(TimeActive);
+        _activationTimer.Start(TimeToActivate);
 
         _attackArea = GetNode<Area3D>("AttackBox");
         _attackShape = GetNode<CollisionShape3D>("AttackBox/CollisionShape3D");

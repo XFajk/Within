@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctk2dt1usviu2"]
 
 [ext_resource type="PackedScene" uid="uid://b3y5k0q3t8rs1" path="res://scenes/entities/lazer_drone.tscn" id="1_j5x5s"]
-[ext_resource type="Script" uid="uid://br3b4rlrk5x6e" path="res://src/entities/LazerDroneManager.cs" id="1_r8k2u"]
+[ext_resource type="Script" uid="uid://dspabre163ls4" path="res://src/entities/LaserDroneManager.cs" id="1_noccm"]
 
-[node name="LazerDroneManager" type="Node3D"]
-script = ExtResource("1_r8k2u")
+[node name="LaserDroneManager" type="Node3D"]
+script = ExtResource("1_noccm")
 
 [node name="Drones" type="Node3D" parent="."]
 

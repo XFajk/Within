@@ -2,8 +2,23 @@ using Godot;
 using Godot.Collections;
 using System;
 
-public partial class LazerDroneManager : Node3D {
+public partial class LaserDroneManager : Node3D {
+    private bool _enabled = false;
+    public bool Enabled {
+        get { return _enabled; }
+        set {
+            _enabled = value;
+            if (!_enabled) {
+                var tween = GetTree().CreateTween();
+                tween.TweenProperty(_doorHandle, "position", _doorHandle.Position + Vector3.Down * 0.61f, 0.3f);
+            } else {
+                var tween = GetTree().CreateTween();
+                GD.Print("Enabling laser drones");
 
+                tween.TweenProperty(_doorHandle, "position", Vector3.Zero, 0.3f);
+            }
+        }
+    }
     private bool _isActive = false;
 
     private PackedScene _laserScene = GD.Load<PackedScene>("res://scenes/environmental_hazards/laser.tscn");
@@ -40,6 +55,9 @@ public partial class LazerDroneManager : Node3D {
         }
 
         _doorHandle = GetNode<Node3D>("Doors");
+        if (!Enabled) {
+            _doorHandle.Position += Vector3.Down * 0.61f;
+        }
 
         _activationArea = GetNode<Area3D>("ActivationArea");
         _activationArea.BodyEntered += OnActivationAreaBodyEntered;
@@ -51,7 +69,7 @@ public partial class LazerDroneManager : Node3D {
     }
 
     private void OnActivationAreaBodyEntered(Node3D body) {
-        if (!_isActive && body is Player player) {
+        if (!_isActive && Enabled && body is Player player) {
             _isActive = true;
 
             var tween = GetTree().CreateTween();
@@ -64,8 +82,8 @@ public partial class LazerDroneManager : Node3D {
                 foreach (var drone in _lazerDrones) {
                     drone.ReturnToStart(0.5f, 1.0f);
                 }
-            })).SetDelay(2.0f);
-            tween.TweenProperty(_doorHandle, "position", _doorHandle.Position + Vector3.Zero, 0.3f);
+            })).SetDelay(2.5f);
+            tween.TweenProperty(_doorHandle, "position", Vector3.Zero, 0.3f);
 
         }
     }
@@ -79,7 +97,7 @@ public partial class LazerDroneManager : Node3D {
                 drone.Connections.Clear();
                 i += 1;
             }
-        })).SetDelay(index == 0 ? 0.01f : 1.0f);
+        })).SetDelay(index == 0 ? 0.01f : 2.0f);
         tween.TweenCallback(Callable.From(() => {
             foreach (var idrone in _lazerDrones) {
                 foreach (var jdrone in _lazerDrones) {

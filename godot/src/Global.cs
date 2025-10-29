@@ -14,9 +14,9 @@ public partial class Global : Node {
     public Transform3D? PlayerLastSavedTransform = null;
     public bool PlayerHasTakenTransform = false;
 
-    public bool PlayerHasDashAbility = true;
-    public bool PlayerHasWallJumpAbility = true;
-    public bool PlayerHasDoubleJumpAbility = true;
+    public bool PlayerHasDashAbility = false;
+    public bool PlayerHasWallJumpAbility = false;
+    public bool PlayerHasDoubleJumpAbility = false;
 
     public Array<string> PlayerInventory = new Array<string>();
 

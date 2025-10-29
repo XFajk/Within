@@ -17,6 +17,9 @@ public partial class LaserMachine : Node3D {
     private StandardMaterial3D _laserInactiveMaterial = GD.Load<StandardMaterial3D>("res://assets/materials/laser_inactive.tres");
 
     [Export]
+    public bool Enabled = false;
+
+    [Export]
     public float MaxLaserLength = 25f;
     private float _laserLength = 0f;
     public float LaserLength {
@@ -91,8 +94,21 @@ public partial class LaserMachine : Node3D {
 
         if (Global.Instance.IsGamePaused || Global.Instance.IsInMainMenu || _player == null) return;
 
-        if (LockingTimer.IsStopped() && FiringTimer.IsStopped() && ActiveTimer.IsStopped()) {
+        if (LockingTimer.IsStopped() && FiringTimer.IsStopped() && ActiveTimer.IsStopped() && Enabled) {
             LockingTimer.Start();
+            _laserRayCast.Enabled = true;
+            _sparks.Visible = true;
+        }
+        if (!Enabled) {
+            LockingTimer.Stop();
+            FiringTimer.Stop();
+            ActiveTimer.Stop();
+            _laserBeam.SetSurfaceOverrideMaterial(0, _laserInactiveMaterial);
+            _laserAttackArea.GlobalPosition = new Vector3(0f, 0f, 1000f);
+            _laserRayCast.Enabled = false;
+            _sparks.Visible = false;
+            LaserLength = 0.01f;
+            return;
         }
 
         if (!LockingTimer.IsStopped()) {

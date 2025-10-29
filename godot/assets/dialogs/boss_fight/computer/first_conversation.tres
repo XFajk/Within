@@ -1,0 +1,24 @@
+[gd_resource type="JSON" format=3 uid="uid://dsmtnf2rum88x"]
+
+[resource]
+data = [{
+"speaker": 0.0,
+"text": "Where is the button that calls the Elevator",
+"typing_speed": 0.1
+}, {
+"speaker": 1.0,
+"text": "[AUTHENTICATING]",
+"typing_speed": 0.1
+}, {
+"speaker": 1.0,
+"text": "[AUTHENTICATING]",
+"typing_speed": 0.1
+}, {
+"speaker": 1.0,
+"text": "[THREAT DETECTED]",
+"typing_speed": 0.1
+}, {
+"speaker": 1.0,
+"text": "[SETTING UP SECURITY MESURE]",
+"typing_speed": 0.1
+}]

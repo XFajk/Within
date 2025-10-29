@@ -182,24 +182,27 @@ skeleton = NodePath("")
 
 [node name="AlarmAnchor" type="Node3D" parent="."]
 
-[node name="SpotLight3D" type="SpotLight3D" parent="AlarmAnchor"]
+[node name="RightLight" type="SpotLight3D" parent="AlarmAnchor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.07555215)
+visible = false
 light_color = Color(1, 0, 0, 1)
 light_energy = 2.0
 shadow_enabled = true
 spot_range = 10.0
 spot_angle = 30.0
 
-[node name="SpotLight3D2" type="SpotLight3D" parent="AlarmAnchor"]
+[node name="LeftLight" type="SpotLight3D" parent="AlarmAnchor"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0.073354766)
+visible = false
 light_color = Color(1, 0, 0, 1)
 light_energy = 2.0
 shadow_enabled = true
 spot_range = 10.0
 spot_angle = 30.0
 
-[node name="OmniLight3D" type="OmniLight3D" parent="AlarmAnchor"]
+[node name="MiddleLight" type="OmniLight3D" parent="AlarmAnchor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.038447402, 0)
+visible = false
 light_color = Color(1, 0, 0, 1)
 omni_range = 0.5
 
@@ -212,4 +215,3 @@ skeleton = NodePath("")
 libraries = {
 &"": SubResource("AnimationLibrary_8cxre")
 }
-autoplay = "run"

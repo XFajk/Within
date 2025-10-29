@@ -317,7 +317,8 @@ public partial class Player : CharacterBody3D, ISavable {
         || CurrentState == PlayerState.Death
         || CurrentState == PlayerState.MiniDeath
         || CurrentState == PlayerState.Sleeping
-        || CurrentState == PlayerState.WakingUp) {
+        || CurrentState == PlayerState.WakingUp
+        || CurrentState == PlayerState.Crazy) {
             return;
         }
         if (Input.IsActionPressed("move_left") && Input.IsActionPressed("move_right")) {
@@ -389,6 +390,19 @@ public partial class Player : CharacterBody3D, ISavable {
                 } else {
                     TransitionAnimationTo(PlayerState.Idle);
                     CurrentState = PlayerState.Idle;
+                    _velocity = Vector3.Zero;
+                }
+                break;
+            case PlayerState.Crazy:
+                yVelocity = _velocity.Y;
+                _velocity = _velocity.MoveToward(Vector3.Zero, MovementSpeed / 4 * UnitTransformer);
+                _velocity.Y = yVelocity;
+                if (!IsOnFloor()) {
+                    _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * UnitTransformer, Gravity * UnitTransformer);
+                } else {
+                    TransitionAnimationTo(PlayerState.Crazy);
+                    if (PostProcessRect.Visible == false) 
+                        HandleCrazyStateGrounded();
                     _velocity = Vector3.Zero;
                 }
                 break;
@@ -558,6 +572,42 @@ public partial class Player : CharacterBody3D, ISavable {
         if (_dashDurationTimer.IsStopped()) {
             FigureOutStateAfterAnimationState();
         }
+    }
+
+    private void HandleCrazyStateGrounded() {
+        if (_transitionTween != null) {
+            _transitionTween.Kill();
+        }
+        _transitionTween = GetTree().CreateTween();
+
+        PostProcessRect.Visible = true;
+        PostProcessRect.Material = HitMaterial;
+
+        var noiseTexture = (NoiseTexture2D)HitMaterial.GetShaderParameter("noise_texture");
+        noiseTexture.Noise.Set("seed", GD.Randi());
+
+        HitMaterial.SetShaderParameter("progress", 0.0f);
+        HitMaterial.SetShaderParameter("smooth_amount", 0.15f);
+        GD.Print("Starting crazy state transition animation.");
+
+        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 0.9f, 2.0f);
+
+        for (int i = 0; i < 3; i++) {
+            _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 0.8f, 1.0f);
+            _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 0.9f, 1.0f);
+        }
+        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 1.0f, 1.0f);
+        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/smooth_amount", 0.0f, 1.0f);
+        _transitionTween.TweenCallback(Callable.From(() => {
+            // TODO: SHOW tutorial dialog for crazy state ending
+            TransitionAnimationTo(PlayerState.Idle);
+            CurrentState = PlayerState.Idle;
+        })).SetDelay(1.0f);
+        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 0.0f, 0.5f);
+        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/smooth_amount", 0.3f, 0.5f);
+        _transitionTween.TweenCallback(Callable.From(() => {
+            PostProcessRect.Visible = false;
+        }));
     }
 
     private void HandleEnteringAreaState(double delta) {
@@ -854,6 +904,33 @@ public partial class Player : CharacterBody3D, ISavable {
         _healthBar.MakeInvincible(2.0f);
 
         HitFrame(0.2f);
+    }
+
+    public void UnlockAbility(AbilityUnlocker.Ability ability) {
+        switch (ability) {
+            case AbilityUnlocker.Ability.Dash:
+                _canDash = true;
+                Global.Instance.PlayerHasDashAbility = true;
+                break;
+            case AbilityUnlocker.Ability.WallJump:
+                _canWallJump = true;
+                Global.Instance.PlayerHasWallJumpAbility = true;
+                break;
+            case AbilityUnlocker.Ability.DoubleJump:
+                _canDoubleJump = true;
+                Global.Instance.PlayerHasDoubleJumpAbility = true;
+                break;
+            case AbilityUnlocker.Ability.All:
+                _canDash = true;
+                _canWallJump = true;
+                _canDoubleJump = true;
+                Global.Instance.PlayerHasDashAbility = true;
+                Global.Instance.PlayerHasWallJumpAbility = true;
+                Global.Instance.PlayerHasDoubleJumpAbility = true;
+                break;
+        }
+        TransitionAnimationTo(PlayerState.Crazy);
+        CurrentState = PlayerState.Crazy;
     }
 
     private void UpdateAnimationTree() {

@@ -3,6 +3,10 @@ using Godot.Collections;
 
 [GlobalClass]
 public partial class DialogInteractable : Interactable {
+    [Signal]
+    public delegate void DialogEndedEventHandler();
+
+
     [Export]
     public Array<Json> DialogData;
 
@@ -64,6 +68,7 @@ public partial class DialogInteractable : Interactable {
 
                     if (_currentSectionIndex >= ((Array)DialogData[CurrentDialogIndex].Data).Count) {
                         // End of dialog
+                        EmitSignalDialogEnded();
                         _isDialogActive = false;
                         _interactionTitleLabel.Visible = true;
                         _player.CurrentState = Player.PlayerState.Idle;

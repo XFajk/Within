@@ -3155,6 +3155,15 @@ light_color = Color(0.9982898, 1, 0.7718911, 1)
 shadow_enabled = true
 spot_range = 2.7314823
 
+[node name="street_lamp3" parent="ground_zero_v2" instance=ExtResource("39_7spgn")]
+transform = Transform3D(-4.3199748e-08, -0.040271297, 0.99918884, 1.3482397e-08, 0.99918884, 0.040271297, -1, 1.5211171e-08, -4.2621764e-08, -12.448152, -0.109081686, 0.5189209)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ground_zero_v2/street_lamp3"]
+transform = Transform3D(0.988959, 0, -0.14818916, 0.14818916, -4.371139e-08, 0.988959, -6.4775536e-09, -1, -4.322877e-08, 0.63497245, 1.6148719, -3.6770227e-09)
+light_color = Color(0.9982898, 1, 0.7718911, 1)
+shadow_enabled = true
+spot_range = 2.7314823
+
 [node name="street_lamp7" parent="ground_zero_v2" instance=ExtResource("39_7spgn")]
 transform = Transform3D(-4.3893706e-08, 0, 1, 0, 1, 0, -1, 0, -4.3893706e-08, -0.22185493, -0.04950714, 0.5189208)
 
@@ -3263,17 +3272,8 @@ light_color = Color(0.9982898, 1, 0.7718911, 1)
 shadow_enabled = true
 spot_range = 2.7314823
 
-[node name="street_lamp6" parent="ground_zero_v2" instance=ExtResource("39_7spgn")]
-transform = Transform3D(-4.3893706e-08, 0.021640394, 0.9997658, 0, 0.9997658, -0.021640394, -1, -9.498772e-10, -4.388343e-08, -3.1610727, -0.04950714, 0.5189209)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="ground_zero_v2/street_lamp6"]
-transform = Transform3D(0.988959, 0, -0.14818916, 0.14818916, -4.371139e-08, 0.988959, -6.4775536e-09, -1, -4.322877e-08, 0.63497245, 1.6148719, -3.6770227e-09)
-light_color = Color(0.9982898, 1, 0.7718911, 1)
-shadow_enabled = true
-spot_range = 2.7314823
-
 [node name="SaveInteractable" type="Area3D" parent="ground_zero_v2"]
-transform = Transform3D(-0.9999006, 0, 0.014101904, 0, 1, 0, -0.014101904, 0, -0.9999006, -12.549286, 0.40486294, 0.56875545)
+transform = Transform3D(-0.9999006, 0, 0.014101904, 0, 1, 0, -0.014101904, 0, -0.9999006, -3.0865486, 0.40486294, 0.56875646)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("31_uhtlq")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dtoaqlnkvjys4"]
+[gd_scene load_steps=24 format=4 uid="uid://dtoaqlnkvjys4"]
 
 [ext_resource type="Script" uid="uid://dpnd73hp53q41" path="res://src/entities/Drone.cs" id="1_gs6nb"]
 [ext_resource type="Shader" uid="uid://dnn2q6fdrkjgd" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="2_0tq5o"]
@@ -167,6 +167,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_abw6x")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_in55t"]
+size = Vector3(0.25852203, 0.06896114, 0.26431274)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_e56ng"]
 radius = 0.132
 
@@ -214,7 +217,7 @@ mesh = SubResource("ArrayMesh_51a8b")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_e56ng")
+shape = SubResource("BoxShape3D_in55t")
 debug_color = Color(0, 1, 0.85740733, 1)
 
 [node name="HitBox" type="Area3D" parent="."]
@@ -230,7 +233,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackBox"]
-shape = SubResource("SphereShape3D_e56ng")
+shape = SubResource("BoxShape3D_in55t")
 debug_color = Color(0, 1, 0.85740733, 1)
 
 [node name="GPUTrail3D" type="GPUParticles3D" parent="."]

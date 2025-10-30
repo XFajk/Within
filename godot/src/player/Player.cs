@@ -125,7 +125,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private HorizontalDirection _horizontalDirection = HorizontalDirection.Right;
 
-    private int _jumpBufferFrames = 0;
+    private float _jumpBufferFrames = 0;
     private float _jumpTimeElapsed = 0.0f;
     private float _currentJumpDuration = 0.333f;
     private float _jumpDuration = 0.333f; // 20 frames at 60fps
@@ -440,7 +440,7 @@ public partial class Player : CharacterBody3D, ISavable {
             CurrentState = PlayerState.Jumping;
         } else if (!IsOnFloor()) {
             if (Input.IsActionJustPressed("jump")) {
-                _jumpBufferFrames = 6;
+                _jumpBufferFrames = 6.0f*UnitTransformer;
             }
             _coyoteTimeElapsed = 0.0f;  // Start coyote time when leaving ground
             TransitionAnimationTo(PlayerState.Jumping);
@@ -522,7 +522,7 @@ public partial class Player : CharacterBody3D, ISavable {
                 TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
             } else if (Input.IsActionJustPressed("jump")) {
-                _jumpBufferFrames = 6;
+                _jumpBufferFrames = 6.0f*UnitTransformer;
             }
         }
         CheckAttack();
@@ -855,7 +855,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private void ProcessJumpBuffer() {
         if (_jumpBufferFrames > 0) {
-            _jumpBufferFrames--;
+            _jumpBufferFrames -= (float)GetPhysicsProcessDeltaTime();
         }
     }
 

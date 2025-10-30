@@ -1251,7 +1251,7 @@ collision_mask = 0
 
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="factory_v2/CameraLimit"]
 depth = 7.545
-polygon = PackedVector2Array(3.835, -0.429, 3.835, 2.798, 7.914912, 2.7897778, 7.881946, -2.7147248, -5.018834, -2.7343454, -5.0025067, -0.41048014)
+polygon = PackedVector2Array(3.835, -0.41, 3.835, 2.798, 7.914912, 2.7897778, 7.881946, -2.7147248, -5.018834, -2.7343454, -5.019, -0.41)
 
 [node name="PulsatingSteam" parent="factory_v2" instance=ExtResource("16_jy0sh")]
 transform = Transform3D(-0.011889808, -0.14483598, -0.98938423, 0.9966474, -0.08181661, 4.356484e-08, -0.08094808, -0.98606724, 0.14532319, -5.189191, -1.6567879, 1.4091846)

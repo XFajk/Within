@@ -38,6 +38,15 @@ project/assembly_name="Within"
 
 enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "purple",
+"res://assets/": "teal",
+"res://scenes/": "yellow",
+"res://src/": "red"
+}
+
 [global_group]
 
 Interactable="Things that the player can interact with"

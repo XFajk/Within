@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://ystejvx65e6e"]
+
+[ext_resource type="Script" uid="uid://vnm2pqyc7hmc" path="res://src/ui/AbilityTutorial.cs" id="1_kgwfe"]
+[ext_resource type="FontFile" uid="uid://nlvl0qhy4rw5" path="res://assets/fonts/Poesing.otf" id="2_kgwfe"]
+[ext_resource type="Texture2D" uid="uid://dvge5p0co561b" path="res://assets/sprites/dash_graphic.png" id="2_nt7lk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nt7lk"]
+font = ExtResource("2_kgwfe")
+font_size = 18
+
+[node name="AbilityText" type="Control"]
+z_index = 1000
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kgwfe")
+
+[node name="AbilityImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+grow_horizontal = 2
+texture = ExtResource("2_nt7lk")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -29.410004
+offset_right = 224.0
+offset_bottom = -2.409912
+grow_horizontal = 2
+grow_vertical = 0
+text = "Use The [Z] Button while On a Wall to Jump of it"
+label_settings = SubResource("LabelSettings_nt7lk")
+horizontal_alignment = 1

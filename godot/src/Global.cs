@@ -14,9 +14,9 @@ public partial class Global : Node {
     public Transform3D? PlayerLastSavedTransform = null;
     public bool PlayerHasTakenTransform = false;
 
-    public bool PlayerHasDashAbility = true;
-    public bool PlayerHasWallJumpAbility = true;
-    public bool PlayerHasDoubleJumpAbility = true;
+    public bool PlayerHasDashAbility = false;
+    public bool PlayerHasWallJumpAbility = false;
+    public bool PlayerHasDoubleJumpAbility = false;
 
     public Array<string> PlayerInventory = new Array<string>();
 
@@ -33,7 +33,7 @@ public partial class Global : Node {
     public bool IsGamePaused = false;
     public bool IsInMainMenu = true;
 
-    public bool ImpactFrameEnabled = true;
+    public bool ImpactFrameEnabled = true; 
 
     public void SaveProgressData() {
         var data = new Dictionary<string, Variant> { };
@@ -88,6 +88,7 @@ public partial class Global : Node {
             }
             if (loadedData.ContainsKey("player_inventory")) {
                 PlayerInventory = (Array<string>)loadedData["player_inventory"];
+                GD.Print("Loaded player inventory with " + PlayerInventory + " items.");
             }
         } else {
             SaveSystem.Instance.ResetGame();

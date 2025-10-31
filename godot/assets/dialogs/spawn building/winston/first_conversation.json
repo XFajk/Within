@@ -1,62 +1,62 @@
 [
 	{
 		"speaker": 0,
-		"text": "Hello Winston",
+		"text": "Hello, Winston.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "What do you want you stupid Thief!",
+		"text": "What do you want, you stupid thief!",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 0,
-		"text": "I am telling you I didnt steal your food.",
+		"text": "I’m telling you, I didn’t steal your food.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "Yeah, tell that to some other BOZO.",
+		"text": "Yeah, tell that to some other fool.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "I know you are the one who did it.",
+		"text": "I know it was you.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "But anyway, what do you want.",
+		"text": "Anyway, what do you want?",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 0,
-		"text": "I wanted to ask you if you know some place, where I would able to get some medicine for the elder.",
+		"text": "I wanted to ask if you know any place where I could get medicine for the elder.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "Why waste such valuables on a old geezer like him, When you could give it to me.",
+		"text": "Why waste something that valuable on an old geezer like him when you could give it to me?",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "I would even pardon you theft.",
+		"text": "I might even pardon your theft.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 0,
-		"text": "I didn't steal it!",
+		"text": "I didn’t steal it!",
 		"typing_speed": 0.02
 	},
 	{
 		"speaker": 1,
-		"text": "It dosen't matter anyway because I dont know any place where you would be able to get the medine.",
+		"text": "Doesn’t matter anyway. I don’t know anywhere you could get medicine.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "Except the TOP of course, but we bouth know none of us have that kind of money.",
+		"text": "Except up TOP, of course — but we both know neither of us has that kind of money.",
 		"typing_speed": 0.1
-	},
+	}
 ]

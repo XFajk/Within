@@ -1,4 +1,4 @@
-[gd_scene load_steps=233 format=4 uid="uid://ch7t51nqhx2op"]
+[gd_scene load_steps=231 format=4 uid="uid://ch7t51nqhx2op"]
 
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_qocv2"]
 [ext_resource type="Texture2D" uid="uid://fdwslrqafuqm" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_concrete_tile_black.png" id="1_qs8ba"]
@@ -52,7 +52,6 @@
 [ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="47_2b4m3"]
 [ext_resource type="PackedScene" uid="uid://c888mhcqkvcic" path="res://assets/3d_models/light_sources/wall_light2.glb" id="47_lclua"]
 [ext_resource type="JSON" uid="uid://dsmtnf2rum88x" path="res://assets/dialogs/boss_fight/computer/first_conversation.tres" id="49_lclua"]
-[ext_resource type="Script" uid="uid://b48i33gg6km8x" path="res://src/misc/AbilityUnlocker.cs" id="52_ebnxn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_in0ov"]
 resource_name = "idk"
@@ -2586,8 +2585,6 @@ shadow_mesh = SubResource("ArrayMesh_n37ht")
 [sub_resource type="BoxShape3D" id="BoxShape3D_lclua"]
 size = Vector3(1.63, 1, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ebnxn"]
-
 [node name="BossFightRoom" type="Node3D"]
 script = ExtResource("1_qocv2")
 
@@ -3363,17 +3360,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7646898, -0.6564995)
 
 [node name="DroneSpawnPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8488503, 4.1450033, 0)
-
-[node name="AbilityUnlocker" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8359237, -2.0097232, 0.06508779)
-collision_layer = 0
-collision_mask = 64
-script = ExtResource("52_ebnxn")
-AbilityToUnlock = 3
-metadata/_custom_type_script = "uid://b48i33gg6km8x"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AbilityUnlocker"]
-shape = SubResource("BoxShape3D_ebnxn")
 
 [editable path="LazerDroneManager"]
 [editable path="LazerDroneManager2"]

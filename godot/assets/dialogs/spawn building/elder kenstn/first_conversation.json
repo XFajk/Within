@@ -1,52 +1,52 @@
 [
 	{
 		"speaker": 0,
-		"text": "Hello Elder Kenstn",
+		"text": "Hello, Elder Kenstn.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "Hello Child, you have finally woken up.",
+		"text": "Hello, child. You’re finally awake.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "I was scared that you might have died in your sleep.",
+		"text": "I was starting to worry you wouldn’t wake up at all.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "But you look more ready then ever to go to the factory again.",
+		"text": "But you look stronger than ever—ready to head back to the factory.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 0,
-		"text": "Yes I do feel alot better then before.",
+		"text": "Yes, I feel much better than before.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 0,
-		"text": "I dint expect to get over that feaver so quickly.",
+		"text": "I didn’t expect to recover from that fever so quickly.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "Well that great.",
+		"text": "That’s good to hear.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "I also feel sick, but I dont have the money for the medicine from up TOP",
+		"text": "I’ve been feeling sick myself, but I don’t have the money for medicine from up TOP.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "I dont think my week old body can take this for long.",
+		"text": "I don’t think this old body of mine can take much more of it.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "Only God knows if we will see each other when you return.",
+		"text": "Only God knows if we’ll see each other again when you return.",
 		"typing_speed": 0.1
-	},
+	}
 ]

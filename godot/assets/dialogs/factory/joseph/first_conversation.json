@@ -1,27 +1,27 @@
 [
 	{
 		"speaker": 0,
-		"text": "Hello Sir. What should do today",
+		"text": "Hello, sir. What should I do today?",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "Hi Sal, I have a special request for you, that I can only entrust to you.",
+		"text": "Sal, I have a task for you something I wouldn’t normally trust to someone from your floor.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "I need you to pick up medice from the floor ABOVE.",
+		"text": "You’ll go to the floor ABOVE and collect a package of medicine.",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "If you are scared about the security.",
+		"text": "If security gives you trouble,",
 		"typing_speed": 0.1
 	},
 	{
 		"speaker": 1,
-		"text": "Tell them I'v sent you.",
+		"text": "tell them you’re there on my orders. That should be enough.",
 		"typing_speed": 0.1
-	},
+	}
 ]

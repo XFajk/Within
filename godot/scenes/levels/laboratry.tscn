@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://d02dp5aoct87f"]
+[gd_scene load_steps=75 format=4 uid="uid://d02dp5aoct87f"]
 
 [ext_resource type="Texture2D" uid="uid://dip3ahloloqjn" path="res://assets/3d_models/laboratory/laboratory_v1_smooth_concrete.png" id="1_chwm5"]
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_gowxn"]
@@ -18,8 +18,11 @@
 [ext_resource type="PackedScene" uid="uid://buc4db0nn8gn8" path="res://assets/3d_models/light_sources/square_light.glb" id="13_xdbrh"]
 [ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player/player.tscn" id="16_ngdcy"]
 [ext_resource type="Environment" uid="uid://cpeo8o4hnrmdd" path="res://spawn_building_environment.tres" id="16_xq6p0"]
+[ext_resource type="Script" uid="uid://b2u288mrgr3kt" path="res://src/interactables/EnterableAreaInteractable.cs" id="17_oencg"]
+[ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="18_pf8tl"]
 [ext_resource type="PackedScene" uid="uid://dtoaqlnkvjys4" path="res://scenes/entities/drone.tscn" id="19_ym1wd"]
 [ext_resource type="PackedScene" uid="uid://3ivrs2v17ixg" path="res://scenes/misc/cctv_camera.tscn" id="20_mlyg2"]
+[ext_resource type="Script" uid="uid://b48i33gg6km8x" path="res://src/misc/AbilityUnlocker.cs" id="23_pf8tl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f7k12"]
 resource_name = "idk"
@@ -744,6 +747,11 @@ data = PackedVector3Array(-1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1,
 [sub_resource type="BoxShape3D" id="BoxShape3D_xq6p0"]
 size = Vector3(11.4264345, 2.3776932, 11.456299)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_tvit5"]
+size = Vector3(0.57910156, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6k46j"]
+
 [node name="Laboratry" type="Node3D"]
 script = ExtResource("1_gowxn")
 
@@ -908,6 +916,23 @@ collision_mask = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03174162, -0.38220596, 7.8611517)
 shape = SubResource("BoxShape3D_xq6p0")
 
+[node name="Exit" type="Area3D" parent="laboratory_v1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8993473, 0.05635321, -0.015970796)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("17_oencg")
+EnterableAreaScene = &"res://scenes/levels/ground_one.tscn"
+ExitPosition = Vector3(-8.924985, -1.8670553, 0)
+InteractionTitle = "Exit"
+metadata/_custom_type_script = "uid://b2u288mrgr3kt"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="laboratory_v1/Exit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21044922, 0.44037342, 0)
+shape = SubResource("BoxShape3D_tvit5")
+
+[node name="Title" parent="laboratory_v1/Exit" instance=ExtResource("18_pf8tl")]
+transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0.7250376, 0.8748493, 0)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("16_xq6p0")
 
@@ -924,3 +949,14 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.1
 
 [node name="CctvCamera2" parent="." instance=ExtResource("20_mlyg2")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.3323336, 1.356531, -1.2479616)
+
+[node name="AbilityUnlocker" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.908458, 0.48127258, -0.24938256)
+collision_layer = 0
+collision_mask = 64
+script = ExtResource("23_pf8tl")
+AbilityToUnlock = 2
+metadata/_custom_type_script = "uid://b48i33gg6km8x"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AbilityUnlocker"]
+shape = SubResource("BoxShape3D_6k46j")

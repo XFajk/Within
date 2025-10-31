@@ -1,0 +1,8 @@
+[gd_resource type="JSON" format=3 uid="uid://c45d1en82g7uo"]
+
+[resource]
+data = [{
+"speaker": 1.0,
+"text": "Thank you Child, With this I might live for a few more weeks.",
+"typing_speed": 0.1
+}]

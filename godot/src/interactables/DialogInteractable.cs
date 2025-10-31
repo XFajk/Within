@@ -73,6 +73,7 @@ public partial class DialogInteractable : Interactable {
                         _interactionTitleLabel.Visible = true;
                         _player.CurrentState = Player.PlayerState.Idle;
                         _currentSectionIndex = 0;
+                        _player = null;
                         return;
                     } else {
                         Array sections = (Array)DialogData[CurrentDialogIndex].Data;

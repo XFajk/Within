@@ -4,7 +4,7 @@ using Godot.Collections;
 
 public partial class Player : CharacterBody3D, ISavable {
 
-    private const float UnitTransformer = 1.0f / 60.0f;
+    public const float UnitTransformer = 1.0f / 60.0f;
 
     [Signal]
     public delegate void HitEventHandler(int damage);
@@ -43,6 +43,8 @@ public partial class Player : CharacterBody3D, ISavable {
     // MISC Variables
     public bool EmitBlood = true;
 
+    public AbilityUnlocker.Ability AbilityThatIsCurrentlyBeingUnlocked = AbilityUnlocker.Ability.All;
+
     public Timer WakeUpTimer = new();
 
     // Inventory Pickup Variables
@@ -73,6 +75,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
     [Export]
     public int Damage = 5;
+    private bool _hitThisFrame = false;
 
     private HealthBar _healthBar;
 
@@ -136,7 +139,7 @@ public partial class Player : CharacterBody3D, ISavable {
     private float _jumpModifier = 1.0f;
 
     [ExportGroup("Wall Jump Settings")]
-    private bool _canWallJump = false;
+    public bool CanWallJump = false;
 
     [Export]
     public float WallJumpHorizontalVelocity = 200.0f;
@@ -151,7 +154,7 @@ public partial class Player : CharacterBody3D, ISavable {
     public uint ClimbableWallLayer = 5; // Layer 5 will be for climbable walls
 
     [ExportGroup("Dash Settings")]
-    private bool _canDash = false;
+    public bool CanDash = false;
 
     [Export]
     public float DashVelocity = 500.0f;
@@ -172,7 +175,7 @@ public partial class Player : CharacterBody3D, ISavable {
     private RayCast3D _floorDetector;
 
     [ExportGroup("Double Jump Settings")]
-    private bool _canDoubleJump = false;
+    public bool CanDoubleJump = false;
 
     [Export]
     public int SecondJumpFrames = 10;
@@ -183,9 +186,9 @@ public partial class Player : CharacterBody3D, ISavable {
 
         Global.Instance.MiniCheckPointSavedPosition = GlobalPosition;
 
-        _canWallJump = Global.Instance.PlayerHasWallJumpAbility;
-        _canDash = Global.Instance.PlayerHasDashAbility;
-        _canDoubleJump = Global.Instance.PlayerHasDoubleJumpAbility;
+        CanWallJump = Global.Instance.PlayerHasWallJumpAbility;
+        CanDash = Global.Instance.PlayerHasDashAbility;
+        CanDoubleJump = Global.Instance.PlayerHasDoubleJumpAbility;
 
         _inventory = Global.Instance.PlayerInventory;
 
@@ -256,6 +259,25 @@ public partial class Player : CharacterBody3D, ISavable {
             PostProcessRect = Camera.GetNode<ColorRect>("PostProcessRect");
             PostProcessRect.Visible = false;
             Camera.TopLevel = true;
+
+
+            var tutorialUi = Camera.GetNode<AbilityTutorial>("TutorialUi");
+            tutorialUi.TutorialCompleted += () => {
+                tutorialUi.Visible = false;
+
+                if (_transitionTween != null) {
+                    _transitionTween.Kill();
+                }
+                _transitionTween = GetTree().CreateTween();
+
+                _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 0.0f, 0.5f);
+                _transitionTween.TweenProperty(HitMaterial, "shader_parameter/smooth_amount", 0.3f, 0.5f);
+                _transitionTween.TweenCallback(Callable.From(() => {
+                    TransitionAnimationTo(PlayerState.Idle);
+                    CurrentState = PlayerState.Idle;
+                    PostProcessRect.Visible = false;
+                }));
+            };
         }
 
         Camera.Fov = CameraFov;
@@ -284,6 +306,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     public override void _Process(double delta) {
+        // GD.Print("Dash: " + _canDash + ", Wall Jump: " + _canWallJump + ", Double Jump: " + _canDoubleJump);
         Position = new Vector3(Position.X, Position.Y, 0);
         Camera.GlobalPosition = new Vector3(Camera.GlobalPosition.X, Camera.GlobalPosition.Y, CameraDistance);
 
@@ -385,6 +408,10 @@ public partial class Player : CharacterBody3D, ISavable {
                 yVelocity = _velocity.Y;
                 _velocity = _velocity.MoveToward(Vector3.Zero, MovementSpeed / 4 * UnitTransformer);
                 _velocity.Y = yVelocity;
+                if (_hitThisFrame) {
+                    _hitThisFrame = false;
+                    break;
+                }
                 if (!IsOnFloor()) {
                     _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * UnitTransformer, Gravity * UnitTransformer);
                 } else {
@@ -401,7 +428,7 @@ public partial class Player : CharacterBody3D, ISavable {
                     _velocity.Y = Mathf.MoveToward(_velocity.Y, TerminalVelocity * UnitTransformer, Gravity * UnitTransformer);
                 } else {
                     TransitionAnimationTo(PlayerState.Crazy);
-                    if (PostProcessRect.Visible == false) 
+                    if (PostProcessRect.Visible == false)
                         HandleCrazyStateGrounded();
                     _velocity = Vector3.Zero;
                 }
@@ -440,7 +467,7 @@ public partial class Player : CharacterBody3D, ISavable {
             CurrentState = PlayerState.Jumping;
         } else if (!IsOnFloor()) {
             if (Input.IsActionJustPressed("jump")) {
-                _jumpBufferFrames = 6.0f*UnitTransformer;
+                _jumpBufferFrames = 6.0f * UnitTransformer;
             }
             _coyoteTimeElapsed = 0.0f;  // Start coyote time when leaving ground
             TransitionAnimationTo(PlayerState.Jumping);
@@ -494,7 +521,7 @@ public partial class Player : CharacterBody3D, ISavable {
             CurrentState = PlayerState.Idle;
             _velocity.Y = 0;
             _coyoteTimeElapsed = 0.0f;  // Reset coyote time when touching floor
-        } else if (IsOnWall() && _canWallJump && IsWallClimbable()) {
+        } else if (IsOnWall() && CanWallJump && IsWallClimbable()) {
             TransitionAnimationTo(PlayerState.OnWall);
             CurrentState = PlayerState.OnWall;
             _velocity.Y = WallSlideVelocity * UnitTransformer;
@@ -514,7 +541,7 @@ public partial class Player : CharacterBody3D, ISavable {
             }
 
             // Double jump check
-            if (Input.IsActionJustPressed("jump") && _canDoubleJump && _doubleJumpReady) {
+            if (Input.IsActionJustPressed("jump") && CanDoubleJump && _doubleJumpReady) {
                 _jumpBufferFrames = 0;
                 _jumpModifier = 1.0f;
                 _doubleJumpReady = false;
@@ -522,7 +549,7 @@ public partial class Player : CharacterBody3D, ISavable {
                 TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
             } else if (Input.IsActionJustPressed("jump")) {
-                _jumpBufferFrames = 6.0f*UnitTransformer;
+                _jumpBufferFrames = 6.0f * UnitTransformer;
             }
         }
         CheckAttack();
@@ -599,15 +626,10 @@ public partial class Player : CharacterBody3D, ISavable {
         _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 1.0f, 1.0f);
         _transitionTween.TweenProperty(HitMaterial, "shader_parameter/smooth_amount", 0.0f, 1.0f);
         _transitionTween.TweenCallback(Callable.From(() => {
-            // TODO: SHOW tutorial dialog for crazy state ending
-            TransitionAnimationTo(PlayerState.Idle);
-            CurrentState = PlayerState.Idle;
+            Camera.ShowAbilityTutorial(AbilityThatIsCurrentlyBeingUnlocked);
+            AbilityThatIsCurrentlyBeingUnlocked = AbilityUnlocker.Ability.All;
         })).SetDelay(1.0f);
-        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 0.0f, 0.5f);
-        _transitionTween.TweenProperty(HitMaterial, "shader_parameter/smooth_amount", 0.3f, 0.5f);
-        _transitionTween.TweenCallback(Callable.From(() => {
-            PostProcessRect.Visible = false;
-        }));
+
     }
 
     private void HandleEnteringAreaState(double delta) {
@@ -804,7 +826,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void CheckDash() {
-        if (Input.IsActionJustPressed("dash") && _canDash && _dashReadyToUse) {
+        if (Input.IsActionJustPressed("dash") && CanDash && _dashReadyToUse) {
             TransitionAnimationTo(PlayerState.Dashing);
             _jumpTimeElapsed = _jumpDuration; // Force jump end
             CurrentState = PlayerState.Dashing;
@@ -860,7 +882,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     private void ResetDoubleJump() {
-        if (IsOnFloor() || (IsOnWall() && _canWallJump && IsWallClimbable())) _doubleJumpReady = true;
+        if (IsOnFloor() || (IsOnWall() && CanWallJump && IsWallClimbable())) _doubleJumpReady = true;
     }
 
     private bool WantsToJump() {
@@ -891,6 +913,7 @@ public partial class Player : CharacterBody3D, ISavable {
             return;
         }
 
+        _hitThisFrame = true;
 
         TransitionAnimationTo(PlayerState.Damaged);
         CurrentState = PlayerState.Damaged;
@@ -909,26 +932,27 @@ public partial class Player : CharacterBody3D, ISavable {
     public void UnlockAbility(AbilityUnlocker.Ability ability) {
         switch (ability) {
             case AbilityUnlocker.Ability.Dash:
-                _canDash = true;
+                CanDash = true;
                 Global.Instance.PlayerHasDashAbility = true;
                 break;
             case AbilityUnlocker.Ability.WallJump:
-                _canWallJump = true;
+                CanWallJump = true;
                 Global.Instance.PlayerHasWallJumpAbility = true;
                 break;
             case AbilityUnlocker.Ability.DoubleJump:
-                _canDoubleJump = true;
+                CanDoubleJump = true;
                 Global.Instance.PlayerHasDoubleJumpAbility = true;
                 break;
             case AbilityUnlocker.Ability.All:
-                _canDash = true;
-                _canWallJump = true;
-                _canDoubleJump = true;
+                CanDash = true;
+                CanWallJump = true;
+                CanDoubleJump = true;
                 Global.Instance.PlayerHasDashAbility = true;
                 Global.Instance.PlayerHasWallJumpAbility = true;
                 Global.Instance.PlayerHasDoubleJumpAbility = true;
                 break;
         }
+        AbilityThatIsCurrentlyBeingUnlocked = ability;
         TransitionAnimationTo(PlayerState.Crazy);
         CurrentState = PlayerState.Crazy;
     }
@@ -970,28 +994,13 @@ public partial class Player : CharacterBody3D, ISavable {
         var state = new Dictionary<string, Variant> { };
 
         state["global_position"] = GlobalPosition;
-        state["can_dash"] = _canDash;
-        state["can_wall_jump"] = _canWallJump;
-        state["can_double_jump"] = _canDoubleJump;
 
         return state;
     }
 
     public void LoadState(Dictionary<string, Variant> state) {
-        if (state.ContainsKey("health")) {
-            _healthBar.Health = (int)state["health"];
-        }
         if (state.ContainsKey("global_position")) {
             GlobalPosition = (Vector3)state["global_position"];
-        }
-        if (state.ContainsKey("can_dash")) {
-            _canDash = (bool)state["can_dash"];
-        }
-        if (state.ContainsKey("can_wall_jump")) {
-            _canWallJump = (bool)state["can_wall_jump"];
-        }
-        if (state.ContainsKey("can_double_jump")) {
-            _canDoubleJump = (bool)state["can_double_jump"];
         }
     }
 
@@ -1015,12 +1024,16 @@ public partial class Player : CharacterBody3D, ISavable {
         if (IsOnFloor()) {
             TransitionAnimationTo(PlayerState.Idle);
             CurrentState = PlayerState.Idle;
-        } else if (IsOnWall() && IsWallClimbable() && _canWallJump) {
+        } else if (IsOnWall() && IsWallClimbable() && CanWallJump) {
             TransitionAnimationTo(PlayerState.OnWall);
             CurrentState = PlayerState.OnWall;
         } else {
             TransitionAnimationTo(PlayerState.Falling);
             CurrentState = PlayerState.Falling;
         }
+    }
+
+    private void DeferredCaller(Callable f) {
+        f.Call();
     }
 }

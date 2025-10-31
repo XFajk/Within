@@ -120,7 +120,6 @@ roughness = 0.0
 size = Vector3(0.515, 0.8198242, 1)
 
 [node name="BasicPhysicsObject" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0024724007, 0.009183168, 0)
 script = ExtResource("1_51r22")
 metadata/_custom_type_script = "uid://b8w1cxw81eujv"
 

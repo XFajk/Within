@@ -1087,7 +1087,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bjkmq")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7ejp4"]
-size = Vector3(7.258156, 3.142105, 11.456299)
+size = Vector3(7.258156, 3.5427322, 11.456299)
 
 [node name="Archive" type="Node3D"]
 script = ExtResource("1_xei0v")
@@ -1803,7 +1803,7 @@ collision_layer = 256
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="archive_v2/CameraLimit"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3783836, 2.7387924, 3.3596609)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3783836, 2.5384789, 3.3596606)
 shape = SubResource("BoxShape3D_7ejp4")
 
 [node name="library_ceiling_light" parent="archive_v2" instance=ExtResource("14_xei0v")]
@@ -1970,4 +1970,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9024377, -2.184, 0)
 
 [node name="PersonEnemy" parent="." instance=ExtResource("20_g85dh")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 4.21, 1.402, 0)
-Health = 10

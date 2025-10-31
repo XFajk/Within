@@ -2906,6 +2906,25 @@ spot_angle = 49.015465
 [node name="OmniLight3D" type="OmniLight3D" parent="ground_one/Lights/modern_street_light_v_17/SpotLight3D"]
 omni_range = 1.1866457
 
+[node name="SaveInteractable2" type="Area3D" parent="ground_one"]
+transform = Transform3D(-0.9999008, 0, 0.014101906, 0, 1, 0, -0.014101906, 0, -0.9999008, 23.93585, 22.01755, -0.17381659)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("44_fqeon")
+InteractionTitle = "Heal and Save Game"
+metadata/_custom_type_script = "uid://b7jsj5yrf217d"
+
+[node name="Title" parent="ground_one/SaveInteractable2" instance=ExtResource("36_6gp5y")]
+transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.75413346, 0)
+layers = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_one/SaveInteractable2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0446167, 0.05316162, 0.16021729)
+shape = SubResource("BoxShape3D_m0t3k")
+
+[node name="payphone" parent="ground_one/SaveInteractable2" instance=ExtResource("45_j6wec")]
+transform = Transform3D(0.07534427, 0, -0.99715745, 0, 1, 0, 0.99715745, 0, 0.07534427, -0.014209747, -0.45775795, -1.0074885)
+
 [node name="Player" parent="." instance=ExtResource("29_oinvn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.614704, -1.8670553, 0)
 

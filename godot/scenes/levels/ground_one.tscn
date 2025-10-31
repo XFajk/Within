@@ -2923,3 +2923,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.04234, 5.3474965, 0)
 
 [node name="PersonEnemy4" parent="." instance=ExtResource("48_j6wec")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -33.61395, 10.11869, 0)
+
+[node name="PersonEnemy5" parent="." instance=ExtResource("48_j6wec")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -33.61395, 15.062983, 0)
+
+[node name="PersonEnemy6" parent="." instance=ExtResource("48_j6wec")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -16.990652, 19.709867, 0)
+
+[node name="PersonEnemy7" parent="." instance=ExtResource("48_j6wec")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -7.5904655, 19.049204, 0)
+
+[node name="PersonEnemy8" parent="." instance=ExtResource("48_j6wec")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 5.9723134, 18.13221, 0)
+
+[node name="PersonEnemy9" parent="." instance=ExtResource("48_j6wec")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 15.052542, 19.064182, 0)
+
+[node name="PersonEnemy10" parent="." instance=ExtResource("48_j6wec")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 24.399567, 19.245417, 0)

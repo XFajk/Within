@@ -20,6 +20,7 @@ public partial class MrKenstn : DialogInteractable, ISavable {
                 SaveSystem.Instance.SaveGame();
                 Global.Instance.LastSavedScenePath = GetTree().CurrentScene.SceneFilePath;
                 Global.Instance.PlayerLastSavedTransform = _player.GlobalTransform;
+                Global.Instance.PlayerCameraLastSavedTransform = _player.Camera.GlobalTransform;
                 Global.Instance.PlayerHasTakenTransform = true;
                 Global.Instance.SaveProgressData();
             }
@@ -28,6 +29,7 @@ public partial class MrKenstn : DialogInteractable, ISavable {
 
     protected override void Interact() {
         if (_player.HasItem("Medicine") && CurrentDialogIndex == 0) {
+            _player.RemoveItem("Medicine");
             CurrentDialogIndex = 1;
         } else if (_player.HasItem("Medicine") && CurrentDialogIndex == 1) {
             CurrentDialogIndex = 2;

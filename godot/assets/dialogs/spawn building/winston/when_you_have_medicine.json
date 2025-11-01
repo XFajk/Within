@@ -1,0 +1,67 @@
+[
+	{
+		"speaker": 0,
+		"text": "Hey, Winston.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Well, well... if it isn't the THIEF again. What do you want this time?",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "Oh, nothing much. Just checking on you after a long day at work.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Wait a second... what's that in your pocket?",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Is that medicine? Where did you get it?!",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "I knew it! You really ARE a thief! You must've stolen it from someone important!",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "I'm going to report you to the factory boss and take your job. Maybe even get promoted to a higher floor.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "Go ahead. The factory boss sent me to get this medicine for him.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "I just arrived too late. He's already dead, and now I'm left holding a few ampoules of medicine.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "And don't even think I'll give you any. I don't care if you think I'm a thief.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "The elder needs them more than either of us ever will.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Tch. Fine. Do whatever you want. It's not like anyone cares what happens down here anyway.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Just don't come crying to me when that old man's gone too.",
+		"typing_speed": 0.1
+	}
+]

@@ -1,0 +1,37 @@
+[
+	{
+		"speaker": 1,
+		"text": "Oh, it's you. Haven't seen you around in a while.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "Yeah, been busy. Things have... changed.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Changed? What, did the boss finally kick you out of the factory?",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "No. The boss is dead.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Hah. Figures. People from the upper floors never last long when things get dirty.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Guess it doesn't matter anyway. Nothing changes down here.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "Maybe it will. Eventually.",
+		"typing_speed": 0.1
+	}
+]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=4 uid="uid://dps12qsrclx7m"]
+[gd_scene load_steps=121 format=4 uid="uid://dps12qsrclx7m"]
 
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_dec86"]
 [ext_resource type="Texture2D" uid="uid://bpydamrjqm5kp" path="res://assets/3d_models/factory/factory_v2_black_bricks.png" id="1_w0abr"]
@@ -26,9 +26,10 @@
 [ext_resource type="PackedScene" uid="uid://c888mhcqkvcic" path="res://assets/3d_models/light_sources/wall_light2.glb" id="21_menmw"]
 [ext_resource type="PackedScene" uid="uid://srwbwnvjwjqw" path="res://assets/3d_models/light_sources/halogen.glb" id="22_vpo40"]
 [ext_resource type="PackedScene" uid="uid://dcnhu00s3wloo" path="res://assets/3d_models/light_sources/ceiling_light.glb" id="23_n1sjn"]
-[ext_resource type="Script" uid="uid://cvga7nhg6e82n" path="res://src/interactables/DialogInteractable.cs" id="27_hiq7h"]
+[ext_resource type="Script" uid="uid://xy362hfomwjs" path="res://src/interactables/specific/FactoryBoss.cs" id="27_cyp1q"]
 [ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="28_8mqil"]
 [ext_resource type="JSON" path="res://assets/dialogs/factory/joseph/first_conversation.json" id="28_pnugb"]
+[ext_resource type="JSON" path="res://assets/dialogs/factory/joseph/when_dead.json" id="29_derrb"]
 [ext_resource type="PackedScene" uid="uid://3ivrs2v17ixg" path="res://scenes/misc/cctv_camera.tscn" id="30_1su6w"]
 [ext_resource type="Script" uid="uid://b6tr1636xdryq" path="res://src/interactables/specific/FactoryShutoffValve.cs" id="30_cyp1q"]
 [ext_resource type="PackedScene" uid="uid://vcu3pcns5scd" path="res://assets/3d_models/misc/valve.glb" id="31_1su6w"]
@@ -1645,9 +1646,9 @@ environment = ExtResource("18_xelw7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.781881, 3.7771347, -0.87010425)
 collision_layer = 0
 collision_mask = 8
-script = ExtResource("27_hiq7h")
-DialogData = Array[JSON]([ExtResource("28_pnugb")])
-InteractionTitle = "Talk to Boss"
+script = ExtResource("27_cyp1q")
+DialogData = Array[JSON]([ExtResource("28_pnugb"), ExtResource("29_derrb")])
+InteractionTitle = "Talk To Boss"
 metadata/_custom_type_script = "uid://cvga7nhg6e82n"
 
 [node name="CollisionShape" type="CollisionShape3D" parent="JosephStalin"]
@@ -1659,10 +1660,10 @@ transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, -0.4027853, 0.522611
 layers = 2
 
 [node name="TextBox" parent="JosephStalin" instance=ExtResource("28_8mqil")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33088875, 0.5226114, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024704933, 0.5226114, 0.4173532)
 
 [node name="boss4" type="Node3D" parent="JosephStalin"]
-transform = Transform3D(0.30859986, 0, -0.54349893, 0, 0.625, 0, 0.54349893, 0, 0.30859986, 0, -0.5025723, 0)
+transform = Transform3D(0.30300596, 0, -0.5466373, 0, 0.625, 0, 0.5466373, 0, 0.30300596, 0, -0.5025723, 0)
 
 [node name="metarig" type="Node3D" parent="JosephStalin/boss4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00211736)
@@ -1680,7 +1681,7 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, 0, 0, 0.99168557, 0.12868449, 0, -0.12868449, 0.99168557, 0, 0.093915775, 6.519258e-09)
 bones/1/enabled = true
 bones/1/position = Vector3(0, 0.093915775, 6.519258e-09)
-bones/1/rotation = Quaternion(-0.07043634, -0.00077990966, -0.0037506865, 0.99750894)
+bones/1/rotation = Quaternion(-0.070613466, -0.00080309546, -0.00386219, 0.99749595)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "spine.002"
 bones/2/parent = 1
@@ -1708,7 +1709,7 @@ bones/5/parent = 4
 bones/5/rest = Transform3D(1, 7.4268765e-11, -2.3841858e-07, -9.943435e-15, 0.99999994, 0.00031146407, 2.3841858e-07, -0.00031146407, 0.99999994, 1.7763568e-15, 0.040821236, -1.8626451e-09)
 bones/5/enabled = true
 bones/5/position = Vector3(1.7763568e-15, 0.040821236, -1.8626451e-09)
-bones/5/rotation = Quaternion(-0.021878598, -1.1913322e-07, -2.49496e-09, 0.9997607)
+bones/5/rotation = Quaternion(-0.02246901, -1.19121545e-07, -2.6155245e-09, 0.9997476)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "face"
 bones/6/parent = 5
@@ -1729,14 +1730,14 @@ bones/8/parent = 7
 bones/8/rest = Transform3D(-0.17425822, 0.20616257, 0.96287644, -0.4339566, 0.861682, -0.26303175, -0.8839206, -0.46368203, -0.060689572, 0.0034460274, 0.114651605, -0.012576746)
 bones/8/enabled = true
 bones/8/position = Vector3(-0.0009989559, 0.112961635, -0.013219004)
-bones/8/rotation = Quaternion(-0.09798618, 0.7052898, -0.28082293, 0.6435088)
+bones/8/rotation = Quaternion(-0.0973789, 0.70525575, -0.2802249, 0.6438988)
 bones/8/scale = Vector3(0.99999994, 0.99999994, 1)
 bones/9/name = "forearm.L"
 bones/9/parent = 8
 bones/9/rest = Transform3D(0.33589, 0.94083977, -0.044705752, -0.9380499, 0.33842736, 0.07435972, 0.08509022, 0.016959537, 0.99622905, -1.16429874e-07, 0.17709583, -3.7252903e-09)
 bones/9/enabled = true
 bones/9/position = Vector3(-1.16429874e-07, 0.17709583, -3.7252903e-09)
-bones/9/rotation = Quaternion(-0.02778051, -0.045534547, -0.5147957, 0.8556519)
+bones/9/rotation = Quaternion(-0.027867466, -0.045433875, -0.51524395, 0.8553847)
 bones/9/scale = Vector3(1, 1, 1.0000001)
 bones/10/name = "hand.L"
 bones/10/parent = 9
@@ -1757,7 +1758,7 @@ bones/12/parent = 11
 bones/12/rest = Transform3D(-0.17425822, -0.20616257, -0.96287644, 0.4339566, 0.861682, -0.26303175, 0.8839206, -0.46368203, -0.060689572, -0.0034460274, 0.114651605, -0.012576746)
 bones/12/enabled = true
 bones/12/position = Vector3(-0.0034460274, 0.114651605, -0.012576746)
-bones/12/rotation = Quaternion(-0.1400442, -0.69930035, 0.33341253, 0.61660576)
+bones/12/rotation = Quaternion(-0.13968788, -0.6993997, 0.33301577, 0.6167883)
 bones/12/scale = Vector3(0.99999994, 0.99999994, 1)
 bones/13/name = "forearm.R"
 bones/13/parent = 12
@@ -1785,7 +1786,7 @@ bones/16/parent = 15
 bones/16/rest = Transform3D(0.9999937, 5.271431e-09, 0.0035536205, -7.866365e-05, 0.9997549, 0.022134572, -0.0035527502, -0.022134712, 0.9997486, 1.0822852e-08, 0.3489041, -7.860024e-11)
 bones/16/enabled = true
 bones/16/position = Vector3(1.0822852e-08, 0.3489041, -7.860024e-11)
-bones/16/rotation = Quaternion(0.009775194, 0.0011262783, -0.026214777, 0.999608)
+bones/16/rotation = Quaternion(0.010367238, 0.0011077801, -0.026958596, 0.9995822)
 bones/16/scale = Vector3(1, 0.9999999, 0.9999999)
 bones/17/name = "foot.L"
 bones/17/parent = 16
@@ -1813,7 +1814,7 @@ bones/20/parent = 19
 bones/20/rest = Transform3D(0.9999937, -5.271431e-09, -0.0035536205, 7.866365e-05, 0.9997549, 0.022134572, 0.0035527502, -0.022134712, 0.9997486, -1.0822852e-08, 0.3489041, -7.860024e-11)
 bones/20/enabled = true
 bones/20/position = Vector3(-1.0822852e-08, 0.3489041, -7.860024e-11)
-bones/20/rotation = Quaternion(0.073762625, -0.0017719733, -0.00013108022, 0.99727434)
+bones/20/rotation = Quaternion(0.07609487, -0.0017716619, -0.00013522478, 0.99709904)
 bones/20/scale = Vector3(1, 0.9999999, 0.9999999)
 bones/21/name = "foot.R"
 bones/21/parent = 20

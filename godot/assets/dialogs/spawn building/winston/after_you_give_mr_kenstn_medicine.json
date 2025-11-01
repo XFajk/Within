@@ -1,0 +1,32 @@
+[
+	{
+		"speaker": 1,
+		"text": "Oh, look who's back. Heard you gave that old man your precious medicine.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "Yeah. He needed it more than anyone else.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Hah. Always playing the hero, huh? You think anyone's gonna remember that when you're starving next week?",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 0,
+		"text": "I'm not doing it for anyone to remember. I'm doing it because it's right.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "Right or wrong doesn't matter down here. Only survival does.",
+		"typing_speed": 0.1
+	},
+	{
+		"speaker": 1,
+		"text": "You'll learn that sooner or later, Sal.",
+		"typing_speed": 0.1
+	}
+]

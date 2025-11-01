@@ -1,0 +1,44 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cl3mw432alcv8"
+path.s3tc="res://.godot/imported/trashcan_green_paint_rust.png-9136ed3568ff755bbd64ce314bd59463.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "20bfbc1598680c1125a4e7d657995229"
+}
+
+[deps]
+
+source_file="res://assets/3d_models/furniture_and_objects/trash_can/trashcan_green_paint_rust.png"
+dest_files=["res://.godot/imported/trashcan_green_paint_rust.png-9136ed3568ff755bbd64ce314bd59463.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

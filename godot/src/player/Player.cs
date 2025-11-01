@@ -742,6 +742,9 @@ public partial class Player : CharacterBody3D, ISavable {
                 if (Global.Instance.PlayerLastSavedTransform is Transform3D lastTransform) {
                     GlobalPosition = lastTransform.Origin;
                 }
+                if (Global.Instance.PlayerCameraLastSavedTransform is Transform3D lastCameraTransfrom) {
+                    Camera.GlobalTransform = lastCameraTransfrom;
+                }
             }
 
             if (Global.Instance.MiniCheckPointCameraSpawnPoint is Vector3 cameraSpawnPoint) {
@@ -982,6 +985,10 @@ public partial class Player : CharacterBody3D, ISavable {
         }));
     }
 
+    public void RemoveItem(string itemName) {
+        _inventory.Remove(itemName);
+    }
+
     public bool HasItem(string itemName) {
         return _inventory.Contains(itemName);
     }
@@ -1008,6 +1015,18 @@ public partial class Player : CharacterBody3D, ISavable {
         if (!Global.Instance.PlayerHasTakenTransform && Global.Instance.PlayerLastSavedTransform is Transform3D newTransform) {
             GlobalTransform = newTransform;
             Global.Instance.PlayerHasTakenTransform = true;
+            // Force an immediate update of the raycast
+            _floorDetector.ForceRaycastUpdate();
+
+            // If we hit something, position the player above it with proper offset
+            if (_floorDetector.IsColliding()) {
+                Vector3 collisionPoint = _floorDetector.GetCollisionPoint();
+                // Add 0.3 units (half of the player's height) to position player properly
+                GlobalPosition = new Vector3(GlobalPosition.X, collisionPoint.Y + 0.3f, GlobalPosition.Z);
+            }
+        }
+        if (Global.Instance.PlayerCameraLastSavedTransform is Transform3D lastCameraTransfrom) {
+            Camera.GlobalTransform = lastCameraTransfrom;
         }
     }
 

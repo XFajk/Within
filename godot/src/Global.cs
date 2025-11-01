@@ -12,6 +12,8 @@ public partial class Global : Node {
     public string LastSavedScenePath = "res://scenes/levels/spawn_building.tscn";
 
     public Transform3D? PlayerLastSavedTransform = null;
+    public Transform3D? PlayerCameraLastSavedTransform = null;
+
     public bool PlayerHasTakenTransform = false;
 
     public bool PlayerHasDashAbility = false;
@@ -49,6 +51,10 @@ public partial class Global : Node {
                 GD.Print("Saving player transform: " + transform);
                 data["player_last_saved_transform"] = transform;
             }
+            if (PlayerCameraLastSavedTransform is Transform3D cameraTransform) {
+                GD.Print("Saving player camera transform: " + cameraTransform);
+                data["player_camera_last_saved_transform"] = cameraTransform;
+            }
             data["player_has_dash_ability"] = PlayerHasDashAbility;
             data["player_has_wall_jump_ability"] = PlayerHasWallJumpAbility;
             data["player_has_double_jump_ability"] = PlayerHasDoubleJumpAbility;
@@ -77,6 +83,9 @@ public partial class Global : Node {
             } else {
                 SaveSystem.Instance.ResetGame();
             }
+            if (loadedData.ContainsKey("player_camera_last_saved_transform")) {
+                PlayerCameraLastSavedTransform = (Transform3D)loadedData["player_camera_last_saved_transform"];
+            } 
             if (loadedData.ContainsKey("player_has_dash_ability")) {
                 PlayerHasDashAbility = (bool)loadedData["player_has_dash_ability"];
             }

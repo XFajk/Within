@@ -33,6 +33,7 @@ public partial class AbilityUnlocker : Area3D, ISavable {
                 SaveSystem.Instance.SaveGame();
                 Global.Instance.LastSavedScenePath = GetTree().CurrentScene.SceneFilePath;
                 Global.Instance.PlayerLastSavedTransform = player.GlobalTransform;
+                Global.Instance.PlayerCameraLastSavedTransform = player.Camera.GlobalTransform;
                 Global.Instance.PlayerHasTakenTransform = true;
                 Global.Instance.SaveProgressData();
             }

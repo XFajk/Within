@@ -1,4 +1,4 @@
-[gd_scene load_steps=133 format=4 uid="uid://cmo76gbynpwaa"]
+[gd_scene load_steps=136 format=4 uid="uid://cmo76gbynpwaa"]
 
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_6usqr"]
 [ext_resource type="Texture2D" uid="uid://ccrllmojcjc0x" path="res://assets/3d_models/spawn_building/spawn_level_v2_concrete_tile.png" id="1_uqtdq"]
@@ -26,16 +26,19 @@
 [ext_resource type="PackedScene" uid="uid://c68qa0g4sq855" path="res://assets/3d_models/light_sources/hanging_light.glb" id="21_ah5v6"]
 [ext_resource type="Environment" uid="uid://cpeo8o4hnrmdd" path="res://spawn_building_environment.tres" id="22_askuo"]
 [ext_resource type="PackedScene" uid="uid://dmi0yswxefqhp" path="res://scenes/VFX/fire.tscn" id="25_yocmy"]
-[ext_resource type="Script" uid="uid://cvga7nhg6e82n" path="res://src/interactables/DialogInteractable.cs" id="26_js6lf"]
 [ext_resource type="Script" uid="uid://co0mklmrb2dq5" path="res://src/interactables/specific/MrKenstn.cs" id="27_jngpl"]
 [ext_resource type="JSON" path="res://assets/dialogs/spawn building/elder kenstn/first_conversation.json" id="27_js6lf"]
 [ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="28_5rx6v"]
 [ext_resource type="Texture2D" uid="uid://cn2lvq3rc7sal" path="res://assets/sprites/number_code.png" id="28_26326"]
-[ext_resource type="JSON" uid="uid://b0whkjjemyoer" path="res://assets/dialogs/spawn building/elder kenstn/when_giving_him_medicine.tres" id="29_u8pck"]
+[ext_resource type="JSON" path="res://assets/dialogs/spawn building/elder kenstn/when_giving_him_medicine.json" id="29_u8pck"]
 [ext_resource type="JSON" path="res://assets/dialogs/spawn building/winston/first_conversation.json" id="30_5rx6v"]
-[ext_resource type="JSON" uid="uid://c45d1en82g7uo" path="res://assets/dialogs/spawn building/elder kenstn/after_giving_him_the_medicine.tres" id="30_26326"]
+[ext_resource type="JSON" path="res://assets/dialogs/spawn building/elder kenstn/after_giving_him_the_medicine.json" id="31_ovlgm"]
 [ext_resource type="Texture2D" uid="uid://wr8bvlwjrvd8" path="res://assets/3d_models/people/kenstn/kenston_sitting_okakane.png" id="31_u8pck"]
 [ext_resource type="Texture2D" uid="uid://bf1evjbh5w3co" path="res://assets/3d_models/people/kenstn/kenston_sitting_dark_wood.png" id="32_26326"]
+[ext_resource type="Script" uid="uid://brrcp17ekweo7" path="res://src/interactables/specific/Winston.cs" id="35_26326"]
+[ext_resource type="JSON" path="res://assets/dialogs/spawn building/winston/when_you_have_medicine.json" id="37_ovlgm"]
+[ext_resource type="JSON" path="res://assets/dialogs/spawn building/winston/after_you_give_mr_kenstn_medicine.json" id="38_7q3ur"]
+[ext_resource type="JSON" path="res://assets/dialogs/spawn building/winston/when_you_havent_talked_to_him_when_you_had_the_medicine.json" id="39_dtswq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uc4q7"]
 resource_name = "concrete_panels"
@@ -3490,7 +3493,7 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("27_jngpl")
 IconTexture = ExtResource("28_26326")
-DialogData = Array[JSON]([ExtResource("27_js6lf"), ExtResource("29_u8pck"), ExtResource("30_26326")])
+DialogData = Array[JSON]([ExtResource("27_js6lf"), ExtResource("29_u8pck"), ExtResource("31_ovlgm")])
 InteractionTitle = "Speak To Elder Kenstn"
 metadata/_custom_type_script = "uid://cvga7nhg6e82n"
 
@@ -3699,9 +3702,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105701685, 0.4395802, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.234891, -2.9531538, -0.87010425)
 collision_layer = 0
 collision_mask = 8
-script = ExtResource("26_js6lf")
-DialogData = Array[JSON]([ExtResource("30_5rx6v")])
-InteractionTitle = "Talk to Winston"
+script = ExtResource("35_26326")
+DialogData = Array[JSON]([ExtResource("30_5rx6v"), ExtResource("37_ovlgm"), ExtResource("38_7q3ur"), ExtResource("39_dtswq")])
+InteractionTitle = "Speak to Winston"
 metadata/_custom_type_script = "uid://cvga7nhg6e82n"
 
 [node name="winston" type="Node3D" parent="Winston"]
@@ -3891,7 +3894,7 @@ shape = SubResource("BoxShape3D_4ocpw")
 transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.5363815, 0)
 
 [node name="TextBox" parent="Winston" instance=ExtResource("28_5rx6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5363815, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.065849304, 0.5363815, 0.7884753)
 
 [node name="GroundZeroPlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.365899, -0.94846725, 0)

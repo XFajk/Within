@@ -1,52 +1,52 @@
 [
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "Hello, Elder Kenstn.",
-		"typing_speed": 0.1
+		"typing_speed": 0.10000000000000001
 	},
 	{
-		"speaker": 1,
-		"text": "Hello, child. You’re finally awake.",
-		"typing_speed": 0.1
+		"speaker": 1.0,
+		"text": "Hello, child. You're finally awake.",
+		"typing_speed": 0.10000000000000001
 	},
 	{
-		"speaker": 1,
-		"text": "I was starting to worry you wouldn’t wake up at all.",
-		"typing_speed": 0.1
+		"speaker": 1.0,
+		"text": "I was starting to worry you wouldn't wake up at all.",
+		"typing_speed": 0.10000000000000001
 	},
 	{
-		"speaker": 1,
-		"text": "But you look stronger than ever—ready to head back to the factory.",
-		"typing_speed": 0.1
+		"speaker": 1.0,
+		"text": "But you look stronger than ever, ready to head back to the factory.",
+		"typing_speed": 0.10000000000000001
 	},
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "Yes, I feel much better than before.",
-		"typing_speed": 0.1
+		"typing_speed": 0.10000000000000001
 	},
 	{
-		"speaker": 0,
-		"text": "I didn’t expect to recover from that fever so quickly.",
-		"typing_speed": 0.1
+		"speaker": 0.0,
+		"text": "I didn't expect to recover from that fever so quickly.",
+		"typing_speed": 0.10000000000000001
 	},
 	{
-		"speaker": 1,
-		"text": "That’s good to hear.",
-		"typing_speed": 0.1
+		"speaker": 1.0,
+		"text": "That's good to hear.",
+		"typing_speed": 0.10000000000000001
 	},
 	{
-		"speaker": 1,
-		"text": "I’ve been feeling sick myself, but I don’t have the money for medicine from up TOP.",
-		"typing_speed": 0.1
+		"speaker": 1.0,
+		"text": "I've been feeling sick myself, but I don't have the money for medicine from up TOP.",
+		"typing_speed": 0.10000000000000001
 	},
 	{
-		"speaker": 1,
-		"text": "I don’t think this old body of mine can take much more of it.",
-		"typing_speed": 0.1
+		"speaker": 1.0,
+		"text": "I don't think this old body of mine can take much more of it.",
+		"typing_speed": 0.10000000000000001
 	},
 	{
-		"speaker": 1,
-		"text": "Only God knows if we’ll see each other again when you return.",
-		"typing_speed": 0.1
+		"speaker": 1.0,
+		"text": "Only God knows if we'll see each other again when you return.",
+		"typing_speed": 0.10000000000000001
 	}
 ]

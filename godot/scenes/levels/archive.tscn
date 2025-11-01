@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=4 uid="uid://vcp1lbvxo0ew"]
+[gd_scene load_steps=95 format=4 uid="uid://vcp1lbvxo0ew"]
 
 [ext_resource type="Texture2D" uid="uid://rucyoyeadn1i" path="res://assets/3d_models/archive/archive_v2_parquet.png" id="1_netwc"]
 [ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_xei0v"]
@@ -1089,6 +1089,13 @@ shadow_mesh = SubResource("ArrayMesh_bjkmq")
 [sub_resource type="BoxShape3D" id="BoxShape3D_7ejp4"]
 size = Vector3(7.258156, 3.5427322, 11.456299)
 
+[sub_resource type="QuadMesh" id="QuadMesh_g85dh"]
+size = Vector2(0.14, 0.2)
+orientation = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_g85dh"]
+size = Vector3(0.2, 0.02, 0.3)
+
 [node name="Archive" type="Node3D"]
 script = ExtResource("1_xei0v")
 
@@ -1961,6 +1968,212 @@ spot_angle = 74.21468
 light_color = Color(1, 0.98732156, 0.6727207, 1)
 light_energy = 0.337
 omni_range = 1.6386464
+
+[node name="Details" type="Node3D" parent="archive_v2"]
+
+[node name="Paper" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.82723755, 0, -0.56185234, 0, 1, 0, 0.56185234, 0, -0.82723755, -1.6074648, 3.5681405, 0.030896762)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper12" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.86971897, 0, 0.49354735, 0, 1, 0, -0.49354735, 0, -0.86971897, -2.9370432, 3.5681405, 0.030896649)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper13" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.9911394, 0, -0.13282728, 0, 1, 0, 0.13282728, 0, -0.9911394, -2.8064733, 3.5681405, 0.030896664)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper14" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.6833504, 0, -0.7300908, 0, 1, 0, 0.7300908, 0, -0.6833504, -2.8064733, 3.5681405, 0.18574199)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper16" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.86971897, 0, 0.49354735, 0, 1, 0, -0.49354735, 0, -0.86971897, 3.3433542, 3.5681405, 0.030897198)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper17" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.9911394, 0, -0.13282728, 0, 1, 0, 0.13282728, 0, -0.9911394, 3.4739242, 3.5681405, 0.030897213)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper18" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.6833504, 0, -0.7300908, 0, 1, 0, 0.7300908, 0, -0.6833504, 3.4739242, 3.5681405, 0.18574254)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper19" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.37407258, 0, -0.9273995, 0, 1, 0, 0.9273995, 0, -0.37407258, 2.9131994, 3.5681405, 0.17562559)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper20" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.2628629, 0, -0.9648334, 0, 1, 0, 0.9648334, 0, 0.2628629, 2.8959155, 3.5681405, 0.04620455)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper21" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.81412584, 0, -0.5806889, 0, 1, 0, 0.5806889, 0, 0.81412584, 3.0493975, 3.5681405, -0.098801665)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper25" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.053207483, 0, 0.9985837, 0, 1, 0, -0.9985837, 0, 0.053207483, 3.7361355, 3.5681405, -0.056948066)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper26" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.5614626, 0, 0.8275023, 0, 1, 0, -0.8275023, 0, -0.5614626, 3.7944446, 3.5681405, 0.059879057)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper27" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.9584124, 0, 0.28538743, 0, 1, 0, -0.28538743, 0, -0.9584124, 3.6558971, 3.5681405, 0.12902872)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper28" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.9968388, 0, -0.079450816, 0, 1, 0, 0.079450816, 0, -0.9968388, 3.4145446, 3.5681405, -0.3771962)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper29" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.74589473, 0, -0.6660641, 0, 1, 0, 0.6660641, 0, -0.74589473, 3.5226254, 3.5681405, -0.45045686)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper30" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.1560036, 0, -0.9877567, 0, 1, 0, 0.9877567, 0, -0.1560036, 3.72091, 3.5681405, -0.37788507)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper22" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.9376587, 0, -0.34755763, 0, 1, 0, 0.34755763, 0, -0.9376587, 2.971252, 3.5681405, 0.53619087)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper23" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.5366371, 0, -0.8438133, 0, 1, 0, 0.8438133, 0, -0.5366371, 3.2342162, 3.5681405, 0.29921517)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper24" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.11850795, 0, -0.9929533, 0, 1, 0, 0.9929533, 0, 0.11850795, 3.1737995, 3.5681405, 0.5360122)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper15" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.30248627, 0, -0.95315385, 0, 1, 0, 0.95315385, 0, 0.30248627, -2.8842473, 3.5681405, 0.27500728)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper2" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.83818537, 0, 0.54538536, 0, 1, 0, -0.54538536, 0, -0.83818537, -2.0756009, 3.5681405, 0.5013021)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper3" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.9532645, 0, -0.30213687, 0, 1, 0, 0.30213687, 0, -0.9532645, -2.0756009, 3.5681405, 0.009678243)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper4" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.7079454, 0, 0.706267, 0, 1, 0, -0.706267, 0, -0.7079454, -0.9337921, 3.5681405, 0.009678345)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper5" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.999774, 0, 0.021256475, 0, 1, 0, -0.021256475, 0, -0.999774, -0.9337921, 3.5681405, -0.07942178)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper6" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.83655393, 0, -0.5478844, 0, 1, 0, 0.5478844, 0, -0.83655393, -0.62431735, 3.5681405, 0.43249643)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper7" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.95878005, 0, 0.28414923, 0, 1, 0, -0.28414923, 0, -0.95878005, -0.84179986, 3.5681405, 0.40867665)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper8" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.20270175, 0, -0.9792404, 0, 1, 0, 0.9792404, 0, 0.20270175, -0.731906, 3.5681405, 0.20009688)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper9" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.7613798, 0, -0.64830595, 0, 1, 0, 0.64830595, 0, 0.7613798, -0.731906, 3.5681405, 0.32883707)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper31" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.529786, 0, -0.84813124, 0, 1, 0, 0.84813124, 0, -0.529786, -5.019285, 3.5681405, -0.06136135)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper32" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.12086451, 0, -0.992669, 0, 1, 0, 0.992669, 0, -0.12086451, -4.550699, 3.5681405, 0.26490682)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper33" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.87907505, 0, -0.47668323, 0, 1, 0, 0.47668323, 0, 0.87907505, -4.7976913, 3.5681405, 0.19723344)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper34" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.4613305, 0, 0.88722813, 0, 1, 0, -0.88722813, 0, 0.4613305, -4.7534447, 3.5681405, -0.32959428)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper39" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.8356156, 0, 0.54931456, 0, 1, 0, -0.54931456, 0, 0.8356156, -5.0186973, 3.5681405, 0.03616298)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper40" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.78974813, 0, -0.61343086, 0, 1, 0, 0.61343086, 0, -0.78974813, -5.372276, 3.5681405, 0.16883671)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper35" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.9963392, 0, -0.08548647, 0, 1, 0, 0.08548647, 0, -0.9963392, -5.5151615, 3.5681405, 0.22869942)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper36" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(-0.12086451, 0, -0.992669, 0, 1, 0, 0.992669, 0, -0.12086451, -4.9924393, 3.5681405, 0.26490676)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper37" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.87907505, 0, -0.47668323, 0, 1, 0, 0.47668323, 0, 0.87907505, -5.2394314, 3.5681405, 0.19723341)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper38" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.9865092, 0, 0.16370475, 0, 1, 0, -0.16370475, 0, 0.9865092, -5.1410484, 3.5681405, 0.28026792)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper10" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.7613798, 0, -0.64830595, 0, 1, 0, 0.64830595, 0, 0.7613798, -0.3640561, 3.5681405, -0.3133275)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Paper11" type="MeshInstance3D" parent="archive_v2/Details"]
+transform = Transform3D(0.92191726, 0, 0.38738677, 0, 1, 0, -0.38738677, 0, 0.92191726, -0.29892457, 3.5681405, -0.42366675)
+mesh = SubResource("QuadMesh_g85dh")
+skeleton = NodePath("../../..")
+
+[node name="Book" type="MeshInstance3D" parent="archive_v2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1880164, 0.37565398, 0.23075351)
+mesh = SubResource("BoxMesh_g85dh")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("13_7ejp4")

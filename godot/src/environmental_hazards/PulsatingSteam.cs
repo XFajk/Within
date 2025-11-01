@@ -17,6 +17,7 @@ public partial class PulsatingSteam : Node3D {
 
     private GpuParticles3D _steamParticles;
     private EnvironmentalHazard _steamArea;
+    private AudioStreamPlayer3D _steamSound; 
 
     private Timer _switchTimer;
 
@@ -25,6 +26,7 @@ public partial class PulsatingSteam : Node3D {
     public override void _Ready() {
         _steamParticles = GetNode<GpuParticles3D>("SteamParticles");
         _steamArea = GetNode<EnvironmentalHazard>("SteamArea");
+        _steamSound = GetNode<AudioStreamPlayer3D>("SteamSound");
 
         _steamParticles.Emitting = false;
         _steamArea.Position = new Vector3(0, 0, 1000f);
@@ -44,6 +46,8 @@ public partial class PulsatingSteam : Node3D {
                 _steamParticles.Emitting = true;
                 _steamArea.Position = Vector3.Zero;
                 _switchTimer.Start(PeriodOn);
+                _steamSound.MaxDb = 10;
+                _steamSound.Play();
             }
             _isActive = !_isActive;
         };

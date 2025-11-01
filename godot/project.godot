@@ -125,3 +125,5 @@ interact={
 3d_physics/layer_9="Camera limiter"
 3d_physics/layer_14="Lazer Blocker"
 3d_physics/layer_15="Drone Physics"
+3d_physics/layer_31="Metal"
+3d_physics/layer_32="Concrete"

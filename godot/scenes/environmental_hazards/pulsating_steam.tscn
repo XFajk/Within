@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://daht2670cc7m6"]
+[gd_scene load_steps=14 format=3 uid="uid://daht2670cc7m6"]
 
 [ext_resource type="Script" uid="uid://bfjipryu5ds2n" path="res://src/environmental_hazards/PulsatingSteam.cs" id="1_vm530"]
 [ext_resource type="Script" uid="uid://dkaeyvdlboftn" path="res://src/misc/EnvironmentalHazard.cs" id="2_n00dd"]
+[ext_resource type="AudioStream" uid="uid://rgrtp8lm80uq" path="res://assets/sounds/decopresion_air.wav" id="3_n00dd"]
 
 [sub_resource type="Gradient" id="Gradient_xpq3t"]
 offsets = PackedFloat32Array(0, 0.77130044, 1)
@@ -53,9 +54,16 @@ size = Vector2(0.5, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_o2743"]
 size = Vector3(1, 3.268, 1)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qwosm"]
+playback_mode = 2
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("3_n00dd")
+
 [node name="PulsatingSteam" type="Node3D"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_vm530")
+PeriodOn = 4.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="."]
 cast_shadow = 0
@@ -72,3 +80,11 @@ metadata/_custom_type_script = "uid://dkaeyvdlboftn"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.017089844)
 shape = SubResource("BoxShape3D_o2743")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
+
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="."]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_qwosm")
+volume_db = 10.0
+max_db = 6.0
+max_distance = 10.0
+bus = &"SoundFX"

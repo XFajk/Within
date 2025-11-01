@@ -25,10 +25,19 @@ public partial class PauseMenu : Control {
         }
         if (Input.IsActionJustPressed("ui_cancel") && !Global.Instance.IsInMainMenu) {
             if (!this.Visible) {
+                var masterBusIndex = AudioServer.GetBusIndex("Music&SoundFX");
+                var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
+
+                lowPassFilterEffect.CutoffHz /= 30.0f;
+
                 Visible = true;
                 Global.Instance.IsGamePaused = true;
                 GetTree().Paused = true;
             } else {
+                var masterBusIndex = AudioServer.GetBusIndex("Music&SoundFX");
+                var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
+
+                lowPassFilterEffect.CutoffHz *= 30.0f;
                 OnResumeButtonPressed();
             }
         }

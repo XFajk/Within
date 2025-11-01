@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://rdmyne62l2k6"
-path="res://.godot/imported/electrical_sparks.wav-bd7181014ebbb5e6ba912fb1aa039966.sample"
+path="res://.godot/imported/electrical_sparks.wav-65c5fdcf6e6d6b44cfe0ccb6ae840f0e.sample"
 
 [deps]
 
-source_file="res://assets/sounds/misc/electrical_sparks.wav"
-dest_files=["res://.godot/imported/electrical_sparks.wav-bd7181014ebbb5e6ba912fb1aa039966.sample"]
+source_file="res://assets/sounds/VFX/electrical_sparks.wav"
+dest_files=["res://.godot/imported/electrical_sparks.wav-65c5fdcf6e6d6b44cfe0ccb6ae840f0e.sample"]
 
 [params]
 

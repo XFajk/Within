@@ -1,4 +1,4 @@
-[gd_scene load_steps=226 format=4 uid="uid://bwxyq0jp71b54"]
+[gd_scene load_steps=228 format=4 uid="uid://bwxyq0jp71b54"]
 
 [ext_resource type="Script" uid="uid://cl4fyh2evpv5l" path="res://src/levels/GroundZero.cs" id="1_0i1j2"]
 [ext_resource type="Texture2D" uid="uid://dxxe55jrke1w8" path="res://assets/3d_models/ground_zero/ground_zero_v2_elevator_frame.png" id="2_ysn8x"]
@@ -41,6 +41,7 @@
 [ext_resource type="PackedScene" uid="uid://c68qa0g4sq855" path="res://assets/3d_models/light_sources/hanging_light.glb" id="30_m5wqf"]
 [ext_resource type="Script" uid="uid://b7jsj5yrf217d" path="res://src/interactables/SaveInteractable.cs" id="31_uhtlq"]
 [ext_resource type="Script" uid="uid://cf7jjduehmlil" path="res://src/interactables/specific/EntrenceToGroundOne.cs" id="32_jb0os"]
+[ext_resource type="AudioStream" uid="uid://rgrtp8lm80uq" path="res://assets/sounds/decopresion_air.wav" id="35_1kcvi"]
 [ext_resource type="PackedScene" uid="uid://dohk8bm4yglqt" path="res://assets/3d_models/light_sources/street_lamp.glb" id="39_7spgn"]
 [ext_resource type="PackedScene" uid="uid://ch8kqtvnwhng1" path="res://assets/3d_models/payphone/payphone.glb" id="40_na0nf"]
 [ext_resource type="Script" uid="uid://2am74t3x2kbk" path="res://src/interactables/PickupInteractable.cs" id="41_p2ixb"]
@@ -2096,6 +2097,12 @@ size = Vector2(0.5, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_kthi5"]
 size = Vector3(0.42333984, 1.8672929, 0.5)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rgubh"]
+playback_mode = 2
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("35_1kcvi")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_na0nf"]
 size = Vector3(1, 0.2208252, 0.24438477)
 
@@ -3165,6 +3172,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.533741, 0, 0.066586)
 transform = Transform3D(0.008332546, -0.1450841, -0.9893843, 0.99835485, 0.057337545, 4.4703484e-08, 0.05672896, -0.98775655, 0.14532319, 0.70564544, 1.4951308, 0.67516786)
 script = ExtResource("25_kyp00")
 StartDelay = 0.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam"]
@@ -3182,10 +3190,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.01
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="PulsatingSteam2" type="Node3D" parent="ground_zero_v2/SteamSection1"]
 transform = Transform3D(-0.0043359757, 0.07549834, -0.9971365, 0.9983548, 0.05733754, 4.5016726e-08, 0.05717347, -0.995496, -0.07562278, -1.9470749, 2.8909736, 0.6835345)
 script = ExtResource("25_kyp00")
 StartDelay = 0.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam2"]
@@ -3203,10 +3219,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.01
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam2"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="PulsatingSteam3" type="Node3D" parent="ground_zero_v2/SteamSection1"]
 transform = Transform3D(0.0054049767, -0.094109505, -0.9955472, 0.99785614, -0.06442499, 0.0115076145, -0.06522098, -0.9934751, 0.093559526, -0.31296098, 4.3841834, 0.7180321)
 script = ExtResource("25_kyp00")
 StartDelay = 0.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam3"]
@@ -3224,10 +3248,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.01
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam3"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="PulsatingSteam4" type="Node3D" parent="ground_zero_v2/SteamSection1"]
 transform = Transform3D(0.017606508, 0.07666535, -0.9969016, 0.9710714, -0.23878573, -0.0012131883, -0.2381387, -0.96804124, -0.07865176, -0.38742724, 5.62285, 0.7311446)
 script = ExtResource("25_kyp00")
 StartDelay = 0.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam4"]
@@ -3245,6 +3277,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.01
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam4"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="SteamSection2" type="Node3D" parent="ground_zero_v2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.533741, 3.724277, 0.066586)
 
@@ -3252,6 +3291,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.533741, 3.724277, 0.06658
 transform = Transform3D(0.002863968, -0.049865693, -0.99875176, 0.9866588, -0.16243309, 0.010939236, -0.16277573, -0.9854586, 0.048735227, 1.1088191, 2.9523158, 0.6895919)
 script = ExtResource("25_kyp00")
 StartDelay = 1.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam2"]
@@ -3269,9 +3309,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.01
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam2"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="PulsatingSteam3" type="Node3D" parent="ground_zero_v2/SteamSection2"]
 transform = Transform3D(0.015942585, 0.068754196, -0.9975063, 0.99785614, -0.064424984, 0.0115076145, -0.06347302, -0.99555117, -0.06963392, 2.6706655, 3.4994287, 0.7411429)
 script = ExtResource("25_kyp00")
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam3"]
@@ -3289,10 +3337,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.01
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam3"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="PulsatingSteam4" type="Node3D" parent="ground_zero_v2/SteamSection2"]
 transform = Transform3D(0.01594264, 0.06875415, -0.99750626, 0.7913084, -0.6107082, -0.029446652, -0.6112098, -0.7888655, -0.06414208, 0.31521928, 4.533331, 0.73802674)
 script = ExtResource("25_kyp00")
 StartDelay = 3.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam4"]
@@ -3310,10 +3366,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.01
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam4"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="PulsatingSteam5" type="Node3D" parent="ground_zero_v2/SteamSection2"]
 transform = Transform3D(0.01594264, 0.06875415, -0.99750626, 0.7913084, -0.6107082, -0.029446652, -0.6112098, -0.7888655, -0.06414208, -1.6688932, 4.5360546, 0.74395996)
 script = ExtResource("25_kyp00")
 StartDelay = 4.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam5"]
@@ -3331,10 +3395,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019981384, 1.591552, -0.01
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam5"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="PulsatingSteam6" type="Node3D" parent="ground_zero_v2/SteamSection2"]
 transform = Transform3D(0.015942574, 0.068754196, -0.9975063, 0.9977042, 0.06457747, 0.020396812, 0.0658189, -0.99554145, -0.067566864, -1.1445923, 4.964744, 0.7241853)
 script = ExtResource("25_kyp00")
 StartDelay = 5.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam6"]
@@ -3352,10 +3424,18 @@ transform = Transform3D(1, 0, 9.313226e-10, 0, 1.0000002, 0, 4.656613e-10, 0, 1,
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam6"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="PulsatingSteam7" type="Node3D" parent="ground_zero_v2/SteamSection2"]
 transform = Transform3D(0.028848471, -0.13277972, -0.99072576, 0.9977042, 0.064577475, 0.020396812, 0.061270382, -0.9890398, 0.13433781, 0.54624856, 4.965845, 0.6748242)
 script = ExtResource("25_kyp00")
 StartDelay = 6.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam7"]
@@ -3373,10 +3453,18 @@ transform = Transform3D(1, 0, 9.313226e-10, 0, 1.0000002, 0, 4.656613e-10, 0, 1,
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
 
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam7"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="PulsatingSteam8" type="Node3D" parent="ground_zero_v2/SteamSection2"]
 transform = Transform3D(-0.3005019, 0.5603984, -0.7717853, 0.86913836, 0.49414814, 0.020396784, 0.3928066, -0.664659, -0.6355561, 2.2925594, 5.169591, 0.70762235)
 script = ExtResource("25_kyp00")
 StartDelay = 7.0
+PeriodOn = 4.0
 PeriodOff = 3.0
 
 [node name="SteamParticles" type="GPUParticles3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam8"]
@@ -3394,6 +3482,13 @@ metadata/_custom_type_script = "uid://dkaeyvdlboftn"
 transform = Transform3D(1.0000001, 0, 1.4901161e-08, 5.9604645e-08, 1.0000002, -2.9802322e-08, 0, 0, 1, 0.01834488, 0.8911991, -0.0170784)
 shape = SubResource("BoxShape3D_kthi5")
 debug_color = Color(0.5921569, 0.49411765, 1, 1)
+
+[node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam8"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_rgubh")
+volume_db = 10.0
+max_distance = 10.0
+bus = &"SoundFX"
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="ground_zero_v2"]
 transform = Transform3D(-4.4825022e-08, -0.040271293, 0.99918884, 2.1769665e-08, 0.9991888, 0.0402713, -0.99999994, 7.665245e-09, -4.2101973e-08, -9.816474, 1.511581, 0.06482611)

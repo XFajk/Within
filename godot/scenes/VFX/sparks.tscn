@@ -1,4 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://lslwqvxj5jbq"]
+[gd_scene load_steps=10 format=3 uid="uid://lslwqvxj5jbq"]
+
+[ext_resource type="AudioStream" uid="uid://rdmyne62l2k6" path="res://assets/sounds/VFX/electrical_sparks.wav" id="1_ka8b1"]
 
 [sub_resource type="Curve" id="Curve_nbdqg"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -72,9 +74,11 @@ process_material = SubResource("ParticleProcessMaterial_h5rft")
 draw_pass_1 = SubResource("RibbonTrailMesh_evlqx")
 
 [node name="Sound" type="AudioStreamPlayer3D" parent="."]
-volume_db = -5.0
+stream = ExtResource("1_ka8b1")
+volume_db = -15.0
 autoplay = true
-max_distance = 20.0
+max_distance = 5.0
+bus = &"SoundFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

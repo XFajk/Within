@@ -40,6 +40,30 @@ public partial class Player : CharacterBody3D, ISavable {
 
     public PackedScene PlayerAreaToEnter = null;
 
+
+    // Sound Variables
+    private AudioStreamPlayer3D _swooshSound;
+    private AudioStreamPlayer3D _deathSound;
+    private AudioStreamPlayer3D _feetSounds;
+
+    [Export]
+    public AudioStreamRandomizer ConcreteFootstepSounds;
+
+    [Export]
+    public AudioStreamRandomizer MetalFootstepSounds;
+
+    [Export]
+    public AudioStreamRandomizer ConcreteJumpSounds;
+
+    [Export]
+    public AudioStreamRandomizer ConcreteJumpLandSounds;
+
+    [Export]
+    public AudioStreamRandomizer MetalJumpSounds;
+
+    [Export]
+    public AudioStreamRandomizer MetalJumpLandSounds;
+
     // MISC Variables
     public bool EmitBlood = true;
 
@@ -219,6 +243,9 @@ public partial class Player : CharacterBody3D, ISavable {
             // Add 0.3 units (half of the player's height) to position player properly
             GlobalPosition = new Vector3(GlobalPosition.X, collisionPoint.Y + 0.3f, GlobalPosition.Z);
         }
+
+        _deathSound = GetNode<AudioStreamPlayer3D>("Audio/DeathSound");
+        _swooshSound = GetNode<AudioStreamPlayer3D>("Audio/SwooshSound");
 
         _hitBoxArea = GetNode<Area3D>("HitBox");
 
@@ -707,8 +734,9 @@ public partial class Player : CharacterBody3D, ISavable {
 
         _velocity = Vector3.Zero;
 
+        _deathSound.Play();
         var tween = GetTree().CreateTween();
-        var masterBusIndex = AudioServer.GetBusIndex("Master");
+        var masterBusIndex = AudioServer.GetBusIndex("Music&SoundFX");
         var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
 
         lowPassFilterEffect.CutoffHz = 300.0f;
@@ -740,7 +768,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
         HitMaterial.SetShaderParameter("progress", 0.2f);
         HitMaterial.SetShaderParameter("smooth_amount", 0.3f);
- 
+
         _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 1.0f, 0.7f);
         _transitionTween.TweenProperty(HitMaterial, "shader_parameter/smooth_amount", 0.0f, 0.7f);
         _transitionTween.TweenCallback(Callable.From(() => {
@@ -782,9 +810,9 @@ public partial class Player : CharacterBody3D, ISavable {
         if (Global.Instance.RespawningInProgress) {
             return;
         }
-
+        _deathSound.Play();
         var tween = GetTree().CreateTween();
-        var masterBusIndex = AudioServer.GetBusIndex("Master");
+        var masterBusIndex = AudioServer.GetBusIndex("Music&SoundFX");
         var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
 
         lowPassFilterEffect.CutoffHz = 300.0f;
@@ -931,8 +959,9 @@ public partial class Player : CharacterBody3D, ISavable {
             return;
         }
 
+        _deathSound.Play();
         var tween = GetTree().CreateTween();
-        var masterBusIndex = AudioServer.GetBusIndex("Master");
+        var masterBusIndex = AudioServer.GetBusIndex("Music&SoundFX");
         var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
 
         lowPassFilterEffect.CutoffHz = 300.0f;

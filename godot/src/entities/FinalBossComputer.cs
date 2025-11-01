@@ -70,6 +70,15 @@ public partial class FinalBossComputer : DialogInteractable {
         }
 
         if (i >= Servers.Count && _hasActivated) {
+            // Stopping the boss fight
+
+            Global.Instance.SwitchMusic("GroundZero");
+            var musicBusIndex = AudioServer.GetBusIndex("Music");
+            var lowPassFilterEffect = AudioServer.GetBusEffect(musicBusIndex, 0) as AudioEffectLowPassFilter;
+            var musicTween = GetTree().CreateTween();
+            musicTween.SetPauseMode(Tween.TweenPauseMode.Process);
+            musicTween.TweenProperty(lowPassFilterEffect, "cutoff_hz", 100, 1.0);
+
             _hasActivated = false;
             foreach (var laserMachine in LaserMachines) {
                 laserMachine.Enabled = false;
@@ -106,6 +115,15 @@ public partial class FinalBossComputer : DialogInteractable {
             return;
         }
         _hasActivated = true;
+        // Starting the boss fight
+
+        Global.Instance.SwitchMusic("BossFight");
+        var musicBusIndex = AudioServer.GetBusIndex("Music");
+        var lowPassFilterEffect = AudioServer.GetBusEffect(musicBusIndex, 0) as AudioEffectLowPassFilter;
+        var musicTween = GetTree().CreateTween();
+        musicTween.SetPauseMode(Tween.TweenPauseMode.Process);
+        musicTween.TweenProperty(lowPassFilterEffect, "cutoff_hz", 20500, 0.5);
+
         var tween = GetTree().CreateTween();
         tween.TweenCallback(Callable.From(() => {
             foreach (var laserMachine in LaserMachines) {

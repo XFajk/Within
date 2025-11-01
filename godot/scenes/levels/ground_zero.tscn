@@ -1,6 +1,6 @@
 [gd_scene load_steps=226 format=4 uid="uid://bwxyq0jp71b54"]
 
-[ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_ftwb3"]
+[ext_resource type="Script" uid="uid://cl4fyh2evpv5l" path="res://src/levels/GroundZero.cs" id="1_0i1j2"]
 [ext_resource type="Texture2D" uid="uid://dxxe55jrke1w8" path="res://assets/3d_models/ground_zero/ground_zero_v2_elevator_frame.png" id="2_ysn8x"]
 [ext_resource type="Texture2D" uid="uid://xqk4kjs5a7eo" path="res://assets/3d_models/ground_zero/ground_zero_v2_elevator_door.png" id="3_jl4jv"]
 [ext_resource type="Texture2D" uid="uid://dajqsqb1bsjt8" path="res://assets/3d_models/ground_zero/ground_zero_v2_keycard_reader.png" id="4_7spgn"]
@@ -2603,7 +2603,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ml4h2")
 
 [node name="GroundZero" type="Node3D"]
-script = ExtResource("1_ftwb3")
+script = ExtResource("1_0i1j2")
 
 [node name="ground_zero_v2" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.94, 0, 0)

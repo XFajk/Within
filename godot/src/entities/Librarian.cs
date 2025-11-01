@@ -35,7 +35,8 @@ public partial class Librarian : PersonEnemy, ISavable{
     }
 
     public void LoadState(Godot.Collections.Dictionary<string, Variant> state) {
-        if (state.ContainsKey("GlobalPosition")) {
+        var player = GetTree().GetNodesInGroup("Player")[0] as Player;
+        if (state.ContainsKey("GlobalPosition") && player.HasItem("Medicine")) {
             GlobalPosition = (Vector3)state["GlobalPosition"];
             base.Die();
         }

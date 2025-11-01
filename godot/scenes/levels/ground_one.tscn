@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cg7dufgif45qf" path="res://assets/3d_models/ground_one/ground_one_floor_tiles_2.png" id="1_0an3i"]
 [ext_resource type="Script" uid="uid://dkaeyvdlboftn" path="res://src/misc/EnvironmentalHazard.cs" id="1_efc7r"]
-[ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_v7r5c"]
+[ext_resource type="Script" uid="uid://cl4fyh2evpv5l" path="res://src/levels/GroundZero.cs" id="1_wuf6q"]
 [ext_resource type="Texture2D" uid="uid://eimu34qdf6p2" path="res://assets/3d_models/ground_one/ground_one_concrete.png" id="2_efc7r"]
 [ext_resource type="Texture2D" uid="uid://dpkakwgpp1iw1" path="res://assets/3d_models/ground_one/ground_one_quality_floor.png" id="3_4csij"]
 [ext_resource type="Texture2D" uid="uid://60q3ewkmgu14" path="res://assets/3d_models/ground_one/ground_one_quality_brick.png" id="4_n2m1f"]
@@ -1803,7 +1803,7 @@ size = Vector3(1.0946045, 0.13781738, 0.27490234)
 size = Vector3(0.48425293, 1.1063232, 1.3204346)
 
 [node name="GroundOne" type="Node3D"]
-script = ExtResource("1_v7r5c")
+script = ExtResource("1_wuf6q")
 
 [node name="ground_one" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -2.1281343, 0)
@@ -2070,7 +2070,7 @@ collision_mask = 0
 
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="ground_one/CameraLimit"]
 depth = 11.1
-polygon = PackedVector2Array(-33.5, 4, -33.5, 0.7, 31.4, 0.7, 31.4, 22.6, -33.5, 22.6, -33.5, 18, 23, 18, 23, 4)
+polygon = PackedVector2Array(-33.5, 4, -33.5, 0.7, 31.4, 0.7, 31.4, 22.6, -33.5, 22.6, -33.5, 18, 24.5, 18, 24.5, 4)
 debug_color = Color(0, 0.69803923, 0.8980392, 0.69803923)
 
 [node name="MiniCheckPoint" type="Area3D" parent="ground_one"]

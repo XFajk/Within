@@ -1,7 +1,7 @@
-[gd_scene load_steps=133 format=4 uid="uid://d02dp5aoct87f"]
+[gd_scene load_steps=137 format=4 uid="uid://d02dp5aoct87f"]
 
 [ext_resource type="Texture2D" uid="uid://dip3ahloloqjn" path="res://assets/3d_models/laboratory/laboratory_v1_smooth_concrete.png" id="1_chwm5"]
-[ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_gowxn"]
+[ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_ilq13"]
 [ext_resource type="Texture2D" uid="uid://cmmi8nrn8a1s0" path="res://assets/3d_models/laboratory/laboratory_v1_white_wall.png" id="2_xdbrh"]
 [ext_resource type="Texture2D" uid="uid://ceys2twmrdtkt" path="res://assets/3d_models/laboratory/laboratory_v1_concrete.png" id="3_3pl2b"]
 [ext_resource type="Texture2D" uid="uid://b1roy54o10n7n" path="res://assets/3d_models/laboratory/laboratory_v1_stripes.png" id="4_fui3v"]
@@ -32,6 +32,10 @@
 [ext_resource type="Script" uid="uid://b48i33gg6km8x" path="res://src/misc/AbilityUnlocker.cs" id="23_pf8tl"]
 [ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="24_jow0v"]
 [ext_resource type="JSON" path="res://assets/dialogs/laboratory/metro_document.json" id="24_w15q3"]
+[ext_resource type="JSON" path="res://assets/dialogs/laboratory/experiment_symptomps.json" id="28_ilq13"]
+[ext_resource type="JSON" path="res://assets/dialogs/laboratory/injection_process_document.json" id="29_xruk1"]
+[ext_resource type="JSON" path="res://assets/dialogs/laboratory/research_start_document.json" id="30_xyroc"]
+[ext_resource type="JSON" path="res://assets/dialogs/laboratory/first_counter_mesures.json" id="31_74nei"]
 [ext_resource type="Texture2D" uid="uid://demomhq3w33uy" path="res://assets/3d_models/furniture_and_objects/white_board/whiteboard_galvanized.png" id="33_18ecg"]
 [ext_resource type="Texture2D" uid="uid://buuwxdukh5xfh" path="res://assets/3d_models/furniture_and_objects/white_board/whiteboard_whiteboard1.png" id="34_rhjri"]
 [ext_resource type="Texture2D" uid="uid://bemdwl8f61stf" path="res://assets/3d_models/furniture_and_objects/white_board/whiteboard_galvanized3.png" id="35_jqly2"]
@@ -966,7 +970,7 @@ cull_mode = 2
 albedo_texture = ExtResource("20_eu5pw")
 roughness = 0.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_s3xbv"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_74nei"]
 _surfaces = [{
 "aabb": AABB(-0.3117671, 0.004987091, -0.27622813, 0.5710585, 0.49762538, 0.5909591),
 "format": 34896613377,
@@ -1020,7 +1024,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray("ivqpqgAAWeL/////FwOw4Jqk///tUpXdAABUVef8GNIXUf//Oqco1wAAqarn/BvScwX/////9tMXUQAAOqcw13MFAAD//+rTmqQAAO1Sod2K+lRVAABa4v//AAAXA6ngjoupqrpETd4KOKmqB5kw1go4VFUHmS/WjotUVbpET963gdD5iYMC9GaF+O+heM/85oVJ75+C0/hHhNnyc299+oJyyvpCcCz76nly/rNz4/uggqL3QYMB9/l2rvzMd6z9")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_s3xbv")
+shadow_mesh = SubResource("ArrayMesh_74nei")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tm6ht"]
 albedo_texture = ExtResource("20_eu5pw")
@@ -1503,7 +1507,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_n0lpk")
 
 [node name="Laboratry" type="Node3D"]
-script = ExtResource("1_gowxn")
+script = ExtResource("1_ilq13")
 
 [node name="laboratory_v1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23914385, 1.1920929e-07, 0.082558155)
@@ -1635,15 +1639,6 @@ shadow_enabled = true
 spot_range = 5.890745
 spot_angle = 68.24418
 
-[node name="square_light2" parent="laboratory_v1" instance=ExtResource("13_xdbrh")]
-transform = Transform3D(1.9413003, 0, 0, 0, 1, 0, 0, 0, 1.9413003, -5.588831, 2.1553292, -0.6278393)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="laboratory_v1/square_light2"]
-transform = Transform3D(0.51511866, 0, 0, 0, -2.2516552e-08, 1, 0, -0.51511866, -1.1598696e-08, 0, -0.032397985, 0)
-shadow_enabled = true
-spot_range = 5.890745
-spot_angle = 68.24418
-
 [node name="square_light3" parent="laboratory_v1" instance=ExtResource("13_xdbrh")]
 transform = Transform3D(1.9413003, 0, 0, 0, 1, 0, 0, 0, 1.9413003, -3.7621403, 2.1553292, -0.6278393)
 
@@ -1761,6 +1756,7 @@ transform = Transform3D(-0.082689755, 0, -0.99657536, 0, 1, 0, 0.99657536, 0, -0
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("23_2eqre")
+DialogData = Array[JSON]([ExtResource("28_ilq13")])
 InteractionTitle = "Read Log"
 metadata/_custom_type_script = "uid://cvga7nhg6e82n"
 
@@ -1780,28 +1776,18 @@ transform = Transform3D(0.99999994, 0, -4.4703484e-08, 0, 1, 0, 4.4703484e-08, 0
 mesh = SubResource("ArrayMesh_xmfjj")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="laboratory_v1/ExperimentSymptompsLog/ModernTable4"]
-transform = Transform3D(1, 0, 1.4901158e-08, 0, 1, 0, -1.4901158e-08, 0, 1, 0, 0.03842044, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="laboratory_v1/ExperimentSymptompsLog/ModernTable4/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_tvit5")
-
 [node name="Computer" type="MeshInstance3D" parent="laboratory_v1/ExperimentSymptompsLog/ModernTable4"]
 transform = Transform3D(-0.48519617, 0.008999893, -0.12043139, 0.011682829, 0.49976894, -0.009719986, 0.12020078, -0.012246164, -0.4851823, -0.07821798, 0.03842044, 0.006489992)
 mesh = SubResource("ArrayMesh_cegea")
 skeleton = NodePath("")
 surface_material_override/1 = SubResource("StandardMaterial3D_tm6ht")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="laboratory_v1/ExperimentSymptompsLog/ModernTable4/Computer"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="laboratory_v1/ExperimentSymptompsLog/ModernTable4/Computer/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_w15q3")
-
 [node name="InjectionProcessLog" type="Area3D" parent="laboratory_v1"]
 transform = Transform3D(0.45591772, 0, 0.8900219, 0, 1, 0, -0.8900219, 0, 0.45591772, -5.2688127, 0.016671225, -0.65443677)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("23_2eqre")
+DialogData = Array[JSON]([ExtResource("29_xruk1")])
 InteractionTitle = "Read Log"
 metadata/_custom_type_script = "uid://cvga7nhg6e82n"
 
@@ -1826,6 +1812,7 @@ transform = Transform3D(0.45591772, 0, 0.8900219, 0, 1, 0, -0.8900219, 0, 0.4559
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("23_2eqre")
+DialogData = Array[JSON]([ExtResource("30_xyroc")])
 InteractionTitle = "Read Log"
 metadata/_custom_type_script = "uid://cvga7nhg6e82n"
 
@@ -1850,6 +1837,7 @@ transform = Transform3D(0.45591772, 0, 0.8900219, 0, 1, 0, -0.8900219, 0, 0.4559
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("23_2eqre")
+DialogData = Array[JSON]([ExtResource("31_74nei")])
 InteractionTitle = "Read Log"
 metadata/_custom_type_script = "uid://cvga7nhg6e82n"
 
@@ -1866,30 +1854,6 @@ shape = SubResource("BoxShape3D_18ecg")
 transform = Transform3D(1.0000008, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000008, -0.49210668, 1.076882, 0.37701845)
 
 [node name="Title" parent="laboratory_v1/FirstCounterMesuresLog" instance=ExtResource("18_pf8tl")]
-transform = Transform3D(0.4600005, 0, 1.4901161e-08, 0, 0.46, 0, -1.4901161e-08, 0, 0.4600005, -0.49210668, 1.0746477, 0.37701845)
-layers = 2
-
-[node name="SubjectsDiary" type="Area3D" parent="laboratory_v1"]
-transform = Transform3D(0.45591772, 0, 0.8900219, 0, 1, 0, -0.8900219, 0, 0.45591772, -4.2536325, 0.016671225, -0.65443677)
-collision_layer = 0
-collision_mask = 8
-script = ExtResource("23_2eqre")
-InteractionTitle = "Read Diary"
-metadata/_custom_type_script = "uid://cvga7nhg6e82n"
-
-[node name="SubjectsDiary" type="MeshInstance3D" parent="laboratory_v1/SubjectsDiary"]
-transform = Transform3D(1.0000004, 0, 0, 0, 1, 0, 0, 0, 1.0000004, -0.465235, 0, 0.23831868)
-mesh = SubResource("BoxMesh_18ecg")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="laboratory_v1/SubjectsDiary"]
-transform = Transform3D(0.8662963, 0, 0.49953163, 0, 1, 0, -0.49953163, 0, 0.8662963, -0.41143465, 0.34866643, 0.27960038)
-shape = SubResource("BoxShape3D_18ecg")
-
-[node name="TextBox" parent="laboratory_v1/SubjectsDiary" instance=ExtResource("24_jow0v")]
-transform = Transform3D(1.0000008, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000008, -0.49210668, 1.076882, 0.37701845)
-
-[node name="Title" parent="laboratory_v1/SubjectsDiary" instance=ExtResource("18_pf8tl")]
 transform = Transform3D(0.4600005, 0, 1.4901161e-08, 0, 0.46, 0, -1.4901161e-08, 0, 0.4600005, -0.49210668, 1.0746477, 0.37701845)
 layers = 2
 

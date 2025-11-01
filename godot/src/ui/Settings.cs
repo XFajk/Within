@@ -120,13 +120,15 @@ public partial class Settings : Control {
         _soundFxSlider.Value = _soundFxVolume;
         _soundFxSlider.ValueChanged += (value) => {
             _soundFxVolume = (float)value;
-            //AudioServer.SetBusVolumeLinear(AudioServer.GetBusIndex("SoundFx"), _soundFxVolume);
+            var soundFXBusIndex = AudioServer.GetBusIndex("SoundFX");
+            AudioServer.SetBusVolumeLinear(soundFXBusIndex, _soundFxVolume);
             SaveSettings();
         };
         _musicSlider.Value = _musicVolume;
         _musicSlider.ValueChanged += (value) => {
             _musicVolume = (float)value;
-            //AudioServer.SetBusVolumeLinear(AudioServer.GetBusIndex("Music"), _musicVolume);
+            var musicBusIndex = AudioServer.GetBusIndex("Music");
+            AudioServer.SetBusVolumeLinear(musicBusIndex, _musicVolume);
             SaveSettings();
         };
 

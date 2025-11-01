@@ -35,7 +35,23 @@ public partial class Global : Node {
     public bool IsGamePaused = false;
     public bool IsInMainMenu = true;
 
-    public bool ImpactFrameEnabled = true; 
+    public bool ImpactFrameEnabled = true;
+
+    public AudioStreamPlayer MusicPlayer = GD.Load<PackedScene>("res://scenes/music_player.tscn").Instantiate<AudioStreamPlayer>();
+    private string _currentMusic = "GroundZero";
+
+    public override void _Ready() {
+        AddChild(MusicPlayer);
+    }
+
+    public void SwitchMusic(string musicName) {
+        if (_currentMusic == musicName) {
+            return;
+        }
+        _currentMusic = musicName;
+        if (MusicPlayer.GetStreamPlayback() is AudioStreamPlaybackInteractive audioStreamPlayback)
+            audioStreamPlayback.SwitchToClipByName(musicName);
+    }
 
     public void SaveProgressData() {
         var data = new Dictionary<string, Variant> { };
@@ -85,7 +101,7 @@ public partial class Global : Node {
             }
             if (loadedData.ContainsKey("player_camera_last_saved_transform")) {
                 PlayerCameraLastSavedTransform = (Transform3D)loadedData["player_camera_last_saved_transform"];
-            } 
+            }
             if (loadedData.ContainsKey("player_has_dash_ability")) {
                 PlayerHasDashAbility = (bool)loadedData["player_has_dash_ability"];
             }

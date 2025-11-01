@@ -2,21 +2,21 @@
 	{
 		"speaker": 0.0,
 		"text": "Oh no...",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 0.0,
 		"text": "No, no, no, no!",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 0.0,
 		"text": "I was only gone for a few hours. How could he already be dead?",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 0.0,
 		"text": "What am I supposed to do with the medicine now?",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	}
 ]

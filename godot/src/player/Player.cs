@@ -707,6 +707,14 @@ public partial class Player : CharacterBody3D, ISavable {
 
         _velocity = Vector3.Zero;
 
+        var tween = GetTree().CreateTween();
+        var masterBusIndex = AudioServer.GetBusIndex("Master");
+        var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
+
+        lowPassFilterEffect.CutoffHz = 300.0f;
+        tween.TweenProperty(lowPassFilterEffect, "cutoff_hz", 20500.0f, 2.0f).SetDelay(2.0f);
+
+
         if (_transitionTween != null) {
             _transitionTween.Kill();
         }
@@ -732,7 +740,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
         HitMaterial.SetShaderParameter("progress", 0.2f);
         HitMaterial.SetShaderParameter("smooth_amount", 0.3f);
-
+ 
         _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 1.0f, 0.7f);
         _transitionTween.TweenProperty(HitMaterial, "shader_parameter/smooth_amount", 0.0f, 0.7f);
         _transitionTween.TweenCallback(Callable.From(() => {
@@ -774,6 +782,13 @@ public partial class Player : CharacterBody3D, ISavable {
         if (Global.Instance.RespawningInProgress) {
             return;
         }
+
+        var tween = GetTree().CreateTween();
+        var masterBusIndex = AudioServer.GetBusIndex("Master");
+        var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
+
+        lowPassFilterEffect.CutoffHz = 300.0f;
+        tween.TweenProperty(lowPassFilterEffect, "cutoff_hz", 20500.0f, 2.0f).SetDelay(2.6f);
 
         if (_transitionTween != null) {
             _transitionTween.Kill();
@@ -916,6 +931,13 @@ public partial class Player : CharacterBody3D, ISavable {
             return;
         }
 
+        var tween = GetTree().CreateTween();
+        var masterBusIndex = AudioServer.GetBusIndex("Master");
+        var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
+
+        lowPassFilterEffect.CutoffHz = 300.0f;
+        tween.TweenProperty(lowPassFilterEffect, "cutoff_hz", 20500.0f, 2.0f).SetDelay(1.0f);
+
         _hitThisFrame = true;
 
         TransitionAnimationTo(PlayerState.Damaged);
@@ -1050,9 +1072,5 @@ public partial class Player : CharacterBody3D, ISavable {
             TransitionAnimationTo(PlayerState.Falling);
             CurrentState = PlayerState.Falling;
         }
-    }
-
-    private void DeferredCaller(Callable f) {
-        f.Call();
     }
 }

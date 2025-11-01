@@ -2,61 +2,61 @@
 	{
 		"speaker": 0.0,
 		"text": "Hello, Winston.",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 1.0,
 		"text": "What do you want, you stupid thief!",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 0.0,
 		"text": "I'm telling you, I didn't steal your food.",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 1.0,
 		"text": "Yeah, tell that to some other fool.",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 1.0,
 		"text": "I know it was you.",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 1.0,
 		"text": "Anyway, what do you want?",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 0.0,
 		"text": "I wanted to ask if you know any place where I could get medicine for the elder.",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 1.0,
 		"text": "Why waste something that valuable on an old geezer like him when you could give it to me?",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 1.0,
 		"text": "I might even pardon your theft.",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 0.0,
 		"text": "I didn't steal it!",
-		"typing_speed": 0.02
+		"typing_speed": 0.0200000000000000004
 	},
 	{
 		"speaker": 1.0,
 		"text": "Doesn't matter anyway. I don't know anywhere you could get medicine.",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	},
 	{
 		"speaker": 1.0,
 		"text": "Except up TOP, of course - but we both know neither of us has that kind of money.",
-		"typing_speed": 0.10000000000000001
+		"typing_speed": 0.0500000000000000028
 	}
 ]

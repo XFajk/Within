@@ -1,6 +1,6 @@
 [gd_scene load_steps=231 format=4 uid="uid://ch7t51nqhx2op"]
 
-[ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_qocv2"]
+[ext_resource type="Script" uid="uid://cgpc4rckff35e" path="res://src/levels/BossFightRoom.cs" id="1_ebnxn"]
 [ext_resource type="Texture2D" uid="uid://fdwslrqafuqm" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_concrete_tile_black.png" id="1_qs8ba"]
 [ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player/player.tscn" id="2_e7ocr"]
 [ext_resource type="Texture2D" uid="uid://dunqsx266jion" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_black_bricks.png" id="2_q5a1h"]
@@ -51,7 +51,7 @@
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="46_pw1f1"]
 [ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="47_2b4m3"]
 [ext_resource type="PackedScene" uid="uid://c888mhcqkvcic" path="res://assets/3d_models/light_sources/wall_light2.glb" id="47_lclua"]
-[ext_resource type="JSON" uid="uid://dsmtnf2rum88x" path="res://assets/dialogs/boss_fight/computer/first_conversation.tres" id="49_lclua"]
+[ext_resource type="JSON" path="res://assets/dialogs/boss_fight/computer/first_conversation.json" id="50_ebnxn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_in0ov"]
 resource_name = "idk"
@@ -2444,7 +2444,7 @@ points = PackedVector3Array(0.05982189, 0.3854745, 0.34188583, -0.059821896, 0.3
 points = PackedVector3Array(0.05982189, 0.3854745, 0.34188583, -0.059821896, 0.3854745, 0.34188583, 0.05982189, -0.38554996, 0.34188583, 0.05982189, 0.3854745, -0.34188583, -0.059821896, 0.3854745, -0.34188583, -0.059821896, -0.38554996, 0.34188583, 0.05982189, -0.38554996, -0.34188583, -0.059821896, -0.38554996, -0.34188583)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rtikm"]
-size = Vector3(0.4550476, 1, 1)
+size = Vector3(0.4550476, 5.893219, 1)
 
 [sub_resource type="Environment" id="Environment_q5a1h"]
 background_mode = 1
@@ -2586,7 +2586,7 @@ shadow_mesh = SubResource("ArrayMesh_n37ht")
 size = Vector3(1.63, 1, 1)
 
 [node name="BossFightRoom" type="Node3D"]
-script = ExtResource("1_qocv2")
+script = ExtResource("1_ebnxn")
 
 [node name="boss_fight_room_v1" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.3085673, -2.6058302, 0.07551108)
@@ -3211,7 +3211,7 @@ collision_layer = 16384
 collision_mask = 16384
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31136417, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31136417, 1.8154144, 0)
 shape = SubResource("BoxShape3D_rtikm")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
@@ -3228,7 +3228,7 @@ collision_layer = 16384
 collision_mask = 16384
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13282776, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13282776, 0.18457031, 0)
 shape = SubResource("BoxShape3D_rtikm")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -3339,12 +3339,12 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("45_rtikm")
 Servers = [NodePath("../boss_fight_room_v1/FinalBossServer"), NodePath("../boss_fight_room_v1/FinalBossServer2"), NodePath("../boss_fight_room_v1/FinalBossServer3")]
-LaserMachines = [NodePath("../boss_fight_room_v1/LaserMachine/CannonPlatform/Cannon/LaserMachine"), NodePath("../boss_fight_room_v1/LaserMachine2/CannonPlatform/Cannon/LaserMachine"), NodePath("../boss_fight_room_v1/LaserMachine3/CannonPlatform/Cannon/LaserMachine")]
-LaserDroneManagers = [NodePath("../LazerDroneManager"), NodePath("../LazerDroneManager2")]
-AlarmLights = [NodePath("../Lights/AlarmLights"), NodePath("../Lights/AlarmLights2"), NodePath("../Lights/AlarmLights3"), NodePath("../Lights/AlarmLights4"), NodePath("../Lights/AlarmLights5"), NodePath("../Lights/AlarmLights6"), NodePath("../Lights/AlarmLights7"), NodePath("../Lights/AlarmLights8"), NodePath("../Lights/AlarmLights9")]
+LaserMachines = [NodePath("../boss_fight_room_v1/LaserMachine3/CannonPlatform/Cannon/LaserMachine"), NodePath("../boss_fight_room_v1/LaserMachine2/CannonPlatform/Cannon/LaserMachine"), NodePath("../boss_fight_room_v1/LaserMachine/CannonPlatform/Cannon/LaserMachine")]
+LaserDroneManagers = [NodePath("../LazerDroneManager2"), NodePath("../LazerDroneManager")]
+AlarmLights = [NodePath("../Lights/AlarmLights"), NodePath("../Lights/AlarmLights2"), NodePath("../Lights/AlarmLights3"), NodePath("../Lights/AlarmLights4"), NodePath("../Lights/AlarmLights6"), NodePath("../Lights/AlarmLights7"), NodePath("../Lights/AlarmLights5"), NodePath("../Lights/AlarmLights8"), NodePath("../Lights/AlarmLights9")]
 OtherLights = [NodePath("../Lights/big_halogen/HalogenStand/Halogen/OmniLight3D"), NodePath("../Lights/big_halogen/HalogenStand/Halogen/SpotLight3D"), NodePath("../Lights/big_halogen2/HalogenStand/Halogen/OmniLight3D"), NodePath("../Lights/big_halogen2/HalogenStand/Halogen/SpotLight3D")]
 DroneSpawnPoint = NodePath("../DroneSpawnPoint")
-DialogData = Array[JSON]([ExtResource("49_lclua")])
+DialogData = Array[JSON]([ExtResource("50_ebnxn")])
 InteractionTitle = "Call Elevator"
 metadata/_custom_type_script = "uid://cvga7nhg6e82n"
 

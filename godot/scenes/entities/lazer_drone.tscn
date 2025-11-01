@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://b3y5k0q3t8rs1"]
+[gd_scene load_steps=31 format=4 uid="uid://b3y5k0q3t8rs1"]
 
 [ext_resource type="Script" uid="uid://cdtk5gexxl1cb" path="res://src/entities/LazerDrone.cs" id="1_k50lr"]
 [ext_resource type="Texture2D" uid="uid://dmnqrqxccho0v" path="res://assets/3d_models/laser_drone/laser_drone_flying_ball1.png" id="2_ul77g"]
@@ -80,6 +80,10 @@ emission_enabled = true
 emission = Color(0.7171875, 0, 0.05343737, 1)
 emission_energy_multiplier = 16.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yb44q"]
+albedo_texture = ExtResource("2_ul77g")
+emission_texture = ExtResource("2_ul77g")
+
 [sub_resource type="SphereMesh" id="SphereMesh_ul77g"]
 radius = 0.02
 height = 0.04
@@ -97,6 +101,64 @@ inner_radius = 0.03
 outer_radius = 0.04
 rings = 7
 ring_segments = 5
+
+[sub_resource type="Animation" id="Animation_88cks"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ring:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ring:rotation:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ring2:rotation:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ring2:rotation:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-0.43093926, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ring2:rotation:z")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.0378426, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_f8240"]
 resource_name = "run"
@@ -158,71 +220,18 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 1, 2)
 }
 
-[sub_resource type="Animation" id="Animation_88cks"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Ring:rotation:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Ring:rotation:z")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Ring2:rotation:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Ring2:rotation:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-0.43093926, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Ring2:rotation:z")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1.0378426, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0urbd"]
 _data = {
 &"RESET": SubResource("Animation_88cks"),
 &"run": SubResource("Animation_f8240")
 }
 
+[sub_resource type="Curve" id="Curve_m7deg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CurveTexture" id="CurveTexture_m7deg"]
+curve = SubResource("Curve_m7deg")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f8240"]
 direction = Vector3(0, 1, 0)
@@ -278,11 +287,16 @@ material = SubResource("ShaderMaterial_d6opi")
 [node name="LazerDrone" type="Node3D"]
 script = ExtResource("1_k50lr")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0, 0, 1)
+omni_range = 0.24223089
+
 [node name="FlyingBall" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.8456862, -0.09654769, 0.5248747, -0.5292101, -0.27874243, 0.8013984, 0.06893167, -0.9555006, -0.28682268, 0, 0, 0)
 mesh = SubResource("ArrayMesh_sspgq")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_jj52n")
+surface_material_override/1 = SubResource("StandardMaterial3D_yb44q")
 
 [node name="Core" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_ul77g")

@@ -6,10 +6,13 @@ public partial class PauseMenu : Control {
     private Button _settingsButton;
     private Button _exitButton;
 
+    private Control _settingsMenu;
+
     public override void _Ready() {
         _resumeButton = GetNode<Button>("VBoxContainer/Resume");
         _settingsButton = GetNode<Button>("VBoxContainer/Settings");
         _exitButton = GetNode<Button>("VBoxContainer/Exit");
+        _settingsMenu = GetNode<Control>("../Settings");
 
         _resumeButton.Pressed += OnResumeButtonPressed;
         _settingsButton.Pressed += OnSettingsButtonPressed;
@@ -17,6 +20,9 @@ public partial class PauseMenu : Control {
     }
 
     public override void _Process(double delta) {
+        if (_settingsMenu.Visible) {
+            return;
+        }
         if (Input.IsActionJustPressed("ui_cancel") && !Global.Instance.IsInMainMenu) {
             if (!this.Visible) {
                 Visible = true;
@@ -35,8 +41,7 @@ public partial class PauseMenu : Control {
     }
 
     private void OnSettingsButtonPressed() {
-        var settingsMenu = GetNode<Control>("../Settings");
-        settingsMenu.Visible = true;
+        _settingsMenu.Visible = true;
         this.Visible = false;
     }
 

@@ -1,43 +1,42 @@
 [
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "Project Iniectio Prava - Log Entry:",
-		"typing_speed": 0.1
+		"typing_speed": 0.05
 	},
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "We are experiencing increasing difficulties conducting experiments on this floor.",
-		"typing_speed": 0.1
+		"typing_speed": 0.05
 	},
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "Transporting subjects from the lower floors for infection trials is becoming too risky if we wish to keep this operation secret.",
-		"typing_speed": 0.1
+		"typing_speed": 0.05
 	},
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "For this reason, we are considering relocating our parasite experiments to a different site.",
-		"typing_speed": 0.1
+		"typing_speed": 0.05
 	},
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "Specifically, to the metro tunnels beneath the bunker.",
-		"typing_speed": 0.1
+		"typing_speed": 0.05
 	},
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "They are much closer to our test subjects and serve no useful purpose otherwise.",
-		"typing_speed": 0.1
+		"typing_speed": 0.05
 	},
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "We estimate the relocation will take a few weeks, but it will be worth it in the long run, preventing unrest among those who still care for the lower floors.",
-		"typing_speed": 0.1
+		"typing_speed": 0.05
 	},
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "End of log.",
-		"typing_speed": 0.1
+		"typing_speed": 0.05
 	}
 ]
-

@@ -1,27 +1,27 @@
 [
 	{
-		"speaker": 0,
+		"speaker": 0.0,
 		"text": "Hello, sir. What should I do today?",
-		"typing_speed": 0.1
+		"typing_speed": 0.0500000000000000028
 	},
 	{
-		"speaker": 1,
+		"speaker": 1.0,
 		"text": "Sal, I have a task for you something I wouldn’t normally trust to someone from your floor.",
-		"typing_speed": 0.1
+		"typing_speed": 0.0500000000000000028
 	},
 	{
-		"speaker": 1,
+		"speaker": 1.0,
 		"text": "You’ll go to the floor ABOVE and collect a package of medicine.",
-		"typing_speed": 0.1
+		"typing_speed": 0.0500000000000000028
 	},
 	{
-		"speaker": 1,
+		"speaker": 1.0,
 		"text": "If security gives you trouble,",
-		"typing_speed": 0.1
+		"typing_speed": 0.0500000000000000028
 	},
 	{
-		"speaker": 1,
+		"speaker": 1.0,
 		"text": "tell them you’re there on my orders. That should be enough.",
-		"typing_speed": 0.1
+		"typing_speed": 0.0500000000000000028
 	}
 ]

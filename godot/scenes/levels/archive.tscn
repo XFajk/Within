@@ -1,7 +1,7 @@
 [gd_scene load_steps=95 format=4 uid="uid://vcp1lbvxo0ew"]
 
+[ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_g85dh"]
 [ext_resource type="Texture2D" uid="uid://rucyoyeadn1i" path="res://assets/3d_models/archive/archive_v2_parquet.png" id="1_netwc"]
-[ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_xei0v"]
 [ext_resource type="Texture2D" uid="uid://dfxqaqqdvy6o4" path="res://assets/3d_models/archive/archive_v2_plaster_wall.png" id="2_i8qjj"]
 [ext_resource type="Texture2D" uid="uid://j8olnojmg1kj" path="res://assets/3d_models/archive/archive_v2_quality_brick.png" id="3_lcaao"]
 [ext_resource type="Texture2D" uid="uid://cwrrbns668tr3" path="res://assets/3d_models/archive/archive_v2_red_plaster.png" id="4_da32i"]
@@ -1097,7 +1097,7 @@ orientation = 1
 size = Vector3(0.2, 0.02, 0.3)
 
 [node name="Archive" type="Node3D"]
-script = ExtResource("1_xei0v")
+script = ExtResource("1_g85dh")
 
 [node name="archive_v2" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.6074648, -2.4646108, 0.030896902)

@@ -4,7 +4,7 @@ using System;
 
 public partial class FinalBossServer : Enemy {
 
-    private Array<MeshInstance3D> _serverShells = new();
+    private MeshInstance3D _serverBody = new();
 
     [Export]
     public StandardMaterial3D HitMaterial;
@@ -17,20 +17,14 @@ public partial class FinalBossServer : Enemy {
     public override void _Ready() {
         base._Ready();
 
-        var bodyPartsChildren = GetNode("Body").GetChildren();
-        foreach (var child in bodyPartsChildren) {
-            if (child is MeshInstance3D mesh) {
-                _serverShells.Add(mesh);
-            }
-        }
+        _serverBody = GetNode<MeshInstance3D>("Servers");
 
-        _originalMaterial = _serverShells[0].GetSurfaceOverrideMaterial(0);
+
+        _originalMaterial = _serverBody.GetSurfaceOverrideMaterial(1);
     }
 
     protected override void OnHit() {
-        foreach (var shell in _serverShells) {
-            shell.SetSurfaceOverrideMaterial(0, HitMaterial);
-        }
+        _serverBody.SetSurfaceOverrideMaterial(1, HitMaterial);
 
         var sparks = _brokenSparks.Instantiate<Node3D>();
         AddSibling(sparks);
@@ -39,9 +33,7 @@ public partial class FinalBossServer : Enemy {
     }
 
     protected override void OnHitEnd() {
-        foreach (var shell in _serverShells) {
-            shell.SetSurfaceOverrideMaterial(0, _originalMaterial);
-        }
+        _serverBody.SetSurfaceOverrideMaterial(1, _originalMaterial);
     }
 
     protected override void Die() {

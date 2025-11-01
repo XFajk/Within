@@ -1,7 +1,7 @@
 [gd_scene load_steps=122 format=4 uid="uid://dxkvb2eoxa74j"]
 
 [ext_resource type="Texture2D" uid="uid://dbkbjd3j5kmnm" path="res://assets/3d_models/metro/metro_v1_wallpaper3.png" id="1_0fs0g"]
-[ext_resource type="Script" uid="uid://8minquic8iyd" path="res://src/save_system/Level.cs" id="1_5qbwk"]
+[ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_dmms0"]
 [ext_resource type="Texture2D" uid="uid://dl58qtolvgkbr" path="res://assets/3d_models/metro/metro_v1_concrete.png" id="2_es4gr"]
 [ext_resource type="Texture2D" uid="uid://sbje35bc6743" path="res://assets/3d_models/metro/metro_v1_metro_tiles.png" id="3_lr6xj"]
 [ext_resource type="Texture2D" uid="uid://lxvfo5qcnqoq" path="res://assets/3d_models/metro/metro_v1_tactile_pavement.png" id="4_140p0"]
@@ -1621,7 +1621,7 @@ points = PackedVector3Array(-0.01859105, -0.23184383, -0.41319564, -0.01859105, 
 points = PackedVector3Array(-0.19371022, -0.012186728, -0.86898565, -0.19371022, 0.012131227, -0.86898565, 0.19371022, -0.012186728, -0.86898565, -0.19371022, -0.012186728, 0.0126924515, -0.01501748, 0.59080416, -0.86898565, -0.19371022, 0.012131227, 0.0126924515, 0.19371022, 0.012131227, -0.86898565, 0.19371022, -0.012186728, 0.0126924515, 0.0069019645, 0.59080416, -0.86898565, -0.01501748, 0.59080416, 0.0126924515, 0.19371022, 0.012131227, 0.0126924515, 0.0069019645, 0.59080416, 0.0126924515)
 
 [node name="Metro" type="Node3D"]
-script = ExtResource("1_5qbwk")
+script = ExtResource("1_dmms0")
 
 [node name="metro_v1" type="Node3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5.622, -1.08, -1.01)

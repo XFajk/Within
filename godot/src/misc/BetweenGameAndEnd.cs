@@ -9,6 +9,7 @@ public partial class BetweenGameAndEnd : Control {
     public Timer _waitTimer = new();
 
     public override void _Ready() {
+        Global.Instance.MusicPlayer.Stop();
         _waitTimer.OneShot = true;
         _waitTimer.WaitTime = WaitTime;
         _waitTimer.Timeout += () => {

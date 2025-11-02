@@ -6,6 +6,8 @@ public partial class Librarian : PersonEnemy, ISavable{
 
     public override void _Ready() {
         BasicEnemy = false;
+        _streamPlayer = GetNode<AudioStreamPlayer3D>("ZombieSounds");
+        _chargingSound = GD.Load<AudioStream>("res://assets/sounds/librarian_scream.wav");
         base._Ready();
         AddToGroup("Savable");
     }

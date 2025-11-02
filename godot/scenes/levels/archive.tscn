@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=4 uid="uid://vcp1lbvxo0ew"]
+[gd_scene load_steps=96 format=4 uid="uid://vcp1lbvxo0ew"]
 
 [ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_g85dh"]
 [ext_resource type="Texture2D" uid="uid://rucyoyeadn1i" path="res://assets/3d_models/archive/archive_v2_parquet.png" id="1_netwc"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bbg6vrakn1cog" path="res://assets/3d_models/archive/archive_v2_folder.png" id="7_xei0v"]
 [ext_resource type="Texture2D" uid="uid://dfuhrl18smtc7" path="res://assets/3d_models/archive/archive_v2_archive_shelf.png" id="8_g0mf6"]
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="8_g85dh"]
+[ext_resource type="AudioStream" uid="uid://m3vfbx2voexb" path="res://assets/sounds/bunker_door.wav" id="8_uca3l"]
 [ext_resource type="Texture2D" uid="uid://dbk3nmdj1s18l" path="res://assets/3d_models/archive/archive_v2_metal.png" id="9_omc61"]
 [ext_resource type="Texture2D" uid="uid://bunlkj7r1ufnu" path="res://assets/3d_models/archive/archive_v2_ceeling.png" id="10_g85dh"]
 [ext_resource type="Texture2D" uid="uid://dumce0sjwxkxj" path="res://assets/3d_models/archive/archive_v2_bunker_door_2_extras.png" id="11_uca3l"]
@@ -1123,6 +1124,7 @@ collision_mask = 8
 script = ExtResource("7_omc61")
 EnterableAreaScene = &"res://scenes/levels/ground_one.tscn"
 ExitPosition = Vector3(11.42651, -1.8670553, 0)
+EnterAreaSound = ExtResource("8_uca3l")
 InteractionTitle = "Exit"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 

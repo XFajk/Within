@@ -1,10 +1,11 @@
-[gd_scene load_steps=37 format=4 uid="uid://c101r267vs8ma"]
+[gd_scene load_steps=38 format=4 uid="uid://c101r267vs8ma"]
 
 [ext_resource type="Script" uid="uid://dkhsuklhxd8v3" path="res://src/entities/PersonEnemy.cs" id="1_nqgxp"]
 [ext_resource type="Texture2D" uid="uid://brol22og6ggwa" path="res://assets/3d_models/people/enemy/enemy1_v1_vest_baked.png" id="2_01egx"]
 [ext_resource type="Texture2D" uid="uid://nolc514pamp2" path="res://assets/3d_models/people/enemy/enemy1_v1_shirt_okakane_zombieale.png" id="3_dxxbt"]
 [ext_resource type="Texture2D" uid="uid://qt0ihk0tgwb3" path="res://assets/3d_models/people/enemy/enemy1_v1_pants.png" id="4_03qvm"]
 [ext_resource type="Texture2D" uid="uid://dkrlvpwv3f0mk" path="res://assets/3d_models/people/enemy/enemy1_v1_chora_koza.png" id="5_7qrdp"]
+[ext_resource type="AudioStream" uid="uid://t122egai2rv0" path="res://assets/sounds/infected_idle.wav" id="6_dxxbt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rav6y"]
 resource_name = "Material.002"
@@ -3449,3 +3450,10 @@ collision_mask = 64
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
 process_mode = 3
 aabb = AABB(-5, -5, -0.5, 10, 10, 1)
+
+[node name="ZombieSounds" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_dxxbt")
+volume_db = -10.0
+autoplay = true
+max_distance = 5.0
+bus = &"SoundFX"

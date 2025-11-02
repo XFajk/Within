@@ -53,6 +53,7 @@ public partial class Player : CharacterBody3D, ISavable {
     private AudioStreamPlayer3D _feetSounds;
     private AudioStreamPlayer3D _wallGrindSound;
     private AudioStreamPlayer3D _dashSound;
+    private AudioStreamPlayer _crazySound;
 
     [Export]
     public AudioStreamRandomizer ConcreteFootstepSounds;
@@ -261,6 +262,7 @@ public partial class Player : CharacterBody3D, ISavable {
         _feetSounds = GetNode<AudioStreamPlayer3D>("Audio/FeetSounds");
         _wallGrindSound = GetNode<AudioStreamPlayer3D>("Audio/WallGrindSound");
         _dashSound = GetNode<AudioStreamPlayer3D>("Audio/DashSound");
+        _crazySound = GetNode<AudioStreamPlayer>("Audio/CrazySound");
 
         _hitBoxArea = GetNode<Area3D>("HitBox");
 
@@ -716,6 +718,15 @@ public partial class Player : CharacterBody3D, ISavable {
 
         PostProcessRect.Visible = true;
         PostProcessRect.Material = HitMaterial;
+
+
+        _crazySound.Play();
+        var tween = GetTree().CreateTween();
+        var masterBusIndex = AudioServer.GetBusIndex("Music");
+        var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 1) as AudioEffectPitchShift;
+
+        lowPassFilterEffect.PitchScale = 0.60f;
+        tween.TweenProperty(lowPassFilterEffect, "pitch_scale", 1.0f, 3.0f).SetDelay(7.0f);
 
         var noiseTexture = (NoiseTexture2D)HitMaterial.GetShaderParameter("noise_texture");
         noiseTexture.Noise.Set("seed", GD.Randi());

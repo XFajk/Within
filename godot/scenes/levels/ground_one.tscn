@@ -1,4 +1,4 @@
-[gd_scene load_steps=168 format=4 uid="uid://cy3a71uqtaw48"]
+[gd_scene load_steps=170 format=4 uid="uid://cy3a71uqtaw48"]
 
 [ext_resource type="Texture2D" uid="uid://cg7dufgif45qf" path="res://assets/3d_models/ground_one/ground_one_floor_tiles_2.png" id="1_0an3i"]
 [ext_resource type="Script" uid="uid://dkaeyvdlboftn" path="res://src/misc/EnvironmentalHazard.cs" id="1_efc7r"]
@@ -44,8 +44,10 @@
 [ext_resource type="PackedScene" uid="uid://c68qa0g4sq855" path="res://assets/3d_models/light_sources/hanging_light.glb" id="37_6gp5y"]
 [ext_resource type="Script" uid="uid://b2u288mrgr3kt" path="res://src/interactables/EnterableAreaInteractable.cs" id="38_es46h"]
 [ext_resource type="PackedScene" uid="uid://buc4db0nn8gn8" path="res://assets/3d_models/light_sources/square_light.glb" id="39_5dglg"]
+[ext_resource type="AudioStream" uid="uid://dm7ifmp7es7xa" path="res://assets/sounds/elevator_bell.wav" id="39_8qk65"]
 [ext_resource type="PackedScene" uid="uid://c888mhcqkvcic" path="res://assets/3d_models/light_sources/wall_light2.glb" id="40_1poj0"]
 [ext_resource type="Script" uid="uid://b48i33gg6km8x" path="res://src/misc/AbilityUnlocker.cs" id="41_ddtpj"]
+[ext_resource type="AudioStream" uid="uid://m3vfbx2voexb" path="res://assets/sounds/bunker_door.wav" id="41_qegqs"]
 [ext_resource type="Script" uid="uid://b7jsj5yrf217d" path="res://src/interactables/SaveInteractable.cs" id="44_fqeon"]
 [ext_resource type="PackedScene" uid="uid://haie76ri3rmr" path="res://assets/3d_models/light_sources/modern_street_light_v_1.glb" id="45_1jfxq"]
 [ext_resource type="PackedScene" uid="uid://ch8kqtvnwhng1" path="res://assets/3d_models/payphone/payphone.glb" id="45_j6wec"]
@@ -2144,6 +2146,8 @@ collision_mask = 8
 script = ExtResource("38_es46h")
 EnterableAreaScene = &"res://scenes/levels/ground_zero.tscn"
 ExitPosition = Vector3(33.07326, 10.72781, 0)
+EnterAreaSound = ExtResource("39_8qk65")
+SoundDb = -5.0
 InteractionTitle = "Go Down"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -2161,6 +2165,7 @@ collision_mask = 8
 script = ExtResource("38_es46h")
 EnterableAreaScene = &"res://scenes/levels/archive.tscn"
 ExitPosition = Vector3(4.9024377, -2.184, 0)
+EnterAreaSound = ExtResource("41_qegqs")
 InteractionTitle = "Enter Archive"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -2178,6 +2183,8 @@ collision_mask = 8
 script = ExtResource("38_es46h")
 EnterableAreaScene = &"res://scenes/levels/boss_fight_room.tscn"
 ExitPosition = Vector3(2.097842, -2.245, 0)
+EnterAreaSound = ExtResource("39_8qk65")
+SoundDb = -5.0
 InteractionTitle = "Go Up"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -2197,6 +2204,7 @@ LockedTitle = "Need A Password"
 KeyItemName = "Laboratory Password"
 EnterableAreaScene = &"res://scenes/levels/laboratry.tscn"
 ExitPosition = Vector3(-7.404, 0.306, 0)
+EnterAreaSound = ExtResource("41_qegqs")
 InteractionTitle = "Enter Laboratory"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 

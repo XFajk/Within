@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b5ig3tx4xgy7y"]
+
+[ext_resource type="Texture2D" uid="uid://27id7nf8cmg1" path="res://assets/sprites/control_panel_breach.png" id="1_u7g72"]
+
+[resource]
+albedo_texture = ExtResource("1_u7g72")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("1_u7g72")
+uv1_scale = Vector3(1.22, 1.22, 1.22)
+uv1_offset = Vector3(-0.12, -0.12, 0)

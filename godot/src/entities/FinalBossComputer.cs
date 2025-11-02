@@ -33,9 +33,18 @@ public partial class FinalBossComputer : DialogInteractable {
 
     private bool _activatedBefore = false;
 
+    private MeshInstance3D _computerScreenMesh;
+
+    private StandardMaterial3D _computerScreenMaterialStable = GD.Load<StandardMaterial3D>("res://assets/materials/boss_fight_computer_stable.tres");
+    private StandardMaterial3D _computerScreenMaterialBreached = GD.Load<StandardMaterial3D>("res://assets/materials/boss_fight_computer_breach.tres");
+    private StandardMaterial3D _computerScreenMaterialOffline = GD.Load<StandardMaterial3D>("res://assets/materials/boss_fight_computer_offline.tres");
+
 
     public override void _Ready() {
         base._Ready();
+
+        _computerScreenMesh = GetNode<MeshInstance3D>("Monitor");
+        _computerScreenMesh.SetSurfaceOverrideMaterial(0, _computerScreenMaterialStable);
 
         AddChild(_droneSpawnTimer);
         _droneSpawnTimer.Timeout += SpawnDrone;
@@ -73,7 +82,7 @@ public partial class FinalBossComputer : DialogInteractable {
 
         if (i >= Servers.Count && _hasActivated) {
             // Stopping the boss fight
-
+            _computerScreenMesh.SetSurfaceOverrideMaterial(0, _computerScreenMaterialOffline);
             Global.Instance.SwitchMusic("GroundZero");
             var musicBusIndex = AudioServer.GetBusIndex("Music");
             var lowPassFilterEffect = AudioServer.GetBusEffect(musicBusIndex, 0) as AudioEffectLowPassFilter;
@@ -121,7 +130,7 @@ public partial class FinalBossComputer : DialogInteractable {
         }
         _hasActivated = true;
         // Starting the boss fight
-
+        _computerScreenMesh.SetSurfaceOverrideMaterial(0, _computerScreenMaterialBreached);
         Global.Instance.SwitchMusic("BossFight");
         var musicBusIndex = AudioServer.GetBusIndex("Music");
         var lowPassFilterEffect = AudioServer.GetBusEffect(musicBusIndex, 0) as AudioEffectLowPassFilter;

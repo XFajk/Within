@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=4 uid="uid://d02dp5aoct87f"]
+[gd_scene load_steps=138 format=4 uid="uid://d02dp5aoct87f"]
 
 [ext_resource type="Texture2D" uid="uid://dip3ahloloqjn" path="res://assets/3d_models/laboratory/laboratory_v1_smooth_concrete.png" id="1_chwm5"]
 [ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_ilq13"]
@@ -20,6 +20,7 @@
 [ext_resource type="Environment" uid="uid://cpeo8o4hnrmdd" path="res://spawn_building_environment.tres" id="16_xq6p0"]
 [ext_resource type="Script" uid="uid://b2u288mrgr3kt" path="res://src/interactables/EnterableAreaInteractable.cs" id="17_oencg"]
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="18_pf8tl"]
+[ext_resource type="AudioStream" uid="uid://m3vfbx2voexb" path="res://assets/sounds/bunker_door.wav" id="18_xruk1"]
 [ext_resource type="Texture2D" uid="uid://76hi1llmp1g1" path="res://assets/3d_models/furniture_and_objects/computer/computer_computer_texture_color_baked.png" id="19_6k46j"]
 [ext_resource type="Texture2D" uid="uid://dkro8g6fa857e" path="res://assets/3d_models/furniture_and_objects/modern_table/modern_table_galvanized3.png" id="19_jow0v"]
 [ext_resource type="PackedScene" uid="uid://dtoaqlnkvjys4" path="res://scenes/entities/drone.tscn" id="19_ym1wd"]
@@ -1574,7 +1575,7 @@ shadow_enabled = true
 spot_range = 26.473246
 
 [node name="BunkerDoor2" type="MeshInstance3D" parent="laboratory_v1"]
-transform = Transform3D(1.7881393e-07, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, 1.7881393e-07, -7.8950562, 0.48760936, -0.06952802)
+transform = Transform3D(1.7881393e-07, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, 1.7881393e-07, -7.9225793, 0.48760936, -0.06952802)
 mesh = SubResource("ArrayMesh_npi3o")
 skeleton = NodePath("")
 
@@ -1677,6 +1678,7 @@ collision_mask = 8
 script = ExtResource("17_oencg")
 EnterableAreaScene = &"res://scenes/levels/ground_one.tscn"
 ExitPosition = Vector3(-8.924985, -1.8670553, 0)
+EnterAreaSound = ExtResource("18_xruk1")
 InteractionTitle = "Exit"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 

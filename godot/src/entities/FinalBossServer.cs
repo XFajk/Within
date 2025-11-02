@@ -11,14 +11,15 @@ public partial class FinalBossServer : Enemy {
 
     private Material _originalMaterial;
 
-
     private PackedScene _brokenSparks = GD.Load<PackedScene>("res://scenes/VFX/sparks.tscn");
+
+    private AudioStreamPlayer3D _hitSound;
 
     public override void _Ready() {
         base._Ready();
 
         _serverBody = GetNode<MeshInstance3D>("Servers");
-
+        _hitSound = GetNode<AudioStreamPlayer3D>("ServerHitSound");
 
         _originalMaterial = _serverBody.GetSurfaceOverrideMaterial(1);
     }
@@ -28,6 +29,7 @@ public partial class FinalBossServer : Enemy {
 
         var sparks = _brokenSparks.Instantiate<Node3D>();
         AddSibling(sparks);
+        _hitSound.Play();
 
         sparks.GlobalPosition = GlobalPosition;
     }

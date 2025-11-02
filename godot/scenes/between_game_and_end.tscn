@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bf845053rsa8x"]
+[gd_scene load_steps=3 format=3 uid="uid://bf845053rsa8x"]
 
 [ext_resource type="Script" uid="uid://c2lk1l0cif55q" path="res://src/misc/BetweenGameAndEnd.cs" id="1_08p1x"]
+[ext_resource type="AudioStream" uid="uid://5pooo83kjq6b" path="res://assets/sounds/ending_elevator.wav" id="2_aywbd"]
 
 [node name="BetweenGameAndEnd" type="Control"]
 layout_mode = 3
@@ -12,6 +13,9 @@ grow_vertical = 2
 script = ExtResource("1_08p1x")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_aywbd")
+autoplay = true
+bus = &"SoundFX"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

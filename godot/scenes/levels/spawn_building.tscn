@@ -1,4 +1,4 @@
-[gd_scene load_steps=136 format=4 uid="uid://cmo76gbynpwaa"]
+[gd_scene load_steps=137 format=4 uid="uid://cmo76gbynpwaa"]
 
 [ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_ovlgm"]
 [ext_resource type="Texture2D" uid="uid://ccrllmojcjc0x" path="res://assets/3d_models/spawn_building/spawn_level_v2_concrete_tile.png" id="1_uqtdq"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://gr81ocgxgyw2" path="res://scenes/player/player.tscn" id="16_holy5"]
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="17_6usqr"]
 [ext_resource type="PackedScene" uid="uid://dbtdw7a11kfey" path="res://assets/3d_models/misc/cardboard_bed2.glb" id="17_holy5"]
+[ext_resource type="AudioStream" uid="uid://m3vfbx2voexb" path="res://assets/sounds/bunker_door.wav" id="18_7q3ur"]
 [ext_resource type="PackedScene" uid="uid://srwbwnvjwjqw" path="res://assets/3d_models/light_sources/halogen.glb" id="18_ancr5"]
 [ext_resource type="PackedScene" uid="uid://dcnhu00s3wloo" path="res://assets/3d_models/light_sources/ceiling_light.glb" id="19_vcj8k"]
 [ext_resource type="PackedScene" uid="uid://c888mhcqkvcic" path="res://assets/3d_models/light_sources/wall_light2.glb" id="20_dglaf"]
@@ -3137,6 +3138,12 @@ script = ExtResource("1_ovlgm")
 
 [node name="Player" parent="." instance=ExtResource("16_holy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5232182, 3.3314044, 0.27577603)
+ConcreteFootstepSounds = null
+MetalFootstepSounds = null
+ConcreteJumpSounds = null
+ConcreteJumpLandSounds = null
+MetalJumpSounds = null
+MetalJumpLandSounds = null
 
 [node name="spawn_level_v2" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.4624298, -3.654376, 0)
@@ -3265,6 +3272,7 @@ collision_mask = 8
 script = ExtResource("16_7cgo6")
 EnterableAreaScene = &"res://scenes/levels/ground_zero.tscn"
 ExitPosition = Vector3(-8.93115, 0.3677963, -0.0665853)
+EnterAreaSound = ExtResource("18_7q3ur")
 InteractionTitle = "Exit"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 

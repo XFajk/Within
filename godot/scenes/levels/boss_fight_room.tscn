@@ -1,4 +1,4 @@
-[gd_scene load_steps=235 format=4 uid="uid://ch7t51nqhx2op"]
+[gd_scene load_steps=237 format=4 uid="uid://ch7t51nqhx2op"]
 
 [ext_resource type="Script" uid="uid://cgpc4rckff35e" path="res://src/levels/BossFightRoom.cs" id="1_ebnxn"]
 [ext_resource type="Texture2D" uid="uid://fdwslrqafuqm" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_concrete_tile_black.png" id="1_qs8ba"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://rbglho78d618" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_ceeling.png" id="22_0rppr"]
 [ext_resource type="Texture2D" uid="uid://c8m6y360p7jkt" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_smooth_green_metal.png" id="23_r2ryn"]
 [ext_resource type="Texture2D" uid="uid://dwwcc3e1qfrc0" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_metal_sheeting.png" id="24_ud8ci"]
+[ext_resource type="Texture2D" uid="uid://wvwiclkr0hpd" path="res://assets/sprites/control_panel_stable.png" id="25_0rppr"]
 [ext_resource type="Texture2D" uid="uid://bd1lljulhkcyp" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_curved_elevator_door.png" id="25_qm67e"]
 [ext_resource type="Texture2D" uid="uid://p8c43hse2bo1" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_danger_door.png" id="26_fy5es"]
 [ext_resource type="PackedScene" uid="uid://boietki2xgwc4" path="res://scenes/entities/final_boss_server.tscn" id="26_pw1f1"]
@@ -1252,6 +1253,14 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6d18w")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r2ryn"]
+albedo_texture = ExtResource("25_0rppr")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("25_0rppr")
+uv1_scale = Vector3(1.22, 1.22, 1.22)
+uv1_offset = Vector3(-0.12, -0.12, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6h8k0"]
 resource_name = "metal_sheeting"
@@ -2708,6 +2717,7 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53815216, 0.9044256, 1.6138824)
 mesh = SubResource("ArrayMesh_41d58")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_r2ryn")
 
 [node name="Cylinder_002" type="MeshInstance3D" parent="boss_fight_room_v1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7614765, 3.8339312, 1.420887)
@@ -3208,6 +3218,12 @@ layers = 2
 
 [node name="Player" parent="." instance=ExtResource("2_e7ocr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.097842, -2.245, 0)
+ConcreteFootstepSounds = null
+MetalFootstepSounds = null
+ConcreteJumpSounds = null
+ConcreteJumpLandSounds = null
+MetalJumpSounds = null
+MetalJumpLandSounds = null
 
 [node name="LazerDroneManager" parent="." instance=ExtResource("42_f0u1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.349692, 2.9261699, 0.07551178)

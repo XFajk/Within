@@ -1,4 +1,4 @@
-[gd_scene load_steps=228 format=4 uid="uid://bwxyq0jp71b54"]
+[gd_scene load_steps=231 format=4 uid="uid://bwxyq0jp71b54"]
 
 [ext_resource type="Script" uid="uid://cl4fyh2evpv5l" path="res://src/levels/GroundZero.cs" id="1_0i1j2"]
 [ext_resource type="Texture2D" uid="uid://dxxe55jrke1w8" path="res://assets/3d_models/ground_zero/ground_zero_v2_elevator_frame.png" id="2_ysn8x"]
@@ -39,8 +39,10 @@
 [ext_resource type="Texture2D" uid="uid://cc2ln2ihgfk0c" path="res://assets/3d_models/ground_zero/ground_zero_v2_bunker_frame.png" id="29_4i3yj"]
 [ext_resource type="PackedScene" uid="uid://srwbwnvjwjqw" path="res://assets/3d_models/light_sources/halogen.glb" id="29_uhtlq"]
 [ext_resource type="PackedScene" uid="uid://c68qa0g4sq855" path="res://assets/3d_models/light_sources/hanging_light.glb" id="30_m5wqf"]
+[ext_resource type="AudioStream" uid="uid://m3vfbx2voexb" path="res://assets/sounds/bunker_door.wav" id="31_rgubh"]
 [ext_resource type="Script" uid="uid://b7jsj5yrf217d" path="res://src/interactables/SaveInteractable.cs" id="31_uhtlq"]
 [ext_resource type="Script" uid="uid://cf7jjduehmlil" path="res://src/interactables/specific/EntrenceToGroundOne.cs" id="32_jb0os"]
+[ext_resource type="AudioStream" uid="uid://dm7ifmp7es7xa" path="res://assets/sounds/elevator_bell.wav" id="33_uqjld"]
 [ext_resource type="AudioStream" uid="uid://rgrtp8lm80uq" path="res://assets/sounds/decopresion_air.wav" id="35_1kcvi"]
 [ext_resource type="PackedScene" uid="uid://dohk8bm4yglqt" path="res://assets/3d_models/light_sources/street_lamp.glb" id="39_7spgn"]
 [ext_resource type="PackedScene" uid="uid://ch8kqtvnwhng1" path="res://assets/3d_models/payphone/payphone.glb" id="40_na0nf"]
@@ -2446,6 +2448,9 @@ _data = {
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p2ixb"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_1kcvi"]
+size = Vector3(4.8754883, 1, 6.658203)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hbuk5"]
 resource_name = "green_paint"
 cull_mode = 2
@@ -3139,6 +3144,7 @@ LockedTitle = "Need To Go To Work"
 KeyItemName = "BossDeath"
 EnterableAreaScene = &"res://scenes/levels/spawn_building.tscn"
 ExitPosition = Vector3(10.365899, -0.94846725, 0)
+EnterAreaSound = ExtResource("31_rgubh")
 InteractionTitle = "Enter Building"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -3158,6 +3164,8 @@ LockedTitle = "Locked Need A Keycard"
 KeyItemName = "Elevator Key Card"
 EnterableAreaScene = &"res://scenes/levels/ground_one.tscn"
 ExitPosition = Vector3(33.614704, -1.8670553, 0)
+EnterAreaSound = ExtResource("33_uqjld")
+SoundDb = -7.0
 InteractionTitle = "Go Up"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -3175,6 +3183,7 @@ collision_mask = 8
 script = ExtResource("21_0tej8")
 EnterableAreaScene = &"res://scenes/levels/factory.tscn"
 ExitPosition = Vector3(-6.332, -0.264, 0)
+EnterAreaSound = ExtResource("31_rgubh")
 InteractionTitle = "Enter Factory"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -4121,6 +4130,7 @@ script = ExtResource("44_p2ixb")
 LockedTitle = "Out Of Order"
 EnterableAreaScene = &"res://scenes/levels/metro.tscn"
 ExitPosition = Vector3(-1.9450703, -0.436, 0)
+SoundDb = -10.0
 InteractionTitle = "Enter The Metro"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -4132,8 +4142,21 @@ shape = SubResource("BoxShape3D_p2ixb")
 transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.8748493, 0)
 layers = 2
 
+[node name="StaticBody3D16" type="StaticBody3D" parent="ground_zero_v2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.441496, 13.864947, -2.2241654e-06)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/StaticBody3D16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9377441, 0, 1.0410155)
+shape = SubResource("BoxShape3D_1kcvi")
+
 [node name="Player" parent="." instance=ExtResource("21_jl4jv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.861187, 0.3404206, 0)
+ConcreteFootstepSounds = null
+MetalFootstepSounds = null
+ConcreteJumpSounds = null
+ConcreteJumpLandSounds = null
+MetalJumpSounds = null
+MetalJumpLandSounds = null
 
 [node name="FactoryExitPlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.631441, 0.3677963, -0.06658658)

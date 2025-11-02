@@ -10,13 +10,17 @@ public partial class FactoryShutoffValve : Interactable, ISavable {
     [Export]
     public Array<PulsatingSteam> SteamToTurnOff = new();
 
-    private Node3D _valveMesh; 
+    private Node3D _valveMesh;
 
     private bool _isTurnedOff = false;
+
+    private AudioStreamPlayer3D _valveSound;
 
     public override void _Ready() {
         base._Ready();
         _valveMesh = GetNode<Node3D>("ValveMesh");
+        _valveSound = GetNode<AudioStreamPlayer3D>("ValveSound");
+
         AddToGroup("Savable");
     }
 
@@ -29,7 +33,7 @@ public partial class FactoryShutoffValve : Interactable, ISavable {
     }
 
     protected override void Interact() {
-
+        _valveSound.Play();
 
         foreach (var piston in PistonsToTurnOff) {
             piston.Enabled = false;
@@ -40,7 +44,7 @@ public partial class FactoryShutoffValve : Interactable, ISavable {
         }
 
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(_valveMesh, "rotation_degrees:z", 90.0f, 3.0f);
+        tween.TweenProperty(_valveMesh, "rotation_degrees:z", 360.0f, 3.0f);
         _isTurnedOff = true;
         _player = null;
     }

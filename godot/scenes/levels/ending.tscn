@@ -1,4 +1,4 @@
-[gd_scene load_steps=153 format=4 uid="uid://uqci6lbw6al5"]
+[gd_scene load_steps=154 format=4 uid="uid://uqci6lbw6al5"]
 
 [ext_resource type="Script" uid="uid://qoq6rl2wk8ql" path="res://src/ui/FadeOutRect.cs" id="1_3t8gl"]
 [ext_resource type="Texture2D" uid="uid://b1dgqyo6k1gov" path="res://assets/3d_models/ending/ending_v3_chora_koza.png" id="1_ixjwx"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dc6gnrfmcrwam" path="res://assets/3d_models/ending/ending_v3_metal_sheeting.png" id="5_3t8gl"]
 [ext_resource type="Texture2D" uid="uid://cviqat3c62ebu" path="res://assets/3d_models/ending/ending_v3_galvanized3.png" id="6_38cfg"]
 [ext_resource type="Texture2D" uid="uid://d4dfjgyi48cbf" path="res://assets/svg/circle.svg" id="9_2fabr"]
+[ext_resource type="AudioStream" uid="uid://ct55h4eu7sdwu" path="res://assets/sounds/ending_outside.mp3" id="11_38cfg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6tek6"]
 resource_name = "Skin.001"
@@ -12796,3 +12797,7 @@ environment = SubResource("Environment_gi673")
 amount = 50000
 process_material = SubResource("ParticleProcessMaterial_2fabr")
 draw_pass_1 = SubResource("QuadMesh_fvbmg")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_38cfg")
+autoplay = true

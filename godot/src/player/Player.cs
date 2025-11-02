@@ -144,6 +144,8 @@ public partial class Player : CharacterBody3D, ISavable {
     [Export]
     public float CameraMovementAmount = 2.0f;
 
+    public Vector3? OptionalCameraTargetPosition = null;
+
     [ExportGroup("Movement Settings")]
     [Export]
     public float MovementSpeed = 120.0f;
@@ -367,7 +369,13 @@ public partial class Player : CharacterBody3D, ISavable {
     private void MoveCamera(double delta) {
         if (Camera != null) {
             // Calculate the forward position based on the player's velocity and direction
-            Vector3 targetPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
+            Vector3 targetPosition;
+
+            if (OptionalCameraTargetPosition == null) {
+                targetPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, CameraDistance);
+            } else {
+                targetPosition = (Vector3)OptionalCameraTargetPosition;
+            }
 
             Camera.Move(Camera.GlobalPosition.Lerp(targetPosition, CameraLerpSpeed * (float)delta));
         }
@@ -506,16 +514,12 @@ public partial class Player : CharacterBody3D, ISavable {
             _lastFrameFalling = false;
             switch (currentMaterial) {
                 case WalkingMaterial.Concrete:
-                    if (!_feetSounds.Playing) {
                         _feetSounds.Stream = ConcreteFootstepSounds;
                         _feetSounds.Play();
-                    }
                     break;
                 case WalkingMaterial.Metal:
-                    if (!_feetSounds.Playing) {
                         _feetSounds.Stream = MetalFootstepSounds;
                         _feetSounds.Play();
-                    }
                     break;
             }
         }
@@ -644,6 +648,8 @@ public partial class Player : CharacterBody3D, ISavable {
                 _jumpTimeElapsed = 0.0f;
                 TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
+                _feetSounds.Stream = ConcreteJumpSounds;
+                _feetSounds.Play();
             } else if (Input.IsActionJustPressed("jump")) {
                 _jumpBufferFrames = 6.0f * UnitTransformer;
             }
@@ -1208,3 +1214,4 @@ public partial class Player : CharacterBody3D, ISavable {
         }
     }
 }
+

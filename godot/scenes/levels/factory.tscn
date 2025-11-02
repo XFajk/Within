@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=4 uid="uid://dps12qsrclx7m"]
+[gd_scene load_steps=134 format=4 uid="uid://dps12qsrclx7m"]
 
 [ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_th01p"]
 [ext_resource type="Texture2D" uid="uid://bpydamrjqm5kp" path="res://assets/3d_models/factory/factory_v2_black_bricks.png" id="1_w0abr"]
@@ -22,7 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://c6u0t514evp4x" path="res://scenes/interactables/interactable_objects_title.tscn" id="15_bpebr"]
 [ext_resource type="Script" uid="uid://b6cnh7o45fys" path="res://src/misc/MiniCheckPoint.cs" id="15_n8j3m"]
 [ext_resource type="PackedScene" uid="uid://daht2670cc7m6" path="res://scenes/environmental_hazards/pulsating_steam.tscn" id="16_jy0sh"]
+[ext_resource type="AudioStream" uid="uid://cit05l5vm26ed" path="res://assets/sounds/piston.wav" id="16_x4hh3"]
 [ext_resource type="Environment" uid="uid://uhh8jojlvwfe" path="res://factory_environment.tres" id="18_xelw7"]
+[ext_resource type="AudioStream" uid="uid://m3vfbx2voexb" path="res://assets/sounds/bunker_door.wav" id="20_8urcy"]
 [ext_resource type="PackedScene" uid="uid://c888mhcqkvcic" path="res://assets/3d_models/light_sources/wall_light2.glb" id="21_menmw"]
 [ext_resource type="PackedScene" uid="uid://srwbwnvjwjqw" path="res://assets/3d_models/light_sources/halogen.glb" id="22_vpo40"]
 [ext_resource type="PackedScene" uid="uid://dcnhu00s3wloo" path="res://assets/3d_models/light_sources/ceiling_light.glb" id="23_n1sjn"]
@@ -37,6 +39,7 @@
 [ext_resource type="Script" uid="uid://b6tr1636xdryq" path="res://src/interactables/specific/FactoryShutoffValve.cs" id="30_cyp1q"]
 [ext_resource type="PackedScene" uid="uid://vcu3pcns5scd" path="res://assets/3d_models/misc/valve.glb" id="31_1su6w"]
 [ext_resource type="Texture2D" uid="uid://btiwsm7juqkyh" path="res://assets/3d_models/furniture_and_objects/valve_pipe/factory_valve_pipe_red_metal.png" id="37_0svox"]
+[ext_resource type="AudioStream" uid="uid://bwc2yonsjk6an" path="res://assets/sounds/squeaky_valve.wav" id="38_c4to3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dw8sw"]
 resource_name = "idk"
@@ -1398,6 +1401,12 @@ script = ExtResource("1_th01p")
 
 [node name="Player" parent="." instance=ExtResource("14_rbf27")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.332, -0.264, 0)
+ConcreteFootstepSounds = null
+MetalFootstepSounds = null
+ConcreteJumpSounds = null
+ConcreteJumpLandSounds = null
+MetalJumpSounds = null
+MetalJumpLandSounds = null
 
 [node name="factory_v2" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.81, 1.4565871, -1.0883493)
@@ -1513,6 +1522,11 @@ metadata/_custom_type_script = "uid://dkaeyvdlboftn"
 transform = Transform3D(0.9999998, -2.1316282e-14, -7.1054274e-15, -4.263256e-14, 0.9999999, 3.3881318e-21, 7.1054274e-15, 0, 0.9999998, 0, 0.475071, 0)
 shape = SubResource("BoxShape3D_menmw")
 
+[node name="PistonSound" type="AudioStreamPlayer3D" parent="factory_v2/PistonHouding/Piston"]
+transform = Transform3D(0.8488442, -4.2765727e-08, -7.1054274e-15, -2.8421708e-14, 1.4561496, 1.0164395e-20, 0, -1.6940659e-21, 0.8629136, 0, 0.6337123, 0)
+stream = ExtResource("16_x4hh3")
+bus = &"SoundFX"
+
 [node name="StaticBody3D" type="StaticBody3D" parent="factory_v2/PistonHouding"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="factory_v2/PistonHouding/StaticBody3D"]
@@ -1543,6 +1557,11 @@ metadata/_custom_type_script = "uid://dkaeyvdlboftn"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="factory_v2/PistonHousing/Piston_001/KillArea"]
 transform = Transform3D(0.9999998, -2.1316282e-14, -7.1054274e-15, -4.263256e-14, 0.9999999, 3.3881318e-21, 7.1054274e-15, 0, 0.9999998, 0, 0.475071, 0)
 shape = SubResource("BoxShape3D_menmw")
+
+[node name="PistonSound" type="AudioStreamPlayer3D" parent="factory_v2/PistonHousing/Piston_001"]
+transform = Transform3D(0.8488442, -4.2765727e-08, -7.1054274e-15, -2.8421708e-14, 1.4561496, 1.0164395e-20, 0, -1.6940659e-21, 0.8629136, 0, 0.6337123, 0)
+stream = ExtResource("16_x4hh3")
+bus = &"SoundFX"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="factory_v2/PistonHousing"]
 
@@ -1576,6 +1595,11 @@ metadata/_custom_type_script = "uid://dkaeyvdlboftn"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="factory_v2/PistonHousing_001/Piston_002/KillArea"]
 transform = Transform3D(0.9999998, -2.1316282e-14, -7.1054274e-15, -4.263256e-14, 0.9999999, 3.3881318e-21, 7.1054274e-15, 0, 0.9999998, 0, 0.475071, 0)
 shape = SubResource("BoxShape3D_menmw")
+
+[node name="PistonSound" type="AudioStreamPlayer3D" parent="factory_v2/PistonHousing_001/Piston_002"]
+transform = Transform3D(0.8488442, -4.2765727e-08, -7.1054274e-15, -2.8421708e-14, 1.4561496, 1.0164395e-20, 0, -1.6940659e-21, 0.8629136, 0, 0.6337123, 0)
+stream = ExtResource("16_x4hh3")
+bus = &"SoundFX"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="factory_v2/PistonHousing_001"]
 
@@ -1619,6 +1643,7 @@ collision_mask = 8
 script = ExtResource("14_gmod2")
 EnterableAreaScene = &"res://scenes/levels/ground_zero.tscn"
 ExitPosition = Vector3(5.631441, 0.3677963, -0.06658658)
+EnterAreaSound = ExtResource("20_8urcy")
 InteractionTitle = "Exit"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -2005,6 +2030,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41112512)
 transform = Transform3D(-0.9999998, -8.742278e-08, 4.371138e-08, 4.371138e-08, 1.9106855e-15, 0.9999998, -8.742276e-08, 1, 1.910685e-15, 0.53404474, -0.012803316, -0.2687536)
 mesh = SubResource("ArrayMesh_yks6j")
 skeleton = NodePath("")
+
+[node name="ValveSound" type="AudioStreamPlayer3D" parent="ShutoffValve"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.68039906)
+stream = ExtResource("38_c4to3")
+bus = &"SoundFX"
 
 [node name="GroundZeroPlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1592793, -0.002385527, 0)

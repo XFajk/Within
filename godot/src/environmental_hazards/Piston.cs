@@ -27,10 +27,14 @@ public partial class Piston : Node3D {
 
     private bool _isActive = false;
 
+    private AudioStreamPlayer3D _pistonSound;
+
     public override void _Ready() {
         _killArea = GetNode<Area3D>("KillArea");
 
         _killArea.Position = new Vector3(0, 0, 1000f);
+
+        _pistonSound = GetNode<AudioStreamPlayer3D>("PistonSound");
 
         _switchTimer = new Timer();
         _switchTimer.Timeout += () => {
@@ -59,6 +63,9 @@ public partial class Piston : Node3D {
 
                 Tween tween = GetTree().CreateTween();
                 tween.TweenProperty(this, "position", new Vector3(Position.X, !Broken ? -1.2f : -0.5f, Position.Z), CrushDuration / 4);
+                tween.TweenCallback(Callable.From(() => {
+                    if (!Broken) _pistonSound.Play();
+                }));
 
             }
             _isActive = !_isActive;

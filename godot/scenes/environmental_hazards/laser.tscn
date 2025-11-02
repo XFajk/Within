@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8iqlca7e3mm6"]
+[gd_scene load_steps=6 format=3 uid="uid://c8iqlca7e3mm6"]
 
 [ext_resource type="Script" uid="uid://cns2lrqeyjtis" path="res://src/environmental_hazards/Laser.cs" id="1_37g6l"]
 [ext_resource type="Material" uid="uid://bwqggu4bfp4aj" path="res://assets/materials/laser_inactive.tres" id="1_kwpaa"]
+[ext_resource type="AudioStream" uid="uid://b4vf5fncnogad" path="res://assets/sounds/laser_fire.wav" id="3_ekgrj"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_37g6l"]
 length = 0.001
@@ -30,3 +31,8 @@ shape = SubResource("SeparationRayShape3D_37g6l")
 transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("CylinderMesh_37g6l")
 surface_material_override/0 = ExtResource("1_kwpaa")
+
+[node name="LaserFireSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_ekgrj")
+volume_db = -15.0
+bus = &"SoundFX"

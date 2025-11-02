@@ -9,6 +9,7 @@ public partial class Laser : Node3D {
             _activated = value; 
             if (_activated) {
                 _attackArea.Position = Vector3.Zero;
+                _laserFireSound.Play();
                 _laserBeam.SetSurfaceOverrideMaterial(0, _laserActiveMaterial);
             } else {
                 _attackArea.Position = new Vector3(0f, 0f, 1000f);
@@ -40,6 +41,8 @@ public partial class Laser : Node3D {
 
     private Timer _activationTimer = new(); 
 
+    private AudioStreamPlayer3D _laserFireSound;
+
     public override void _Ready() {
 
         AddChild(_activationTimer);
@@ -53,6 +56,8 @@ public partial class Laser : Node3D {
         _laserBeam.Mesh = (Mesh)_laserBeam.Mesh.Duplicate();
         _attackShape.Shape = (Shape3D)_attackShape.Shape.Duplicate();
         
+        _laserFireSound = GetNode<AudioStreamPlayer3D>("LaserFireSound");
+        
         Activated = false;
     }
 
@@ -64,7 +69,6 @@ public partial class Laser : Node3D {
 
     private void ActivateLaser() {
         Activated = true;
-
 
         _activationTimer.Timeout -= ActivateLaser;
         _activationTimer.Timeout += DestroyLaser;

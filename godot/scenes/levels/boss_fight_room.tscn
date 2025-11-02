@@ -1,4 +1,4 @@
-[gd_scene load_steps=231 format=4 uid="uid://ch7t51nqhx2op"]
+[gd_scene load_steps=233 format=4 uid="uid://ch7t51nqhx2op"]
 
 [ext_resource type="Script" uid="uid://cgpc4rckff35e" path="res://src/levels/BossFightRoom.cs" id="1_ebnxn"]
 [ext_resource type="Texture2D" uid="uid://fdwslrqafuqm" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_concrete_tile_black.png" id="1_qs8ba"]
@@ -45,6 +45,7 @@
 [ext_resource type="Material" uid="uid://bwqggu4bfp4aj" path="res://assets/materials/laser_inactive.tres" id="39_rtikm"]
 [ext_resource type="PackedScene" uid="uid://by872wppxdbb3" path="res://scenes/VFX/laser_sparks.tscn" id="40_6qq0y"]
 [ext_resource type="PackedScene" uid="uid://ctk2dt1usviu2" path="res://scenes/entities/laser_drone_manager.tscn" id="42_f0u1s"]
+[ext_resource type="AudioStream" uid="uid://dx2fmu1cwuocd" path="res://assets/sounds/laser_gun.wav" id="42_qocv2"]
 [ext_resource type="Texture2D" uid="uid://hn4kgl4cqvjc" path="res://assets/3d_models/light_sources/big_halogen_dark_black_metal.png" id="45_pw1f1"]
 [ext_resource type="Script" uid="uid://dfkusn0t2d2rj" path="res://src/entities/FinalBossComputer.cs" id="45_rtikm"]
 [ext_resource type="Material" uid="uid://rlfu4ryc8727" path="res://assets/materials/halogen_light_material.tres" id="46_2b4m3"]
@@ -2446,6 +2447,9 @@ points = PackedVector3Array(0.05982189, 0.3854745, 0.34188583, -0.059821896, 0.3
 [sub_resource type="BoxShape3D" id="BoxShape3D_rtikm"]
 size = Vector3(0.4550476, 5.893219, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ebnxn"]
+size = Vector3(0.4550476, 3.555008, 1)
+
 [sub_resource type="Environment" id="Environment_q5a1h"]
 background_mode = 1
 background_energy_multiplier = 2.52
@@ -3045,6 +3049,20 @@ surface_material_override/0 = ExtResource("39_rtikm")
 
 [node name="Sparks" parent="boss_fight_room_v1/LaserMachine/CannonPlatform/Cannon/LaserMachine" instance=ExtResource("40_6qq0y")]
 
+[node name="LaserSound" type="AudioStreamPlayer3D" parent="boss_fight_room_v1/LaserMachine/CannonPlatform/Cannon/LaserMachine"]
+stream = ExtResource("42_qocv2")
+volume_db = -15.0
+unit_size = 50.0
+max_distance = 40.0
+bus = &"SoundFX"
+
+[node name="PlayerRay" type="RayCast3D" parent="boss_fight_room_v1/LaserMachine/CannonPlatform/Cannon/LaserMachine"]
+transform = Transform3D(-1.7772221e-08, -0.59341896, 0.8048938, -3.518302e-08, 0.80489373, 0.5934189, -0.99999994, -1.7772221e-08, -3.5183024e-08, 7.2012825, 1.1761699, 0.07551025)
+top_level = true
+target_position = Vector3(0, 0, -25)
+collision_mask = 8257
+collide_with_areas = true
+
 [node name="LaserMachine2" type="MeshInstance3D" parent="boss_fight_room_v1"]
 transform = Transform3D(-4.3711385e-08, -1, 4.3711385e-08, 0, -4.371139e-08, -0.99999994, 0.99999994, -4.371139e-08, 1.9106853e-15, 6.22682, 4.344537, 1.3932586e-06)
 mesh = SubResource("ArrayMesh_n136h")
@@ -3090,6 +3108,20 @@ mesh = SubResource("CylinderMesh_ebnxn")
 surface_material_override/0 = ExtResource("39_rtikm")
 
 [node name="Sparks" parent="boss_fight_room_v1/LaserMachine2/CannonPlatform/Cannon/LaserMachine" instance=ExtResource("40_6qq0y")]
+
+[node name="LaserSound" type="AudioStreamPlayer3D" parent="boss_fight_room_v1/LaserMachine2/CannonPlatform/Cannon/LaserMachine"]
+stream = ExtResource("42_qocv2")
+volume_db = -15.0
+unit_size = 50.0
+max_distance = 40.0
+bus = &"SoundFX"
+
+[node name="PlayerRay" type="RayCast3D" parent="boss_fight_room_v1/LaserMachine2/CannonPlatform/Cannon/LaserMachine"]
+transform = Transform3D(3.8781227e-08, -0.8348575, -0.5504661, 6.771306e-08, -0.55046594, 0.83485734, -0.9999999, -6.965054e-08, 3.5183024e-08, -8.371798, 1.7387066, 0.075510226)
+top_level = true
+target_position = Vector3(0, 0, -25)
+collision_mask = 8257
+collide_with_areas = true
 
 [node name="LaserMachine3" type="MeshInstance3D" parent="boss_fight_room_v1"]
 transform = Transform3D(-9.195088e-08, 0.103591144, 0.9946199, 4.3476213e-08, -0.9946199, 0.103591144, 0.9999999, 5.2767614e-08, 8.695243e-08, -0.39330554, 6.460438, 8.121133e-07)
@@ -3137,6 +3169,20 @@ surface_material_override/0 = ExtResource("39_rtikm")
 
 [node name="Sparks" parent="boss_fight_room_v1/LaserMachine3/CannonPlatform/Cannon/LaserMachine" instance=ExtResource("40_6qq0y")]
 
+[node name="LaserSound" type="AudioStreamPlayer3D" parent="boss_fight_room_v1/LaserMachine3/CannonPlatform/Cannon/LaserMachine"]
+stream = ExtResource("42_qocv2")
+volume_db = -15.0
+unit_size = 50.0
+max_distance = 40.0
+bus = &"SoundFX"
+
+[node name="PlayerRay" type="RayCast3D" parent="boss_fight_room_v1/LaserMachine3/CannonPlatform/Cannon/LaserMachine"]
+transform = Transform3D(7.0554066e-08, -0.9996522, 0.026368886, 3.3334175e-08, 0.026368886, 0.9996522, -0.9999999, -6.965055e-08, 3.518302e-08, -1.9322082, 3.6918979, 0.075510226)
+top_level = true
+target_position = Vector3(0, 0, -25)
+collision_mask = 8257
+collide_with_areas = true
+
 [node name="Player" parent="." instance=ExtResource("2_e7ocr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.097842, -2.245, 0)
 
@@ -3162,6 +3208,18 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LazerDroneManager/Doors/DangerDoor_001/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_un1nv")
+
+[node name="DoorSound1" type="AudioStreamPlayer3D" parent="LazerDroneManager/Doors/DoorSounds" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1719618, -2.5306153, 0)
+volume_db = -20.0
+max_distance = 10.0
+bus = &"SoundFX"
+
+[node name="DoorSound2" type="AudioStreamPlayer3D" parent="LazerDroneManager/Doors/DoorSounds" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3972349, -2.530652, 0)
+volume_db = -20.0
+max_distance = 10.0
+bus = &"SoundFX"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LazerDroneManager/ActivationArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7691662, 0)
@@ -3194,6 +3252,18 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LazerDroneManager2/Doors/DangerDoor_003/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_hkcc5")
 
+[node name="DoorSound1" type="AudioStreamPlayer3D" parent="LazerDroneManager2/Doors/DoorSounds" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1719618, -2.5306153, 0)
+volume_db = -20.0
+max_distance = 10.0
+bus = &"SoundFX"
+
+[node name="DoorSound2" type="AudioStreamPlayer3D" parent="LazerDroneManager2/Doors/DoorSounds" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3972349, -2.530652, 0)
+volume_db = -20.0
+max_distance = 10.0
+bus = &"SoundFX"
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LazerDroneManager2/ActivationArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7443552, 0)
 shape = SubResource("BoxShape3D_un1nv")
@@ -3219,22 +3289,14 @@ collision_mask = 16384
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31136417, 1.8154144, 0)
 shape = SubResource("BoxShape3D_rtikm")
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.253586, 2.870797, -0.06048785)
-collision_layer = 8192
-collision_mask = 8192
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
-shape = SubResource("BoxShape3D_rtikm")
-
 [node name="StaticBody3D4" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.133069, 2.870797, -0.06048785)
-collision_layer = 16384
-collision_mask = 16384
+collision_layer = 24576
+collision_mask = 24576
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13282776, 0.18457031, 0)
-shape = SubResource("BoxShape3D_rtikm")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13282776, 1.3536761, 0)
+shape = SubResource("BoxShape3D_ebnxn")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q5a1h")

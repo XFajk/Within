@@ -44,9 +44,16 @@ public partial class LaserMachine : Node3D {
 
     private Timer LockingTimer = new();
     private Timer FiringTimer = new();
-    private Timer ActiveTimer = new(); 
+    private Timer ActiveTimer = new();
+
+    private AudioStreamPlayer3D _laserSound;
+    private RayCast3D _playerRay;
 
     public override void _Ready() {
+        _laserSound = GetNode<AudioStreamPlayer3D>("LaserSound");
+        _playerRay = GetNode<RayCast3D>("PlayerRay");
+
+
         GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y, 0f);
         _player = GetTree().GetNodesInGroup("Player")[0] as Player;
 
@@ -83,6 +90,7 @@ public partial class LaserMachine : Node3D {
         ActiveTimer.OneShot = true;
         ActiveTimer.WaitTime = ActiveTime;
         ActiveTimer.Timeout += () => {
+            _laserSound.Play();
             LockingTimer.Start();
             _laserBeam.SetSurfaceOverrideMaterial(0, _laserInactiveMaterial);
             _laserAttackArea.GlobalPosition = new Vector3(0f, 0f, 1000f);
@@ -92,9 +100,22 @@ public partial class LaserMachine : Node3D {
 
     public override void _Process(double delta) {
 
+        _playerRay.LookAt(_player.GlobalPosition, Vector3.Up);
+        if (_playerRay.IsColliding()) {
+            var collider = _playerRay.GetCollider();
+            if (collider is Player) {
+                _laserSound.VolumeDb = -15f;
+            } else {
+                _laserSound.VolumeDb = -80f;
+            }
+        } else {
+            _laserSound.VolumeDb = -80f;
+        }
+
         if (Global.Instance.IsGamePaused || Global.Instance.IsInMainMenu || _player == null) return;
 
         if (LockingTimer.IsStopped() && FiringTimer.IsStopped() && ActiveTimer.IsStopped() && Enabled) {
+            _laserSound.Play();
             LockingTimer.Start();
             _laserRayCast.Enabled = true;
             _sparks.Visible = true;
@@ -103,6 +124,7 @@ public partial class LaserMachine : Node3D {
             LockingTimer.Stop();
             FiringTimer.Stop();
             ActiveTimer.Stop();
+            _laserSound.Stop();
             _laserBeam.SetSurfaceOverrideMaterial(0, _laserInactiveMaterial);
             _laserAttackArea.GlobalPosition = new Vector3(0f, 0f, 1000f);
             _laserRayCast.Enabled = false;

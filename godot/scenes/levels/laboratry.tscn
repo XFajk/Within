@@ -1606,7 +1606,7 @@ collision_layer = 1073741825
 shape = SubResource("ConvexPolygonShape3D_oencg")
 
 [node name="CageTopBottom" type="MeshInstance3D" parent="laboratory_v1"]
-transform = Transform3D(0.9916043, 0, -0.12930936, 0, 1, 0, 0.12930936, 0, 0.9916043, 0.72938377, -2.414236, -0.18674748)
+transform = Transform3D(-0.99160427, 0, 0.12930943, 0, 1, 0, -0.12930943, 0, -0.99160427, 0.53685015, -2.414236, -0.12223477)
 mesh = SubResource("ArrayMesh_sakox")
 skeleton = NodePath("")
 
@@ -1617,19 +1617,19 @@ collision_layer = 1073741825
 shape = SubResource("ConcavePolygonShape3D_pf8tl")
 
 [node name="CageBars" type="MeshInstance3D" parent="laboratory_v1"]
-transform = Transform3D(0.9916043, 0, -0.12930936, 0, 1, 0, 0.12930936, 0, 0.9916043, 0.7335368, -1.9414468, -0.18584643)
+transform = Transform3D(-0.99160427, 0, 0.12930943, 0, 1, 0, -0.12930943, 0, -0.99160427, 0.53269714, -1.9414468, -0.12313581)
 mesh = SubResource("ArrayMesh_wwj6u")
 skeleton = NodePath("")
 
 [node name="CageFloor" type="StaticBody3D" parent="laboratory_v1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.83330196, -2.4101663, -0.11603223)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.4329319, -2.4101663, -0.19295003)
 collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="laboratory_v1/CageFloor"]
 shape = SubResource("ConcavePolygonShape3D_aegq4")
 
 [node name="@StaticBody3D@46618" type="StaticBody3D" parent="laboratory_v1"]
-transform = Transform3D(0.09144415, 0, -0.06157915, 0, 0.34259236, 0, 0.012505877, 0, 0.45027253, 0.23624532, -2.070305, -0.12933834)
+transform = Transform3D(-0.09144415, 0, 0.06157919, 0, 0.34259233, 0, -0.012505885, 0, -0.4502725, 1.0299885, -2.0703049, -0.17964387)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="laboratory_v1/@StaticBody3D@46618"]
 shape = SubResource("ConcavePolygonShape3D_iwqe2")

@@ -79,7 +79,7 @@ public partial class Player : CharacterBody3D, ISavable {
     public Timer WakeUpTimer = new();
 
     // Inventory Pickup Variables
-    private Array<string> _inventory = new Array<string>();
+    public Array<string> Inventory = new Array<string>();
 
     // Visual Effects Variables
     private PackedScene _hitUiParticles = GD.Load<PackedScene>("res://scenes/VFX/small_death_particles.tscn");
@@ -223,7 +223,7 @@ public partial class Player : CharacterBody3D, ISavable {
         CanDash = Global.Instance.PlayerHasDashAbility;
         CanDoubleJump = Global.Instance.PlayerHasDoubleJumpAbility;
 
-        _inventory = Global.Instance.PlayerInventory;
+        Inventory = Global.Instance.PlayerInventory;
 
         if (Global.Instance.TransitionExitPosition is Vector3 transitionPosition) {
             CallDeferred(nameof(SetExitPosition), transitionPosition);
@@ -1123,7 +1123,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     public void PickupItem(string itemName, Texture2D iconTexture) {
-        _inventory.Add(itemName);
+        Inventory.Add(itemName);
         var pickedUpItem = Camera.GetNode<TextureRect>("UserInterface/PickedUpItem");
         pickedUpItem.Visible = true;
         pickedUpItem.Texture = iconTexture;
@@ -1136,11 +1136,11 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     public void RemoveItem(string itemName) {
-        _inventory.Remove(itemName);
+        Inventory.Remove(itemName);
     }
 
     public bool HasItem(string itemName) {
-        return _inventory.Contains(itemName);
+        return Inventory.Contains(itemName);
     }
 
     public string GetSaveID() {

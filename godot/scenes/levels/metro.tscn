@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=4 uid="uid://dxkvb2eoxa74j"]
+[gd_scene load_steps=123 format=4 uid="uid://dxkvb2eoxa74j"]
 
 [ext_resource type="Texture2D" uid="uid://dbkbjd3j5kmnm" path="res://assets/3d_models/metro/metro_v1_wallpaper3.png" id="1_0fs0g"]
 [ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_dmms0"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://buuwxdukh5xfh" path="res://assets/3d_models/furniture_and_objects/white_board/whiteboard_whiteboard1.png" id="27_nvjll"]
 [ext_resource type="Texture2D" uid="uid://bemdwl8f61stf" path="res://assets/3d_models/furniture_and_objects/white_board/whiteboard_galvanized3.png" id="28_ih1xb"]
 [ext_resource type="Texture2D" uid="uid://dkev6g0ja8rm4" path="res://assets/3d_models/furniture_and_objects/white_board/whiteboard_whiteboard2.png" id="29_fsfe1"]
+[ext_resource type="PackedScene" uid="uid://srwbwnvjwjqw" path="res://assets/3d_models/light_sources/halogen.glb" id="31_twa4e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsppo"]
 resource_name = "idk"
@@ -1909,3 +1910,11 @@ shape = SubResource("ConvexPolygonShape3D_gcji0")
 
 [node name="Player" parent="." instance=ExtResource("14_140p0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9450703, -0.436, 0)
+
+[node name="halogen2" parent="." instance=ExtResource("31_twa4e")]
+transform = Transform3D(0.03196907, 0, 0.99948883, 0, 1, 0, -0.99948883, 0, 0.03196907, 1.76308, -0.7321762, -0.9675515)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="halogen2"]
+transform = Transform3D(-5.9604645e-08, 0.0018325895, 0.99999833, 0, 0.99999833, -0.0018325895, -1, -1.0923262e-10, -5.9604545e-08, -0.04476554, 0.064439535, 1.7369115e-09)
+shadow_enabled = true
+spot_angle = 47.812496

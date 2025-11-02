@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dg286301th5vq"]
+[gd_scene load_steps=24 format=4 uid="uid://dg286301th5vq"]
 
 [ext_resource type="Script" uid="uid://01i8ybft3rvh" path="res://src/entities/LaserMachine.cs" id="1_ftl5q"]
 [ext_resource type="Texture2D" uid="uid://btnrth67sqieb" path="res://assets/3d_models/laser_cannon/laser_cannon_cannon_base.png" id="2_071og"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ddmam7yrlrbx2" path="res://assets/3d_models/laser_cannon/laser_cannon_cannon_platform.png" id="3_vfwqs"]
 [ext_resource type="Texture2D" uid="uid://drwmd3f6ffvyy" path="res://assets/3d_models/laser_cannon/laser_cannon_black_camo.png" id="4_ubep2"]
 [ext_resource type="Texture2D" uid="uid://b821lpxuvu2rf" path="res://assets/3d_models/laser_cannon/laser_cannon_blacker_camo.png" id="5_0gptm"]
+[ext_resource type="AudioStream" uid="uid://dx2fmu1cwuocd" path="res://assets/sounds/laser_gun.wav" id="8_vfwqs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lw5t4"]
 resource_name = "cannon_base"
@@ -259,6 +260,13 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CannonPlatform/Cannon/LaserMachine/AttackBox"]
 shape = SubResource("SeparationRayShape3D_071og")
 
+[node name="PlayerRay" type="RayCast3D" parent="CannonPlatform/Cannon/LaserMachine"]
+transform = Transform3D(1, 4.371139e-08, 0, -2.5939162e-08, 0.5934189, -0.8048938, -3.5183024e-08, 0.8048938, 0.5934189, -8.271806e-25, -0.004672244, 0)
+top_level = true
+target_position = Vector3(0, 0, -25)
+collision_mask = 8257
+collide_with_areas = true
+
 [node name="Ray" type="RayCast3D" parent="CannonPlatform/Cannon/LaserMachine"]
 target_position = Vector3(0, 0, -25)
 collision_mask = 8193
@@ -270,3 +278,8 @@ mesh = SubResource("CylinderMesh_071og")
 surface_material_override/0 = ExtResource("2_pv1n4")
 
 [node name="Sparks" parent="CannonPlatform/Cannon/LaserMachine" instance=ExtResource("3_rlb5r")]
+
+[node name="LaserSound" type="AudioStreamPlayer3D" parent="CannonPlatform/Cannon/LaserMachine"]
+stream = ExtResource("8_vfwqs")
+max_distance = 40.0
+bus = &"SoundFX"

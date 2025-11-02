@@ -13,7 +13,14 @@ public partial class FactoryBoss : DialogInteractable {
             CurrentDialogIndex = 1;
             InteractionTitle = "Interact";
         }
+
+        DialogEnded += () => {
+            if (CurrentDialogIndex == 1) {
+                _player.Inventory.Add("BossDeath");
+            }
+        };
         base._Ready();
     }
+
 
 }

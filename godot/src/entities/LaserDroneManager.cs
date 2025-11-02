@@ -25,9 +25,13 @@ public partial class LaserDroneManager : Node3D {
     private Node3D _doorHandle;
     private Array<Array<Vector2>> _dronePositions = new();
 
-
     private Area3D _activationArea;
     private Area3D _deactivationArea;
+
+
+    private Array<AudioStreamPlayer3D> _doorSounds = new();
+    private AudioStream _doorClosingSound = GD.Load<AudioStream>("res://assets/sounds/door_closing.wav");
+    private AudioStream _doorOpeningSound = GD.Load<AudioStream>("res://assets/sounds/door_opening.wav");
 
 
     public override void _Ready() {
@@ -56,6 +60,11 @@ public partial class LaserDroneManager : Node3D {
         if (!Enabled) {
             _doorHandle.Position += Vector3.Down * 0.61f;
         }
+        foreach (var soundPlayer in _doorHandle.GetNode("DoorSounds").GetChildren()) {
+            if (soundPlayer is AudioStreamPlayer3D audioPlayer) {
+                _doorSounds.Add(audioPlayer);
+            }
+        }
 
         _activationArea = GetNode<Area3D>("ActivationArea");
         _activationArea.BodyEntered += OnActivationAreaBodyEntered;
@@ -72,6 +81,10 @@ public partial class LaserDroneManager : Node3D {
 
             var tween = GetTree().CreateTween();
             tween.TweenProperty(_doorHandle, "position", _doorHandle.Position + Vector3.Down * 0.61f, 0.3f);
+            foreach (var soundPlayer in _doorSounds) {
+                soundPlayer.Stream = _doorClosingSound;
+                soundPlayer.Play();
+            }
 
             for (int i = 0; i < 4; i++) {
                 DroneCycle(tween, i);
@@ -82,7 +95,12 @@ public partial class LaserDroneManager : Node3D {
                 }
             })).SetDelay(2.5f);
             tween.TweenProperty(_doorHandle, "position", Vector3.Zero, 0.3f);
-
+            tween.TweenCallback(Callable.From(() => {
+                foreach (var soundPlayer in _doorSounds) {
+                    soundPlayer.Stream = _doorOpeningSound;
+                    soundPlayer.Play();
+                }
+            }));
         }
     }
 

@@ -2727,6 +2727,7 @@ skeleton = NodePath("")
 
 [node name="PlatformGrate" type="StaticBody3D" parent="ground_zero_v2/PlatformGrate"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0002861023, -0.11550975, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/PlatformGrate/PlatformGrate"]
 shape = SubResource("ConcavePolygonShape3D_kfpnt")
@@ -2742,6 +2743,7 @@ skeleton = NodePath("")
 
 [node name="ShortPlatformGrate" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate"]
 transform = Transform3D(1.4968858, 0, 0, 0, 1, 0, 0, 0, 1, 0.00017547607, -0.11703205, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate/ShortPlatformGrate"]
 shape = SubResource("ConcavePolygonShape3D_ivmkp")
@@ -2758,6 +2760,7 @@ skeleton = NodePath("")
 
 [node name="LongPlatformGrate" type="StaticBody3D" parent="ground_zero_v2/LongPlatformGrate"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0004043579, -0.047023773, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/LongPlatformGrate/LongPlatformGrate"]
 shape = SubResource("ConcavePolygonShape3D_eqs3w")
@@ -2774,6 +2777,7 @@ skeleton = NodePath("")
 
 [node name="PlatformGrate_001" type="StaticBody3D" parent="ground_zero_v2/PlatformGrate_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0002861023, -0.11550975, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/PlatformGrate_001/PlatformGrate_001"]
 shape = SubResource("ConcavePolygonShape3D_kfpnt")
@@ -2789,6 +2793,7 @@ skeleton = NodePath("")
 
 [node name="PlatformGrate_002" type="StaticBody3D" parent="ground_zero_v2/PlatformGrate_002"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0002861023, -0.11550975, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/PlatformGrate_002/PlatformGrate_002"]
 shape = SubResource("ConcavePolygonShape3D_kfpnt")
@@ -2804,6 +2809,7 @@ skeleton = NodePath("")
 
 [node name="PlatformGrate_003" type="StaticBody3D" parent="ground_zero_v2/PlatformGrate_003"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0002822876, -0.11550975, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/PlatformGrate_003/PlatformGrate_003"]
 shape = SubResource("ConcavePolygonShape3D_kfpnt")
@@ -2819,6 +2825,7 @@ skeleton = NodePath("")
 
 [node name="PlatformGrate_004" type="StaticBody3D" parent="ground_zero_v2/PlatformGrate_004"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0002822876, -0.11550951, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/PlatformGrate_004/PlatformGrate_004"]
 shape = SubResource("ConcavePolygonShape3D_kfpnt")
@@ -2834,6 +2841,7 @@ skeleton = NodePath("")
 
 [node name="PlatformGrate_006" type="StaticBody3D" parent="ground_zero_v2/PlatformGrate_006"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0002861023, -0.11550999, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/PlatformGrate_006/PlatformGrate_006"]
 shape = SubResource("ConcavePolygonShape3D_kfpnt")
@@ -2849,6 +2857,7 @@ skeleton = NodePath("")
 
 [node name="ShortPlatformGrate_001" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate_001"]
 transform = Transform3D(1.4968858, 0, 0, 0, 1, 0, 0, 0, 1, 0.00017547607, -0.11703205, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate_001/ShortPlatformGrate_001"]
 shape = SubResource("ConcavePolygonShape3D_ivmkp")
@@ -2865,6 +2874,7 @@ skeleton = NodePath("")
 
 [node name="ShortPlatformGrate_002" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate_002"]
 transform = Transform3D(1.4968858, 0, 0, 0, 1, 0, 0, 0, 1, 0.00017166138, -0.11703205, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate_002/ShortPlatformGrate_002"]
 shape = SubResource("ConcavePolygonShape3D_ivmkp")
@@ -2882,6 +2892,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_na0nf")
 
 [node name="ShortPlatformGrate_003" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate_003"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00011634827, -0.11703253, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate_003/ShortPlatformGrate_003"]
 shape = SubResource("ConcavePolygonShape3D_3x72n")
@@ -2899,6 +2910,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_knpfv")
 
 [node name="ShortPlatformGrate_004" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate_004"]
 transform = Transform3D(1.4968858, 0, 0, 0, 1, 0, 0, 0, 1, 0.00017547607, -0.11703205, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate_004/ShortPlatformGrate_004"]
 shape = SubResource("ConcavePolygonShape3D_kmrl4")
@@ -2915,6 +2927,7 @@ skeleton = NodePath("")
 
 [node name="ShortPlatformGrate_005" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate_005"]
 transform = Transform3D(1.4968858, 0, 0, 0, 1, 0, 0, 0, 1, 0.00017547607, -0.11703205, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate_005/ShortPlatformGrate_005"]
 shape = SubResource("ConcavePolygonShape3D_ivmkp")
@@ -2931,6 +2944,7 @@ skeleton = NodePath("")
 
 [node name="ShortPlatformGrate_006" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate_006"]
 transform = Transform3D(1.4968858, 0, 0, 0, 1, 0, 0, 0, 1, 0.00017166138, -0.11703205, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate_006/ShortPlatformGrate_006"]
 shape = SubResource("ConcavePolygonShape3D_ivmkp")
@@ -2946,6 +2960,7 @@ skeleton = NodePath("")
 
 [node name="ShortPlatformGrate_007" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate_007"]
 transform = Transform3D(1.4968858, 0, 0, 0, 1, 0, 0, 0, 1, 0.00017547607, -0.117031574, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate_007/ShortPlatformGrate_007"]
 shape = SubResource("ConcavePolygonShape3D_ivmkp")
@@ -2962,6 +2977,7 @@ skeleton = NodePath("")
 
 [node name="ShortPlatformGrate_008" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate_008"]
 transform = Transform3D(1.4968858, 0, 0, 0, 1, 0, 0, 0, 1, 0.00017166138, -0.11703205, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate_008/ShortPlatformGrate_008"]
 shape = SubResource("ConcavePolygonShape3D_ivmkp")
@@ -2977,6 +2993,7 @@ skeleton = NodePath("")
 
 [node name="LongPlatformGrate_001" type="StaticBody3D" parent="ground_zero_v2/LongPlatformGrate_001"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0004043579, -0.047023773, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/LongPlatformGrate_001/LongPlatformGrate_001"]
 shape = SubResource("ConcavePolygonShape3D_2vs87")
@@ -2993,6 +3010,7 @@ skeleton = NodePath("")
 
 [node name="ShortPlatformGrate_009" type="StaticBody3D" parent="ground_zero_v2/ShortPlatformGrate_009"]
 transform = Transform3D(1.4968858, 0, 0, 0, 1, 0, 0, 0, 1, 0.00017166138, -0.11703205, 0)
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground_zero_v2/ShortPlatformGrate_009/ShortPlatformGrate_009"]
 shape = SubResource("ConcavePolygonShape3D_ivmkp")

@@ -2622,6 +2622,7 @@ mesh = SubResource("ArrayMesh_itrw7")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="boss_fight_room_v1/ServerPlatfrom"]
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boss_fight_room_v1/ServerPlatfrom/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_q5a1h")
@@ -2960,6 +2961,7 @@ mesh = SubResource("ArrayMesh_3odeg")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="boss_fight_room_v1/Platform"]
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boss_fight_room_v1/Platform/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_6s3fw")
@@ -2970,6 +2972,7 @@ mesh = SubResource("ArrayMesh_dv1tv")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="boss_fight_room_v1/Platform2"]
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boss_fight_room_v1/Platform2/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_is4ay")
@@ -2980,6 +2983,7 @@ mesh = SubResource("ArrayMesh_iyf3g")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="boss_fight_room_v1/Platform2_001"]
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boss_fight_room_v1/Platform2_001/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_2vso8")
@@ -2990,6 +2994,7 @@ mesh = SubResource("ArrayMesh_but2d")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="boss_fight_room_v1/Platform2_002"]
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boss_fight_room_v1/Platform2_002/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_q8u3y")

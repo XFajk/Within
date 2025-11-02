@@ -34,16 +34,17 @@ public partial class PauseMenu : Control {
                 Global.Instance.IsGamePaused = true;
                 GetTree().Paused = true;
             } else {
-                var masterBusIndex = AudioServer.GetBusIndex("Music&SoundFX");
-                var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
-
-                lowPassFilterEffect.CutoffHz *= 30.0f;
                 OnResumeButtonPressed();
             }
         }
     }
 
     private void OnResumeButtonPressed() {
+        var masterBusIndex = AudioServer.GetBusIndex("Music&SoundFX");
+        var lowPassFilterEffect = AudioServer.GetBusEffect(masterBusIndex, 0) as AudioEffectLowPassFilter;
+
+        lowPassFilterEffect.CutoffHz *= 30.0f;
+        GD.Print("Cock");
         Global.Instance.IsGamePaused = false;
         GetTree().Paused = false;
         this.Visible = false;

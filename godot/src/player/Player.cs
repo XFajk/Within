@@ -31,6 +31,11 @@ public partial class Player : CharacterBody3D, ISavable {
         NoControl,
     }
 
+    private enum WalkingMaterial {
+        Concrete,
+        Metal
+    }
+
     private enum HorizontalDirection {
         Left = -1,
         Right = 1,
@@ -158,6 +163,8 @@ public partial class Player : CharacterBody3D, ISavable {
     private float _jumpDuration = 0.333f; // 20 frames at 60fps
     private float _doubleJumpDuration = 0.167f; // 10 frames at 60fps
     private float _coyoteTimeElapsed = 0.0f;
+
+    private bool _lastFrameFalling = false; 
     private const float COYOTE_TIME_DURATION = 0.1f;
 
     private float _jumpModifier = 1.0f;
@@ -246,6 +253,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
         _deathSound = GetNode<AudioStreamPlayer3D>("Audio/DeathSound");
         _swooshSound = GetNode<AudioStreamPlayer3D>("Audio/SwooshSound");
+        _feetSounds = GetNode<AudioStreamPlayer3D>("Audio/FeetSounds");
 
         _hitBoxArea = GetNode<Area3D>("HitBox");
 
@@ -333,7 +341,6 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     public override void _Process(double delta) {
-        // GD.Print("Dash: " + _canDash + ", Wall Jump: " + _canWallJump + ", Double Jump: " + _canDoubleJump);
         Position = new Vector3(Position.X, Position.Y, 0);
         Camera.GlobalPosition = new Vector3(Camera.GlobalPosition.X, Camera.GlobalPosition.Y, CameraDistance);
 
@@ -486,10 +493,44 @@ public partial class Player : CharacterBody3D, ISavable {
     private void HandleIdleState(double delta) {
         Move(delta);
 
+        WalkingMaterial currentMaterial = GetCurrentWalkingMaterial();
+
+        if (_feetSounds.Playing == false) {
+            _lastFrameFalling = false;
+            switch (currentMaterial) {
+                case WalkingMaterial.Concrete:
+                    if (!_feetSounds.Playing) {
+                        _feetSounds.Stream = ConcreteFootstepSounds;
+                        _feetSounds.Play();
+                    }
+                    break;
+                case WalkingMaterial.Metal:
+                    if (!_feetSounds.Playing) {
+                        _feetSounds.Stream = MetalFootstepSounds;
+                        _feetSounds.Play();
+                    }
+                    break;
+            }
+        }
+        if (Mathf.IsZeroApprox(_velocity.X) && !_lastFrameFalling) {
+            _feetSounds.Stop();
+        }
+
         if (IsOnFloor() && WantsToJump()) {
             _jumpBufferFrames = 0;
             _jumpModifier = 1.0f;
             _jumpTimeElapsed = 0.0f;
+            _feetSounds.Stop();
+            switch (currentMaterial) {
+                case WalkingMaterial.Concrete:
+                    _feetSounds.Stream = ConcreteJumpSounds;
+                    _feetSounds.Play();
+                    break;
+                case WalkingMaterial.Metal:
+                    _feetSounds.Stream = MetalJumpSounds;
+                    _feetSounds.Play();
+                    break;
+            }
             TransitionAnimationTo(PlayerState.Jumping);
             CurrentState = PlayerState.Jumping;
         } else if (!IsOnFloor()) {
@@ -499,7 +540,9 @@ public partial class Player : CharacterBody3D, ISavable {
             _coyoteTimeElapsed = 0.0f;  // Start coyote time when leaving ground
             TransitionAnimationTo(PlayerState.Jumping);
             CurrentState = PlayerState.Falling;
-        }
+            _feetSounds.Stop();
+        } 
+
         CheckAttack();
         CheckDash();
     }
@@ -548,6 +591,22 @@ public partial class Player : CharacterBody3D, ISavable {
             CurrentState = PlayerState.Idle;
             _velocity.Y = 0;
             _coyoteTimeElapsed = 0.0f;  // Reset coyote time when touching floor
+            _lastFrameFalling = true;
+            _feetSounds.Stop();
+            switch (GetCurrentWalkingMaterial()) {
+                case WalkingMaterial.Concrete:
+                    if (!_feetSounds.Playing) {
+                        _feetSounds.Stream = ConcreteJumpLandSounds;
+                        _feetSounds.Play();
+                    }
+                    break;
+                case WalkingMaterial.Metal:
+                    if (!_feetSounds.Playing) {
+                        _feetSounds.Stream = MetalJumpLandSounds;
+                        _feetSounds.Play();
+                    }
+                    break;
+            }
         } else if (IsOnWall() && CanWallJump && IsWallClimbable()) {
             TransitionAnimationTo(PlayerState.OnWall);
             CurrentState = PlayerState.OnWall;
@@ -891,6 +950,7 @@ public partial class Player : CharacterBody3D, ISavable {
         if (Input.IsActionJustPressed("hit") && Input.IsActionPressed("look_up")) {
             TransitionAnimationTo(PlayerState.AttackingUp);
             CurrentState = PlayerState.AttackingUp;
+            _swooshSound.Play();
 
             _jumpTimeElapsed = _jumpDuration; // Force jump end
 
@@ -906,6 +966,7 @@ public partial class Player : CharacterBody3D, ISavable {
         } else if (Input.IsActionJustPressed("hit")) {
             TransitionAnimationTo(PlayerState.AttackingFront);
             CurrentState = PlayerState.AttackingFront;
+            _swooshSound.Play();
 
             _jumpTimeElapsed = _jumpDuration; // Force jump end
 
@@ -933,6 +994,18 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private bool WantsToJump() {
         return (Input.IsActionJustPressed("jump") || _jumpBufferFrames > 0);
+    }
+
+    private WalkingMaterial GetCurrentWalkingMaterial() {
+        if (_floorDetector.IsColliding()) {
+            var collider = _floorDetector.GetCollider() as CollisionObject3D;
+            if (collider.GetCollisionLayerValue(31)) {
+                return WalkingMaterial.Metal;
+            } else {
+                return WalkingMaterial.Concrete;
+            }
+        }
+        return WalkingMaterial.Concrete;
     }
 
     public void SetExitPosition(Vector3 position) {

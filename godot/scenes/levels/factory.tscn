@@ -1430,6 +1430,7 @@ mesh = SubResource("ArrayMesh_c4ufc")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="factory_v2/ChainedPlatform"]
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="factory_v2/ChainedPlatform/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_gmod2")
@@ -1440,6 +1441,7 @@ mesh = SubResource("ArrayMesh_76ss4")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="factory_v2/ChainedPlatform_001"]
+collision_layer = 1073741825
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="factory_v2/ChainedPlatform_001/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_bpebr")

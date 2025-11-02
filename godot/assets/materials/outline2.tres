@@ -10,3 +10,4 @@ grow_amount = 0.015
 
 [resource]
 next_pass = SubResource("StandardMaterial3D_d1ffx")
+emission_enabled = true

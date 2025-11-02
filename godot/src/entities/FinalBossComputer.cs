@@ -31,6 +31,8 @@ public partial class FinalBossComputer : DialogInteractable {
     private Timer _droneSpawnTimer = new();
     private Array<Drone> _spawnedDrones = new();
 
+    private bool _activatedBefore = false;
+
 
     public override void _Ready() {
         base._Ready();
@@ -99,19 +101,22 @@ public partial class FinalBossComputer : DialogInteractable {
             foreach (var light in OtherLights) {
                 light.Visible = true;
             }
+
+            var player = GetTree().GetNodesInGroup("Player")[0] as Player;
+            player.Inventory.Add("ElevatorItem");
+            _activatedBefore = true;
             _droneSpawnTimer.Stop();
         }
 
-        base._Process(delta);
-        if (_hasActivated) {
+        if (_hasActivated || _activatedBefore) {
             _player = null;
-            return;
         }
+        base._Process(delta);
     }
 
 
     private void OnDialogEnded() {
-        if (_hasActivated) {
+        if (_hasActivated || _activatedBefore) {
             return;
         }
         _hasActivated = true;
@@ -152,7 +157,7 @@ public partial class FinalBossComputer : DialogInteractable {
     }
 
     protected override void Interact() {
-        if (_hasActivated) {
+        if (_hasActivated || _activatedBefore) {
             _player = null;
             return;
         }

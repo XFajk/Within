@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf845053rsa8x"]
+
+[ext_resource type="Script" uid="uid://c2lk1l0cif55q" path="res://src/misc/BetweenGameAndEnd.cs" id="1_08p1x"]
+
+[node name="BetweenGameAndEnd" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_08p1x")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

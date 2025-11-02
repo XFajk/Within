@@ -1,4 +1,4 @@
-[gd_scene load_steps=233 format=4 uid="uid://ch7t51nqhx2op"]
+[gd_scene load_steps=235 format=4 uid="uid://ch7t51nqhx2op"]
 
 [ext_resource type="Script" uid="uid://cgpc4rckff35e" path="res://src/levels/BossFightRoom.cs" id="1_ebnxn"]
 [ext_resource type="Texture2D" uid="uid://fdwslrqafuqm" path="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_concrete_tile_black.png" id="1_qs8ba"]
@@ -46,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://by872wppxdbb3" path="res://scenes/VFX/laser_sparks.tscn" id="40_6qq0y"]
 [ext_resource type="PackedScene" uid="uid://ctk2dt1usviu2" path="res://scenes/entities/laser_drone_manager.tscn" id="42_f0u1s"]
 [ext_resource type="AudioStream" uid="uid://dx2fmu1cwuocd" path="res://assets/sounds/laser_gun.wav" id="42_qocv2"]
+[ext_resource type="Script" uid="uid://cf7jjduehmlil" path="res://src/interactables/specific/EntrenceToGroundOne.cs" id="43_n37ht"]
 [ext_resource type="Texture2D" uid="uid://hn4kgl4cqvjc" path="res://assets/3d_models/light_sources/big_halogen_dark_black_metal.png" id="45_pw1f1"]
 [ext_resource type="Script" uid="uid://dfkusn0t2d2rj" path="res://src/entities/FinalBossComputer.cs" id="45_rtikm"]
 [ext_resource type="Material" uid="uid://rlfu4ryc8727" path="res://assets/materials/halogen_light_material.tres" id="46_2b4m3"]
@@ -2388,6 +2389,8 @@ rings = 0
 cap_top = false
 cap_bottom = false
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_0rppr"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gotm"]
 resource_name = "danger_door"
 cull_mode = 2
@@ -3182,6 +3185,26 @@ top_level = true
 target_position = Vector3(0, 0, -25)
 collision_mask = 8257
 collide_with_areas = true
+
+[node name="EndOfGame" type="Area3D" parent="boss_fight_room_v1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.829187, -0.03215885, 0.23381066)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("43_n37ht")
+LockedTitle = "Offline"
+KeyItemName = "ElevatorItem"
+EnterableAreaScene = &"res://scenes/between_game_and_end.tscn"
+ExitPosition = Vector3(-6.332, -0.264, 0)
+InteractionTitle = "Escape"
+metadata/_custom_type_script = "uid://b2u288mrgr3kt"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_fight_room_v1/EndOfGame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44037342, 0)
+shape = SubResource("BoxShape3D_0rppr")
+
+[node name="Title" parent="boss_fight_room_v1/EndOfGame" instance=ExtResource("46_pw1f1")]
+transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 1.0733256, 0)
+layers = 2
 
 [node name="Player" parent="." instance=ExtResource("2_e7ocr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.097842, -2.245, 0)

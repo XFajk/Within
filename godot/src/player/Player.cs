@@ -52,6 +52,7 @@ public partial class Player : CharacterBody3D, ISavable {
     private AudioStreamPlayer3D _deathSound;
     private AudioStreamPlayer3D _feetSounds;
     private AudioStreamPlayer3D _wallGrindSound;
+    private AudioStreamPlayer3D _dashSound;
 
     [Export]
     public AudioStreamRandomizer ConcreteFootstepSounds;
@@ -257,6 +258,7 @@ public partial class Player : CharacterBody3D, ISavable {
         _swooshSound = GetNode<AudioStreamPlayer3D>("Audio/SwooshSound");
         _feetSounds = GetNode<AudioStreamPlayer3D>("Audio/FeetSounds");
         _wallGrindSound = GetNode<AudioStreamPlayer3D>("Audio/WallGrindSound");
+        _dashSound = GetNode<AudioStreamPlayer3D>("Audio/DashSound");
 
         _hitBoxArea = GetNode<Area3D>("HitBox");
 
@@ -944,6 +946,7 @@ public partial class Player : CharacterBody3D, ISavable {
 
     private void CheckDash() {
         if (Input.IsActionJustPressed("dash") && CanDash && _dashReadyToUse) {
+            _dashSound.Play();
             TransitionAnimationTo(PlayerState.Dashing);
             _jumpTimeElapsed = _jumpDuration; // Force jump end
             CurrentState = PlayerState.Dashing;

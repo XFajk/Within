@@ -9427,7 +9427,7 @@ mesh = SubResource("ArrayMesh_ust1k")
 skeleton = NodePath("")
 
 [node name="ProbeAparatus_001" type="MeshInstance3D" parent="metro_v1/metro_stuff/ProbeAparatus"]
-transform = Transform3D(0.032114558, 0, 0.48849538, 0, 0.48954988, 0, -0.48849538, 0, 0.032114558, 0, -0.27147937, 0)
+transform = Transform3D(0.032114442, 0, 0.48849538, 0, 0.48954988, 0, -0.48849538, 0, 0.032114442, 0, -0.27147937, 0)
 mesh = SubResource("ArrayMesh_tiyes")
 skeleton = NodePath("")
 
@@ -9447,12 +9447,12 @@ mesh = SubResource("ArrayMesh_mkexs")
 skeleton = NodePath("")
 
 [node name="ProbeAparatus_005" type="MeshInstance3D" parent="metro_v1/metro_stuff/ProbeAparatus/ProbeAparatus_001/ProbeAparatus_003"]
-transform = Transform3D(3.6495942e-07, -0.66815037, -0.7440262, 1, 3.1391642e-07, 2.0861626e-07, 9.417502e-08, -0.74402606, 0.6681505, 0, -0.0026204074, 0)
+transform = Transform3D(3.4278568e-07, -0.6681503, -0.74402624, 1, 3.1391642e-07, 1.7881393e-07, 1.14087484e-07, -0.7440261, 0.6681504, 0, -0.0026204074, 0)
 mesh = SubResource("ArrayMesh_cr0fi")
 skeleton = NodePath("")
 
 [node name="ProbeAparatus_006" type="MeshInstance3D" parent="metro_v1/metro_stuff/ProbeAparatus/ProbeAparatus_001/ProbeAparatus_003/ProbeAparatus_005"]
-transform = Transform3D(0.9390189, -0.02067411, -0.012990053, -0.021477625, -0.46169704, -0.8177572, 0.011613454, 0.8177777, -0.4620139, 0.06614859, 0, -0.7767354)
+transform = Transform3D(0.9390189, -0.020674106, -0.012990048, -0.021477615, -0.46169683, -0.8177573, 0.01161346, 0.8177778, -0.4620137, 0.06614859, 0, -0.7767354)
 mesh = SubResource("ArrayMesh_08pun")
 skeleton = NodePath("")
 
@@ -9462,7 +9462,7 @@ mesh = SubResource("ArrayMesh_wj8i1")
 skeleton = NodePath("")
 
 [node name="ProbeAparatus_009" type="MeshInstance3D" parent="metro_v1/metro_stuff/ProbeAparatus/ProbeAparatus_001/ProbeAparatus_003/ProbeAparatus_005/ProbeAparatus_006/ProbeAparatus_008"]
-transform = Transform3D(6.5277405e-08, -4.1727657e-05, -1.0951202, 1.0951202, 8.2679286e-08, 6.527425e-08, 8.2676785e-08, -1.0951203, 4.1727653e-05, 0, 0.02266718, 0)
+transform = Transform3D(-1.8182672e-12, -4.1597108e-05, -1.0951202, 1.0951202, -4.786923e-08, 0, -4.7869225e-08, -1.0951203, 4.1597104e-05, 0, 0.02266718, 0)
 mesh = SubResource("ArrayMesh_bl220")
 skeleton = NodePath("")
 
@@ -9776,12 +9776,6 @@ gizmo_extents = 0.67
 
 [node name="Player" parent="." instance=ExtResource("14_140p0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9450703, -0.436, 0)
-ConcreteFootstepSounds = null
-MetalFootstepSounds = null
-ConcreteJumpSounds = null
-ConcreteJumpLandSounds = null
-MetalJumpSounds = null
-MetalJumpLandSounds = null
 
 [node name="halogen2" parent="." instance=ExtResource("31_twa4e")]
 transform = Transform3D(-0.3821834, 0, 0.92408645, 0, 1, 0, -0.92408645, 0, -0.3821834, 1.76308, -0.7321762, -0.9675515)

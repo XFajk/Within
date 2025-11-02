@@ -3218,12 +3218,6 @@ layers = 2
 
 [node name="Player" parent="." instance=ExtResource("2_e7ocr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.097842, -2.245, 0)
-ConcreteFootstepSounds = null
-MetalFootstepSounds = null
-ConcreteJumpSounds = null
-ConcreteJumpLandSounds = null
-MetalJumpSounds = null
-MetalJumpLandSounds = null
 
 [node name="LazerDroneManager" parent="." instance=ExtResource("42_f0u1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.349692, 2.9261699, 0.07551178)

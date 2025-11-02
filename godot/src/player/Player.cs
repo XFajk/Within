@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using Godot.Collections;
+using System.Reflection.Metadata;
 
 public partial class Player : CharacterBody3D, ISavable {
 
@@ -50,6 +51,7 @@ public partial class Player : CharacterBody3D, ISavable {
     private AudioStreamPlayer3D _swooshSound;
     private AudioStreamPlayer3D _deathSound;
     private AudioStreamPlayer3D _feetSounds;
+    private AudioStreamPlayer3D _wallGrindSound;
 
     [Export]
     public AudioStreamRandomizer ConcreteFootstepSounds;
@@ -164,7 +166,7 @@ public partial class Player : CharacterBody3D, ISavable {
     private float _doubleJumpDuration = 0.167f; // 10 frames at 60fps
     private float _coyoteTimeElapsed = 0.0f;
 
-    private bool _lastFrameFalling = false; 
+    private bool _lastFrameFalling = false;
     private const float COYOTE_TIME_DURATION = 0.1f;
 
     private float _jumpModifier = 1.0f;
@@ -254,6 +256,7 @@ public partial class Player : CharacterBody3D, ISavable {
         _deathSound = GetNode<AudioStreamPlayer3D>("Audio/DeathSound");
         _swooshSound = GetNode<AudioStreamPlayer3D>("Audio/SwooshSound");
         _feetSounds = GetNode<AudioStreamPlayer3D>("Audio/FeetSounds");
+        _wallGrindSound = GetNode<AudioStreamPlayer3D>("Audio/WallGrindSound");
 
         _hitBoxArea = GetNode<Area3D>("HitBox");
 
@@ -267,6 +270,8 @@ public partial class Player : CharacterBody3D, ISavable {
 
         _attackDurationTimer.OneShot = true;
         _attackDurationTimer.Timeout += () => {
+            if (CurrentState == PlayerState.Crazy)
+                return;
             FigureOutStateAfterAnimationState();
             _aboveAttackBoxArea.Position += Vector3.Back * 1000f;
             _frontAttackBoxArea.Position += Vector3.Back * 1000f;
@@ -541,7 +546,7 @@ public partial class Player : CharacterBody3D, ISavable {
             TransitionAnimationTo(PlayerState.Jumping);
             CurrentState = PlayerState.Falling;
             _feetSounds.Stop();
-        } 
+        }
 
         CheckAttack();
         CheckDash();
@@ -610,6 +615,7 @@ public partial class Player : CharacterBody3D, ISavable {
         } else if (IsOnWall() && CanWallJump && IsWallClimbable()) {
             TransitionAnimationTo(PlayerState.OnWall);
             CurrentState = PlayerState.OnWall;
+            _wallGrindSound.Play();
             _velocity.Y = WallSlideVelocity * UnitTransformer;
             _coyoteTimeElapsed = COYOTE_TIME_DURATION;  // Cancel coyote time on wall
         } else {
@@ -623,6 +629,8 @@ public partial class Player : CharacterBody3D, ISavable {
                 _jumpTimeElapsed = 0.0f;
                 TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
+                _feetSounds.Stream = ConcreteJumpSounds;
+                _feetSounds.Play();
                 return;
             }
 
@@ -658,6 +666,7 @@ public partial class Player : CharacterBody3D, ISavable {
             TransitionAnimationTo(PlayerState.Idle);
             CurrentState = PlayerState.Idle;
             _velocity.Y = 0;
+            _wallGrindSound.Stop();
         } else if (IsOnWall()) {
             _velocity.Y = WallSlideVelocity * UnitTransformer;
             var collision = GetLastSlideCollision();
@@ -670,10 +679,14 @@ public partial class Player : CharacterBody3D, ISavable {
                 _jumpTimeElapsed = 0.0f;
                 TransitionAnimationTo(PlayerState.Jumping);
                 CurrentState = PlayerState.Jumping;
+                _feetSounds.Stream = ConcreteJumpSounds;
+                _feetSounds.Play();
+                _wallGrindSound.Stop();
             }
         } else {
             TransitionAnimationTo(PlayerState.Falling);
             CurrentState = PlayerState.Falling;
+            _wallGrindSound.Stop();
         }
         CheckDash();
     }
@@ -701,7 +714,6 @@ public partial class Player : CharacterBody3D, ISavable {
 
         HitMaterial.SetShaderParameter("progress", 0.0f);
         HitMaterial.SetShaderParameter("smooth_amount", 0.15f);
-        GD.Print("Starting crazy state transition animation.");
 
         _transitionTween.TweenProperty(HitMaterial, "shader_parameter/progress", 0.9f, 2.0f);
 
@@ -935,6 +947,7 @@ public partial class Player : CharacterBody3D, ISavable {
             TransitionAnimationTo(PlayerState.Dashing);
             _jumpTimeElapsed = _jumpDuration; // Force jump end
             CurrentState = PlayerState.Dashing;
+            _wallGrindSound.Stop();
             _dashReadyToUse = false;
             _dashDurationTimer.Start();
             _dashRecoverTimer.Start();
@@ -1082,6 +1095,19 @@ public partial class Player : CharacterBody3D, ISavable {
         AbilityThatIsCurrentlyBeingUnlocked = ability;
         TransitionAnimationTo(PlayerState.Crazy);
         CurrentState = PlayerState.Crazy;
+         _floorDetector.TargetPosition = new Vector3(0, -20, 0); // 20 units down
+        _floorDetector.CollisionMask = (1 << 0) | (1 << 4); // Layer 1 and 5 (0-based index)
+
+        // Force an immediate update of the raycast
+        _floorDetector.ForceRaycastUpdate();
+
+        // If we hit something, position the player above it with proper offset
+        if (_floorDetector.IsColliding()) {
+            Vector3 collisionPoint = _floorDetector.GetCollisionPoint();
+            // Add 0.3 units (half of the player's height) to position player properly
+            GlobalPosition = new Vector3(GlobalPosition.X, collisionPoint.Y + 0.3f, GlobalPosition.Z);
+        }
+        HandleCrazyStateGrounded();
     }
 
     private void UpdateAnimationTree() {
@@ -1166,10 +1192,13 @@ public partial class Player : CharacterBody3D, ISavable {
     private void FigureOutStateAfterAnimationState() {
         if (IsOnFloor()) {
             TransitionAnimationTo(PlayerState.Idle);
+            _velocity.Y = 0;
+            _coyoteTimeElapsed = 0.0f;  // Reset coyote time when touching floor
             CurrentState = PlayerState.Idle;
         } else if (IsOnWall() && IsWallClimbable() && CanWallJump) {
             TransitionAnimationTo(PlayerState.OnWall);
             CurrentState = PlayerState.OnWall;
+            _wallGrindSound.Play();
         } else {
             TransitionAnimationTo(PlayerState.Falling);
             CurrentState = PlayerState.Falling;

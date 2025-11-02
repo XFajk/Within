@@ -1978,7 +1978,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.5
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -13.991776, -3.1748614, -1.0580221)
 
 [node name="ShutoffValve" type="Area3D" parent="." node_paths=PackedStringArray("PistonsToTurnOff", "SteamToTurnOff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8196015, 3.7771347, -0.87010425)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.680748, 3.7771347, -0.87010425)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("30_cyp1q")
@@ -2002,7 +2002,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8157041, 0.37722868)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41112512)
 
 [node name="ValvePipe" type="MeshInstance3D" parent="ShutoffValve"]
-transform = Transform3D(0.99935734, 0, 0.035841554, -0.035841554, 0, 0.99935734, 0, -1, 0, 0.0026922226, -0.012803316, 0.12719649)
+transform = Transform3D(-0.9999998, -8.742278e-08, 4.371138e-08, 4.371138e-08, 1.9106855e-15, 0.9999998, -8.742276e-08, 1, 1.910685e-15, 0.53404474, -0.012803316, -0.2687536)
 mesh = SubResource("ArrayMesh_yks6j")
 skeleton = NodePath("")
 

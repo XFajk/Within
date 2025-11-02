@@ -1881,7 +1881,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.3
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.0931897, 1.3565309, -1.3305198)
 
 [node name="AbilityUnlocker" type="Area3D" parent="laboratory_v1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6693144, 0.48127246, -0.3319407)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1281457, 0.48127246, -0.3319407)
 collision_layer = 0
 collision_mask = 64
 script = ExtResource("23_pf8tl")

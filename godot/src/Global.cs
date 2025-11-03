@@ -125,10 +125,21 @@ public partial class Global : Node {
     public void ResetProgressData() {
         LastSavedScenePath = null;
         PlayerLastSavedTransform = null;
+        PlayerCameraLastSavedTransform = null;
         PlayerHasTakenTransform = false;
-        PlayerHasDashAbility = true;
-        PlayerHasWallJumpAbility = true;
-        PlayerHasDoubleJumpAbility = true;
+        PlayerHasDashAbility = false;
+        PlayerHasWallJumpAbility = false;
+        PlayerHasDoubleJumpAbility = false;
+        PlayerInventory.Clear();
+        MiniCheckPointSavedPosition = null;
+        MiniCheckPointCameraSpawnPoint = null;
+        TransitionExitPosition = null;
+        PlayerLastSavedHealth = 3;
+        RespawningInProgress = false;
+        IsGamePaused = false;
+        IsInMainMenu = true;
+        ImpactFrameEnabled = true;
+        _currentMusic = "GroundZero";
 
         var file = FileAccess.Open($"user://progress.global.dat", FileAccess.ModeFlags.Write);
         if (file != null) {

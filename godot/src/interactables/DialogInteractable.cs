@@ -103,10 +103,12 @@ public partial class DialogInteractable : Interactable {
                 if (!_speachSounds.Playing) {
                     if ((int)_currentDialogSections["speaker"] == 1)
                         _speachSounds.Play();
-                    else
+                } else {
+                    if ((int)_currentDialogSections["speaker"] == 0)
                         _speachSounds.Stop();
                 }
             }
+
 
             if (_timeAccumulator >= (double)_currentDialogSections["typing_speed"]) {
                 _timeAccumulator = 0.0;

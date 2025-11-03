@@ -1,0 +1,64 @@
+Názov tímu: Emberfog
+Názov hry: Within
+Vývojové prostredie a prostriedky: Godot (C#), VS Code, git (GitHub)
+
+Modely:
+* Model srdca (UI)
+Zdroj: https://sketchfab.com/3d-models/human-heart-3d-model-anatomy-medical-project-5da08bb137014f0392c69f9997f777cd
+Autor: Mesh-Magnet
+Licencia: CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
+* Ostatné modely a animácie
+Naša vlastná tvorba, použitý program; Blender
+
+Textúry:
+Väčšina textúr bolo vytvorených upravovaním obrázkov z internetovej banky
+Pexels - https://www.pexels.com/
+Licencia: FREE - https://www.pexels.com/license/
+Niektoré textúry (dokopy 6) sú zo stránky
+Poly Heaven - https://polyhaven.com/textures
+Autory: Charlotte Baglioni, Jenelle van Heerden, Rob Tuytel, Dario Barresi, Dimitrios Savva, Rico Cilliers
+Licencia: CC0 - https://polyhaven.com/license
+Textúry boli nami upravované/tvorené v programe Adobe Photoshop CC
+
+Hudba:
+Vlastná tvorba v programe FL Studio
+Použité pluginy (okrem základných):
+-SQ8L - http://www.buchty.net/ensoniq/index.html#sq8l
+-NES VST od MattMontag - https://www.mattmontag.com/projects-page/nintendo-vst
+
+Zvukové efekty:
+*Výťah
+Zdroj: https://pixabay.com/sound-effects/freight-elevator-33694/
+Autor: zaphod1984
+Licencia: Free for use
+*Vietor
+Zdroj: https://pixabay.com/sound-effects/a-gentle-breeze-wind-4-14681/
+Autor: mario1298
+Licencia: Free for use
+*Mužský výkrik
+Zdroj: https://pixabay.com/sound-effects/male-voice-screaming-loudly-6147/
+Autor: Dinsfire
+Licencia: Free for use
+*Telefón
+Zdroj: https://pixabay.com/sound-effects/telephone-ringwav-14674/
+Autor: xyzr_kx
+*Všetko ostatné je vlastná tvorba, nahraté a upravené v Audacity, prípadne FL Studio
+
+Fonty:
+* Depres - logo hry
+Zdroj: https://fontesk.com/depres-font/
+Autor: GGBot
+Lincencia: Free for commercial use
+*Grey+Red
+Zdroj: https://www.1001fonts.com/grey-red-font.html
+Autor: junkohanhero
+Licencia: zakúpená cez autora
+
+Zdrojové kódy:
+* GPUTrail
+Knižnica pre Godot umožnujúca jednoduché vytvorenie "trail" partiklov, 
+v našom prípade vzdušná stopa za zbraňou indikujúca švih.
+Zdroj: https://github.com/celyk/GPUTrail
+Autor: celyk
+Licencia: MIT license
+*zvyšok vlastný

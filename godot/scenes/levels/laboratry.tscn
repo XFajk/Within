@@ -1806,6 +1806,7 @@ script = ExtResource("17_oencg")
 EnterableAreaScene = &"res://scenes/levels/ground_one.tscn"
 ExitPosition = Vector3(-8.924985, -1.8670553, 0)
 EnterAreaSound = ExtResource("18_xruk1")
+SoundDb = -10.0
 InteractionTitle = "Exit"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 

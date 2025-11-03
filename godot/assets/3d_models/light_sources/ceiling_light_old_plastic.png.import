@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d07mnwjxbmr3v"
 path.s3tc="res://.godot/imported/ceiling_light_old_plastic.png-8e9233145c5c99fbdfa24a56f554a281.s3tc.ctex"
+path.etc2="res://.godot/imported/ceiling_light_old_plastic.png-8e9233145c5c99fbdfa24a56f554a281.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/light_sources/ceiling_light_old_plastic.png"
-dest_files=["res://.godot/imported/ceiling_light_old_plastic.png-8e9233145c5c99fbdfa24a56f554a281.s3tc.ctex"]
+dest_files=["res://.godot/imported/ceiling_light_old_plastic.png-8e9233145c5c99fbdfa24a56f554a281.s3tc.ctex", "res://.godot/imported/ceiling_light_old_plastic.png-8e9233145c5c99fbdfa24a56f554a281.etc2.ctex"]
 
 [params]
 

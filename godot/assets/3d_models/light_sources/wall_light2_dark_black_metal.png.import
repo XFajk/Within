@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://501skd0u2h6v"
 path.s3tc="res://.godot/imported/wall_light2_dark_black_metal.png-4fa9d4908cec16c7a6612ec2f4dd7b8a.s3tc.ctex"
+path.etc2="res://.godot/imported/wall_light2_dark_black_metal.png-4fa9d4908cec16c7a6612ec2f4dd7b8a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/light_sources/wall_light2_dark_black_metal.png"
-dest_files=["res://.godot/imported/wall_light2_dark_black_metal.png-4fa9d4908cec16c7a6612ec2f4dd7b8a.s3tc.ctex"]
+dest_files=["res://.godot/imported/wall_light2_dark_black_metal.png-4fa9d4908cec16c7a6612ec2f4dd7b8a.s3tc.ctex", "res://.godot/imported/wall_light2_dark_black_metal.png-4fa9d4908cec16c7a6612ec2f4dd7b8a.etc2.ctex"]
 
 [params]
 

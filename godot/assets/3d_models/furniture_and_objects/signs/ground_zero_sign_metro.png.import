@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bg4ae5ai8ewyp"
 path.s3tc="res://.godot/imported/ground_zero_sign_metro.png-98c5a3393adb2ea1474b48f692187f57.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_zero_sign_metro.png-98c5a3393adb2ea1474b48f692187f57.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/furniture_and_objects/signs/ground_zero_sign_metro.png"
-dest_files=["res://.godot/imported/ground_zero_sign_metro.png-98c5a3393adb2ea1474b48f692187f57.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_zero_sign_metro.png-98c5a3393adb2ea1474b48f692187f57.s3tc.ctex", "res://.godot/imported/ground_zero_sign_metro.png-98c5a3393adb2ea1474b48f692187f57.etc2.ctex"]
 
 [params]
 

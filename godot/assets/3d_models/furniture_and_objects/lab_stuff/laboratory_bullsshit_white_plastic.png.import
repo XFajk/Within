@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bba52ugyxkhs1"
 path.s3tc="res://.godot/imported/laboratory_bullsshit_white_plastic.png-abd9c03e89d7de8ccacbfc4b680667dc.s3tc.ctex"
+path.etc2="res://.godot/imported/laboratory_bullsshit_white_plastic.png-abd9c03e89d7de8ccacbfc4b680667dc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/furniture_and_objects/lab_stuff/laboratory_bullsshit_white_plastic.png"
-dest_files=["res://.godot/imported/laboratory_bullsshit_white_plastic.png-abd9c03e89d7de8ccacbfc4b680667dc.s3tc.ctex"]
+dest_files=["res://.godot/imported/laboratory_bullsshit_white_plastic.png-abd9c03e89d7de8ccacbfc4b680667dc.s3tc.ctex", "res://.godot/imported/laboratory_bullsshit_white_plastic.png-abd9c03e89d7de8ccacbfc4b680667dc.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://wvwiclkr0hpd"
 path.s3tc="res://.godot/imported/control_panel_stable.png-0c2e53a80f06ac478e725df30c609b3b.s3tc.ctex"
+path.etc2="res://.godot/imported/control_panel_stable.png-0c2e53a80f06ac478e725df30c609b3b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/sprites/control_panel_stable.png"
-dest_files=["res://.godot/imported/control_panel_stable.png-0c2e53a80f06ac478e725df30c609b3b.s3tc.ctex"]
+dest_files=["res://.godot/imported/control_panel_stable.png-0c2e53a80f06ac478e725df30c609b3b.s3tc.ctex", "res://.godot/imported/control_panel_stable.png-0c2e53a80f06ac478e725df30c609b3b.etc2.ctex"]
 
 [params]
 

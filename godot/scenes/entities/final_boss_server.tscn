@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://boietki2xgwc4"]
+[gd_scene load_steps=18 format=4 uid="uid://boietki2xgwc4"]
 
 [ext_resource type="Script" uid="uid://v5eig4db7ods" path="res://src/entities/FinalBossServer.cs" id="1_4efgo"]
 [ext_resource type="Texture2D" uid="uid://dikrum2i72xpu" path="res://assets/3d_models/servers/servers_server_panel1.png" id="2_yb3tw"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dd2edpa1randn" path="res://assets/3d_models/servers/server_panel1_emission.png" id="4_r7g2q"]
 [ext_resource type="Texture2D" uid="uid://dkgygbtlxjfut" path="res://assets/3d_models/servers/server_panel2_emission.png" id="5_5wy4i"]
 [ext_resource type="AudioStream" uid="uid://dfn2k0i4hdjhl" path="res://assets/sounds/server_hit.wav" id="6_6ohhr"]
+[ext_resource type="Script" uid="uid://guumrqhvfvf8" path="res://src/misc/HitSoundsCleanUp.cs" id="7_r7g2q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ohhr"]
 
@@ -180,3 +181,4 @@ surface_material_override/3 = SubResource("StandardMaterial3D_s6af8")
 stream = ExtResource("6_6ohhr")
 volume_db = -18.0
 bus = &"SoundFX"
+script = ExtResource("7_r7g2q")

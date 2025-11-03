@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpydamrjqm5kp"
 path.s3tc="res://.godot/imported/factory_v2_black_bricks.png-347139524d39ea5ace1024a4ef46e7eb.s3tc.ctex"
+path.etc2="res://.godot/imported/factory_v2_black_bricks.png-347139524d39ea5ace1024a4ef46e7eb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/factory/factory_v2_black_bricks.png"
-dest_files=["res://.godot/imported/factory_v2_black_bricks.png-347139524d39ea5ace1024a4ef46e7eb.s3tc.ctex"]
+dest_files=["res://.godot/imported/factory_v2_black_bricks.png-347139524d39ea5ace1024a4ef46e7eb.s3tc.ctex", "res://.godot/imported/factory_v2_black_bricks.png-347139524d39ea5ace1024a4ef46e7eb.etc2.ctex"]
 
 [params]
 

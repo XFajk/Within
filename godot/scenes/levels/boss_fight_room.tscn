@@ -3232,7 +3232,7 @@ surface_material_override/0 = ExtResource("39_rtikm")
 
 [node name="LaserSound" type="AudioStreamPlayer3D" parent="boss_fight_room_v1/LaserMachine/CannonPlatform/Cannon/LaserMachine"]
 stream = ExtResource("42_qocv2")
-volume_db = -15.0
+volume_db = -17.0
 unit_size = 50.0
 max_distance = 40.0
 bus = &"SoundFX"
@@ -3292,7 +3292,7 @@ surface_material_override/0 = ExtResource("39_rtikm")
 
 [node name="LaserSound" type="AudioStreamPlayer3D" parent="boss_fight_room_v1/LaserMachine2/CannonPlatform/Cannon/LaserMachine"]
 stream = ExtResource("42_qocv2")
-volume_db = -15.0
+volume_db = -17.0
 unit_size = 50.0
 max_distance = 40.0
 bus = &"SoundFX"
@@ -3352,7 +3352,7 @@ surface_material_override/0 = ExtResource("39_rtikm")
 
 [node name="LaserSound" type="AudioStreamPlayer3D" parent="boss_fight_room_v1/LaserMachine3/CannonPlatform/Cannon/LaserMachine"]
 stream = ExtResource("42_qocv2")
-volume_db = -15.0
+volume_db = -17.0
 unit_size = 50.0
 max_distance = 40.0
 bus = &"SoundFX"

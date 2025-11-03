@@ -3235,7 +3235,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3264,7 +3264,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam2"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3293,7 +3293,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam3"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3322,7 +3322,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection1/PulsatingSteam4"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3354,7 +3354,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam2"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3382,7 +3382,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam3"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3411,7 +3411,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam4"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3440,7 +3440,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam5"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3469,7 +3469,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam6"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3498,7 +3498,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam7"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 
@@ -3528,7 +3528,7 @@ debug_color = Color(0.5921569, 0.49411765, 1, 1)
 [node name="SteamSound" type="AudioStreamPlayer3D" parent="ground_zero_v2/SteamSection2/PulsatingSteam8"]
 process_mode = 3
 stream = SubResource("AudioStreamRandomizer_rgubh")
-volume_db = 10.0
+volume_db = -15.0
 max_distance = 10.0
 bus = &"SoundFX"
 

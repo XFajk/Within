@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwjlqtl0pauxo"
 path.s3tc="res://.godot/imported/laboratory_bullsshit_cracked_pain.png-56a5fdcf3dd07064db85f526f79bb792.s3tc.ctex"
+path.etc2="res://.godot/imported/laboratory_bullsshit_cracked_pain.png-56a5fdcf3dd07064db85f526f79bb792.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/furniture_and_objects/lab_stuff/laboratory_bullsshit_cracked_pain.png"
-dest_files=["res://.godot/imported/laboratory_bullsshit_cracked_pain.png-56a5fdcf3dd07064db85f526f79bb792.s3tc.ctex"]
+dest_files=["res://.godot/imported/laboratory_bullsshit_cracked_pain.png-56a5fdcf3dd07064db85f526f79bb792.s3tc.ctex", "res://.godot/imported/laboratory_bullsshit_cracked_pain.png-56a5fdcf3dd07064db85f526f79bb792.etc2.ctex"]
 
 [params]
 

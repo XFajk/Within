@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://1p17gyvnt4kd"
 path.s3tc="res://.godot/imported/trolley_galvanized3.png-83b228769e56ab3d750fc2f28bce1cf9.s3tc.ctex"
+path.etc2="res://.godot/imported/trolley_galvanized3.png-83b228769e56ab3d750fc2f28bce1cf9.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/furniture_and_objects/trolley/trolley_galvanized3.png"
-dest_files=["res://.godot/imported/trolley_galvanized3.png-83b228769e56ab3d750fc2f28bce1cf9.s3tc.ctex"]
+dest_files=["res://.godot/imported/trolley_galvanized3.png-83b228769e56ab3d750fc2f28bce1cf9.s3tc.ctex", "res://.godot/imported/trolley_galvanized3.png-83b228769e56ab3d750fc2f28bce1cf9.etc2.ctex"]
 
 [params]
 

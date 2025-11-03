@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbaxom1cbxog2"
 path.s3tc="res://.godot/imported/laboratory_v1_vertical_dark_tiles.png-109874117568543d3fe8c263d68bb05b.s3tc.ctex"
+path.etc2="res://.godot/imported/laboratory_v1_vertical_dark_tiles.png-109874117568543d3fe8c263d68bb05b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/laboratory/laboratory_v1_vertical_dark_tiles.png"
-dest_files=["res://.godot/imported/laboratory_v1_vertical_dark_tiles.png-109874117568543d3fe8c263d68bb05b.s3tc.ctex"]
+dest_files=["res://.godot/imported/laboratory_v1_vertical_dark_tiles.png-109874117568543d3fe8c263d68bb05b.s3tc.ctex", "res://.godot/imported/laboratory_v1_vertical_dark_tiles.png-109874117568543d3fe8c263d68bb05b.etc2.ctex"]
 
 [params]
 

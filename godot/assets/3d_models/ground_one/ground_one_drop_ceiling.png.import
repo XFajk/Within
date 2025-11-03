@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://wau0ihv3mdpf"
 path.s3tc="res://.godot/imported/ground_one_drop_ceiling.png-e7bcdafd212b749567ebdce399a779e9.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_one_drop_ceiling.png-e7bcdafd212b749567ebdce399a779e9.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_one/ground_one_drop_ceiling.png"
-dest_files=["res://.godot/imported/ground_one_drop_ceiling.png-e7bcdafd212b749567ebdce399a779e9.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_one_drop_ceiling.png-e7bcdafd212b749567ebdce399a779e9.s3tc.ctex", "res://.godot/imported/ground_one_drop_ceiling.png-e7bcdafd212b749567ebdce399a779e9.etc2.ctex"]
 
 [params]
 

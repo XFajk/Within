@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://lrdgu14ak60a"
 path.s3tc="res://.godot/imported/ground_zero_v2_galvanized.png-1480cda441d573565670b8678fef3ac4.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_zero_v2_galvanized.png-1480cda441d573565670b8678fef3ac4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_zero/ground_zero_v2_galvanized.png"
-dest_files=["res://.godot/imported/ground_zero_v2_galvanized.png-1480cda441d573565670b8678fef3ac4.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_zero_v2_galvanized.png-1480cda441d573565670b8678fef3ac4.s3tc.ctex", "res://.godot/imported/ground_zero_v2_galvanized.png-1480cda441d573565670b8678fef3ac4.etc2.ctex"]
 
 [params]
 

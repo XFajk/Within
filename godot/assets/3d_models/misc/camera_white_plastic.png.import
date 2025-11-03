@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dnimrcrhe03mn"
 path.s3tc="res://.godot/imported/camera_white_plastic.png-1ca08b9be7fed2b767093ba234057ee3.s3tc.ctex"
+path.etc2="res://.godot/imported/camera_white_plastic.png-1ca08b9be7fed2b767093ba234057ee3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/misc/camera_white_plastic.png"
-dest_files=["res://.godot/imported/camera_white_plastic.png-1ca08b9be7fed2b767093ba234057ee3.s3tc.ctex"]
+dest_files=["res://.godot/imported/camera_white_plastic.png-1ca08b9be7fed2b767093ba234057ee3.s3tc.ctex", "res://.godot/imported/camera_white_plastic.png-1ca08b9be7fed2b767093ba234057ee3.etc2.ctex"]
 
 [params]
 

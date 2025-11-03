@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://mdxm5nxwm0qr"
 path.s3tc="res://.godot/imported/factory_v2_dark_metal.png-a25a0c2fb1bdfc8dfa7336877b82d7c9.s3tc.ctex"
+path.etc2="res://.godot/imported/factory_v2_dark_metal.png-a25a0c2fb1bdfc8dfa7336877b82d7c9.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/factory/factory_v2_dark_metal.png"
-dest_files=["res://.godot/imported/factory_v2_dark_metal.png-a25a0c2fb1bdfc8dfa7336877b82d7c9.s3tc.ctex"]
+dest_files=["res://.godot/imported/factory_v2_dark_metal.png-a25a0c2fb1bdfc8dfa7336877b82d7c9.s3tc.ctex", "res://.godot/imported/factory_v2_dark_metal.png-a25a0c2fb1bdfc8dfa7336877b82d7c9.etc2.ctex"]
 
 [params]
 

@@ -123,7 +123,7 @@ public partial class Global : Node {
     }
 
     public void ResetProgressData() {
-        LastSavedScenePath = null;
+        LastSavedScenePath = "res://scenes/levels/spawn_building.tscn";
         PlayerLastSavedTransform = null;
         PlayerCameraLastSavedTransform = null;
         PlayerHasTakenTransform = false;

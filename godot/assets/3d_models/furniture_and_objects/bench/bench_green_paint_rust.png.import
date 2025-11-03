@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://coegf2hxq4rf2"
 path.s3tc="res://.godot/imported/bench_green_paint_rust.png-d720c1f053a6c2cca076a8e04bc2bba5.s3tc.ctex"
+path.etc2="res://.godot/imported/bench_green_paint_rust.png-d720c1f053a6c2cca076a8e04bc2bba5.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/furniture_and_objects/bench/bench_green_paint_rust.png"
-dest_files=["res://.godot/imported/bench_green_paint_rust.png-d720c1f053a6c2cca076a8e04bc2bba5.s3tc.ctex"]
+dest_files=["res://.godot/imported/bench_green_paint_rust.png-d720c1f053a6c2cca076a8e04bc2bba5.s3tc.ctex", "res://.godot/imported/bench_green_paint_rust.png-d720c1f053a6c2cca076a8e04bc2bba5.etc2.ctex"]
 
 [params]
 

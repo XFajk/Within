@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddip0t2u2213h"
 path.s3tc="res://.godot/imported/halogen_station_dark_black_metal.png-dc6258f30299ea096aca027bd00cc4d7.s3tc.ctex"
+path.etc2="res://.godot/imported/halogen_station_dark_black_metal.png-dc6258f30299ea096aca027bd00cc4d7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/light_sources/halogen_station_dark_black_metal.png"
-dest_files=["res://.godot/imported/halogen_station_dark_black_metal.png-dc6258f30299ea096aca027bd00cc4d7.s3tc.ctex"]
+dest_files=["res://.godot/imported/halogen_station_dark_black_metal.png-dc6258f30299ea096aca027bd00cc4d7.s3tc.ctex", "res://.godot/imported/halogen_station_dark_black_metal.png-dc6258f30299ea096aca027bd00cc4d7.etc2.ctex"]
 
 [params]
 

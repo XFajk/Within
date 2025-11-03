@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://duxhb0f4gw8jg"
 path.s3tc="res://.godot/imported/ground_zero_v2_factory_wall_2.png-a9a0e5e0e42dc2b1bf6b263a41cf9fdf.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_zero_v2_factory_wall_2.png-a9a0e5e0e42dc2b1bf6b263a41cf9fdf.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_zero/ground_zero_v2_factory_wall_2.png"
-dest_files=["res://.godot/imported/ground_zero_v2_factory_wall_2.png-a9a0e5e0e42dc2b1bf6b263a41cf9fdf.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_zero_v2_factory_wall_2.png-a9a0e5e0e42dc2b1bf6b263a41cf9fdf.s3tc.ctex", "res://.godot/imported/ground_zero_v2_factory_wall_2.png-a9a0e5e0e42dc2b1bf6b263a41cf9fdf.etc2.ctex"]
 
 [params]
 

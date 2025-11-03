@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccrllmojcjc0x"
 path.s3tc="res://.godot/imported/spawn_level_v2_concrete_tile.png-ec787441eb340bbcca2245e9cfeb718d.s3tc.ctex"
+path.etc2="res://.godot/imported/spawn_level_v2_concrete_tile.png-ec787441eb340bbcca2245e9cfeb718d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/spawn_building/spawn_level_v2_concrete_tile.png"
-dest_files=["res://.godot/imported/spawn_level_v2_concrete_tile.png-ec787441eb340bbcca2245e9cfeb718d.s3tc.ctex"]
+dest_files=["res://.godot/imported/spawn_level_v2_concrete_tile.png-ec787441eb340bbcca2245e9cfeb718d.s3tc.ctex", "res://.godot/imported/spawn_level_v2_concrete_tile.png-ec787441eb340bbcca2245e9cfeb718d.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvj8305w5sbdb"
 path.s3tc="res://.godot/imported/ground_one_bunker_door_2_extras.png-fa23bab13307ca79cb19ff92524dab0b.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_one_bunker_door_2_extras.png-fa23bab13307ca79cb19ff92524dab0b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_one/ground_one_bunker_door_2_extras.png"
-dest_files=["res://.godot/imported/ground_one_bunker_door_2_extras.png-fa23bab13307ca79cb19ff92524dab0b.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_one_bunker_door_2_extras.png-fa23bab13307ca79cb19ff92524dab0b.s3tc.ctex", "res://.godot/imported/ground_one_bunker_door_2_extras.png-fa23bab13307ca79cb19ff92524dab0b.etc2.ctex"]
 
 [params]
 

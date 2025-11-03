@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkev6g0ja8rm4"
 path.s3tc="res://.godot/imported/whiteboard_whiteboard2.png-ffd58910d98f6915a4d0543b25d5ede8.s3tc.ctex"
+path.etc2="res://.godot/imported/whiteboard_whiteboard2.png-ffd58910d98f6915a4d0543b25d5ede8.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/furniture_and_objects/white_board/whiteboard_whiteboard2.png"
-dest_files=["res://.godot/imported/whiteboard_whiteboard2.png-ffd58910d98f6915a4d0543b25d5ede8.s3tc.ctex"]
+dest_files=["res://.godot/imported/whiteboard_whiteboard2.png-ffd58910d98f6915a4d0543b25d5ede8.s3tc.ctex", "res://.godot/imported/whiteboard_whiteboard2.png-ffd58910d98f6915a4d0543b25d5ede8.etc2.ctex"]
 
 [params]
 

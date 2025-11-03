@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cm16l5clrft6e"
 path.s3tc="res://.godot/imported/spawn_level_v2_bunker_frame.png-a6c283210e20677a2c5fde6a6108cb5d.s3tc.ctex"
+path.etc2="res://.godot/imported/spawn_level_v2_bunker_frame.png-a6c283210e20677a2c5fde6a6108cb5d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/spawn_building/spawn_level_v2_bunker_frame.png"
-dest_files=["res://.godot/imported/spawn_level_v2_bunker_frame.png-a6c283210e20677a2c5fde6a6108cb5d.s3tc.ctex"]
+dest_files=["res://.godot/imported/spawn_level_v2_bunker_frame.png-a6c283210e20677a2c5fde6a6108cb5d.s3tc.ctex", "res://.godot/imported/spawn_level_v2_bunker_frame.png-a6c283210e20677a2c5fde6a6108cb5d.etc2.ctex"]
 
 [params]
 

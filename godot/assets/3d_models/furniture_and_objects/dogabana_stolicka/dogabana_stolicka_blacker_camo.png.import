@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://10eda7rildqh"
 path.s3tc="res://.godot/imported/dogabana_stolicka_blacker_camo.png-7ee5d9fd1955a980b3d2061ad494e614.s3tc.ctex"
+path.etc2="res://.godot/imported/dogabana_stolicka_blacker_camo.png-7ee5d9fd1955a980b3d2061ad494e614.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/furniture_and_objects/dogabana_stolicka/dogabana_stolicka_blacker_camo.png"
-dest_files=["res://.godot/imported/dogabana_stolicka_blacker_camo.png-7ee5d9fd1955a980b3d2061ad494e614.s3tc.ctex"]
+dest_files=["res://.godot/imported/dogabana_stolicka_blacker_camo.png-7ee5d9fd1955a980b3d2061ad494e614.s3tc.ctex", "res://.godot/imported/dogabana_stolicka_blacker_camo.png-7ee5d9fd1955a980b3d2061ad494e614.etc2.ctex"]
 
 [params]
 

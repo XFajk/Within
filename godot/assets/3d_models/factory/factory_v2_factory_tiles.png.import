@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://7ijphc0h5w7l"
 path.s3tc="res://.godot/imported/factory_v2_factory_tiles.png-2b5da3937d290b83e7beb6dcaa612d04.s3tc.ctex"
+path.etc2="res://.godot/imported/factory_v2_factory_tiles.png-2b5da3937d290b83e7beb6dcaa612d04.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/factory/factory_v2_factory_tiles.png"
-dest_files=["res://.godot/imported/factory_v2_factory_tiles.png-2b5da3937d290b83e7beb6dcaa612d04.s3tc.ctex"]
+dest_files=["res://.godot/imported/factory_v2_factory_tiles.png-2b5da3937d290b83e7beb6dcaa612d04.s3tc.ctex", "res://.godot/imported/factory_v2_factory_tiles.png-2b5da3937d290b83e7beb6dcaa612d04.etc2.ctex"]
 
 [params]
 

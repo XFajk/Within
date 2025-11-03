@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4j5edsxeife7"
 path.s3tc="res://.godot/imported/street_lamp_blue_galvanized_toned.png-1ffd0e7bc87b3f52260d824b83ad696e.s3tc.ctex"
+path.etc2="res://.godot/imported/street_lamp_blue_galvanized_toned.png-1ffd0e7bc87b3f52260d824b83ad696e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/light_sources/street_lamp_blue_galvanized_toned.png"
-dest_files=["res://.godot/imported/street_lamp_blue_galvanized_toned.png-1ffd0e7bc87b3f52260d824b83ad696e.s3tc.ctex"]
+dest_files=["res://.godot/imported/street_lamp_blue_galvanized_toned.png-1ffd0e7bc87b3f52260d824b83ad696e.s3tc.ctex", "res://.godot/imported/street_lamp_blue_galvanized_toned.png-1ffd0e7bc87b3f52260d824b83ad696e.etc2.ctex"]
 
 [params]
 

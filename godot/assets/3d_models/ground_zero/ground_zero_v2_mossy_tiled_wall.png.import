@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://712j0u3v41wo"
 path.s3tc="res://.godot/imported/ground_zero_v2_mossy_tiled_wall.png-d36e071d6a00d7ca067a6457e36d918e.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_zero_v2_mossy_tiled_wall.png-d36e071d6a00d7ca067a6457e36d918e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_zero/ground_zero_v2_mossy_tiled_wall.png"
-dest_files=["res://.godot/imported/ground_zero_v2_mossy_tiled_wall.png-d36e071d6a00d7ca067a6457e36d918e.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_zero_v2_mossy_tiled_wall.png-d36e071d6a00d7ca067a6457e36d918e.s3tc.ctex", "res://.godot/imported/ground_zero_v2_mossy_tiled_wall.png-d36e071d6a00d7ca067a6457e36d918e.etc2.ctex"]
 
 [params]
 

@@ -29,7 +29,9 @@ public partial class FinalBossServer : Enemy {
 
         var sparks = _brokenSparks.Instantiate<Node3D>();
         AddSibling(sparks);
-        _hitSound.Play();
+        var newHitSound = _hitSound.Duplicate() as AudioStreamPlayer3D;
+        AddSibling(newHitSound);
+        newHitSound.Play();
 
         sparks.GlobalPosition = GlobalPosition;
     }

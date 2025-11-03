@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbncj0iy7yf6l"
 path.s3tc="res://.godot/imported/science_chair_galvanized3.png-84c2f6907307f392788e177f1fc49755.s3tc.ctex"
+path.etc2="res://.godot/imported/science_chair_galvanized3.png-84c2f6907307f392788e177f1fc49755.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/furniture_and_objects/science_chair/science_chair_galvanized3.png"
-dest_files=["res://.godot/imported/science_chair_galvanized3.png-84c2f6907307f392788e177f1fc49755.s3tc.ctex"]
+dest_files=["res://.godot/imported/science_chair_galvanized3.png-84c2f6907307f392788e177f1fc49755.s3tc.ctex", "res://.godot/imported/science_chair_galvanized3.png-84c2f6907307f392788e177f1fc49755.etc2.ctex"]
 
 [params]
 

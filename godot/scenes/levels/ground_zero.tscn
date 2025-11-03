@@ -3146,6 +3146,7 @@ KeyItemName = "BossDeath"
 EnterableAreaScene = &"res://scenes/levels/spawn_building.tscn"
 ExitPosition = Vector3(10.365899, -0.94846725, 0)
 EnterAreaSound = ExtResource("31_rgubh")
+SoundDb = -10.0
 InteractionTitle = "Enter Building"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -3185,6 +3186,7 @@ script = ExtResource("21_0tej8")
 EnterableAreaScene = &"res://scenes/levels/factory.tscn"
 ExitPosition = Vector3(-6.332, -0.264, 0)
 EnterAreaSound = ExtResource("31_rgubh")
+SoundDb = -10.0
 InteractionTitle = "Enter Factory"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 

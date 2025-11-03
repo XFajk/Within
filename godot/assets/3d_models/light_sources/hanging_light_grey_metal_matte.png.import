@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmdyydtah6uym"
 path.s3tc="res://.godot/imported/hanging_light_grey_metal_matte.png-0468f395aa585095689c1096c872b10c.s3tc.ctex"
+path.etc2="res://.godot/imported/hanging_light_grey_metal_matte.png-0468f395aa585095689c1096c872b10c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/light_sources/hanging_light_grey_metal_matte.png"
-dest_files=["res://.godot/imported/hanging_light_grey_metal_matte.png-0468f395aa585095689c1096c872b10c.s3tc.ctex"]
+dest_files=["res://.godot/imported/hanging_light_grey_metal_matte.png-0468f395aa585095689c1096c872b10c.s3tc.ctex", "res://.godot/imported/hanging_light_grey_metal_matte.png-0468f395aa585095689c1096c872b10c.etc2.ctex"]
 
 [params]
 

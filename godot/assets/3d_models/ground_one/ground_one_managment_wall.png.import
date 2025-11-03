@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxg0a1p7oq7ik"
 path.s3tc="res://.godot/imported/ground_one_managment_wall.png-99f4d0eb9adf86f3df4ec3a19dd3a159.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_one_managment_wall.png-99f4d0eb9adf86f3df4ec3a19dd3a159.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_one/ground_one_managment_wall.png"
-dest_files=["res://.godot/imported/ground_one_managment_wall.png-99f4d0eb9adf86f3df4ec3a19dd3a159.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_one_managment_wall.png-99f4d0eb9adf86f3df4ec3a19dd3a159.s3tc.ctex", "res://.godot/imported/ground_one_managment_wall.png-99f4d0eb9adf86f3df4ec3a19dd3a159.etc2.ctex"]
 
 [params]
 

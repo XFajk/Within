@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bifrw7527d0jy"
 path.s3tc="res://.godot/imported/ground_zero_v2_green_paint_rust.png-34747274db66dfbef5ecc80599a10acd.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_zero_v2_green_paint_rust.png-34747274db66dfbef5ecc80599a10acd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_zero/ground_zero_v2_green_paint_rust.png"
-dest_files=["res://.godot/imported/ground_zero_v2_green_paint_rust.png-34747274db66dfbef5ecc80599a10acd.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_zero_v2_green_paint_rust.png-34747274db66dfbef5ecc80599a10acd.s3tc.ctex", "res://.godot/imported/ground_zero_v2_green_paint_rust.png-34747274db66dfbef5ecc80599a10acd.etc2.ctex"]
 
 [params]
 

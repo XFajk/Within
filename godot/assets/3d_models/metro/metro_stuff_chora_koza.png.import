@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://csd7f4umtgwys"
 path.s3tc="res://.godot/imported/metro_stuff_chora_koza.png-816a60b26b70e033d70e171fed897d36.s3tc.ctex"
+path.etc2="res://.godot/imported/metro_stuff_chora_koza.png-816a60b26b70e033d70e171fed897d36.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/metro/metro_stuff_chora_koza.png"
-dest_files=["res://.godot/imported/metro_stuff_chora_koza.png-816a60b26b70e033d70e171fed897d36.s3tc.ctex"]
+dest_files=["res://.godot/imported/metro_stuff_chora_koza.png-816a60b26b70e033d70e171fed897d36.s3tc.ctex", "res://.godot/imported/metro_stuff_chora_koza.png-816a60b26b70e033d70e171fed897d36.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwwjny083a5px"
 path.s3tc="res://.godot/imported/modern_street_light_v_1_galvanized3.png-af19dd12c678c7604170991122c28185.s3tc.ctex"
+path.etc2="res://.godot/imported/modern_street_light_v_1_galvanized3.png-af19dd12c678c7604170991122c28185.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/light_sources/modern_street_light_v_1_galvanized3.png"
-dest_files=["res://.godot/imported/modern_street_light_v_1_galvanized3.png-af19dd12c678c7604170991122c28185.s3tc.ctex"]
+dest_files=["res://.godot/imported/modern_street_light_v_1_galvanized3.png-af19dd12c678c7604170991122c28185.s3tc.ctex", "res://.godot/imported/modern_street_light_v_1_galvanized3.png-af19dd12c678c7604170991122c28185.etc2.ctex"]
 
 [params]
 

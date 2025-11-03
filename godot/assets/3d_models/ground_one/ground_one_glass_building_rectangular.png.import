@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://j5hq53cxbtdx"
 path.s3tc="res://.godot/imported/ground_one_glass_building_rectangular.png-c762da1d4c435fb622cc5c0501b98fc3.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_one_glass_building_rectangular.png-c762da1d4c435fb622cc5c0501b98fc3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_one/ground_one_glass_building_rectangular.png"
-dest_files=["res://.godot/imported/ground_one_glass_building_rectangular.png-c762da1d4c435fb622cc5c0501b98fc3.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_one_glass_building_rectangular.png-c762da1d4c435fb622cc5c0501b98fc3.s3tc.ctex", "res://.godot/imported/ground_one_glass_building_rectangular.png-c762da1d4c435fb622cc5c0501b98fc3.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bv3j4r3vwcfxc"
 path.s3tc="res://.godot/imported/server_signage_server_signage1.png-dc3621f718a904cdddaa5acedb99c11b.s3tc.ctex"
+path.etc2="res://.godot/imported/server_signage_server_signage1.png-dc3621f718a904cdddaa5acedb99c11b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/furniture_and_objects/server_sinage/server_signage_server_signage1.png"
-dest_files=["res://.godot/imported/server_signage_server_signage1.png-dc3621f718a904cdddaa5acedb99c11b.s3tc.ctex"]
+dest_files=["res://.godot/imported/server_signage_server_signage1.png-dc3621f718a904cdddaa5acedb99c11b.s3tc.ctex", "res://.godot/imported/server_signage_server_signage1.png-dc3621f718a904cdddaa5acedb99c11b.etc2.ctex"]
 
 [params]
 

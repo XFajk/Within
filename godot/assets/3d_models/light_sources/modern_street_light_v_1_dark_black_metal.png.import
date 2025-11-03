@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6roomup3srfm"
 path.s3tc="res://.godot/imported/modern_street_light_v_1_dark_black_metal.png-a8e025b643e0ef53acf9353d727bd42c.s3tc.ctex"
+path.etc2="res://.godot/imported/modern_street_light_v_1_dark_black_metal.png-a8e025b643e0ef53acf9353d727bd42c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/light_sources/modern_street_light_v_1_dark_black_metal.png"
-dest_files=["res://.godot/imported/modern_street_light_v_1_dark_black_metal.png-a8e025b643e0ef53acf9353d727bd42c.s3tc.ctex"]
+dest_files=["res://.godot/imported/modern_street_light_v_1_dark_black_metal.png-a8e025b643e0ef53acf9353d727bd42c.s3tc.ctex", "res://.godot/imported/modern_street_light_v_1_dark_black_metal.png-a8e025b643e0ef53acf9353d727bd42c.etc2.ctex"]
 
 [params]
 

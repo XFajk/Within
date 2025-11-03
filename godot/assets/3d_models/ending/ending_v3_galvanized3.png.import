@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cviqat3c62ebu"
 path.s3tc="res://.godot/imported/ending_v3_galvanized3.png-9f594b42faaf6a5c6036bbf0a899bdc7.s3tc.ctex"
+path.etc2="res://.godot/imported/ending_v3_galvanized3.png-9f594b42faaf6a5c6036bbf0a899bdc7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ending/ending_v3_galvanized3.png"
-dest_files=["res://.godot/imported/ending_v3_galvanized3.png-9f594b42faaf6a5c6036bbf0a899bdc7.s3tc.ctex"]
+dest_files=["res://.godot/imported/ending_v3_galvanized3.png-9f594b42faaf6a5c6036bbf0a899bdc7.s3tc.ctex", "res://.godot/imported/ending_v3_galvanized3.png-9f594b42faaf6a5c6036bbf0a899bdc7.etc2.ctex"]
 
 [params]
 

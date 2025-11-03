@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://27id7nf8cmg1"
 path.s3tc="res://.godot/imported/control_panel_breach.png-f4695bafa836ada4c61951a9e679f2d5.s3tc.ctex"
+path.etc2="res://.godot/imported/control_panel_breach.png-f4695bafa836ada4c61951a9e679f2d5.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/sprites/control_panel_breach.png"
-dest_files=["res://.godot/imported/control_panel_breach.png-f4695bafa836ada4c61951a9e679f2d5.s3tc.ctex"]
+dest_files=["res://.godot/imported/control_panel_breach.png-f4695bafa836ada4c61951a9e679f2d5.s3tc.ctex", "res://.godot/imported/control_panel_breach.png-f4695bafa836ada4c61951a9e679f2d5.etc2.ctex"]
 
 [params]
 

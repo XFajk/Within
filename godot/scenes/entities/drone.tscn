@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://dtoaqlnkvjys4"]
+[gd_scene load_steps=27 format=4 uid="uid://dtoaqlnkvjys4"]
 
 [ext_resource type="Script" uid="uid://dpnd73hp53q41" path="res://src/entities/Drone.cs" id="1_gs6nb"]
 [ext_resource type="Shader" uid="uid://dnn2q6fdrkjgd" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="2_0tq5o"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dp52e6tiex2ay" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="4_in55t"]
 [ext_resource type="PackedScene" uid="uid://wkt6jlqwigqw" path="res://scenes/VFX/drone_broken_smoke.tscn" id="5_6vf5s"]
 [ext_resource type="AudioStream" uid="uid://c7w5aw3hyaa3p" path="res://assets/sounds/drone_hit.wav" id="7_h0gm0"]
+[ext_resource type="Script" uid="uid://guumrqhvfvf8" path="res://src/misc/HitSoundsCleanUp.cs" id="8_khhpe"]
 [ext_resource type="AudioStream" uid="uid://nwti3g1e8okp" path="res://assets/sounds/drone_flying.wav" id="8_yxefg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gs6nb"]
@@ -264,6 +265,7 @@ stream = ExtResource("7_h0gm0")
 volume_db = -10.0
 max_distance = 15.0
 bus = &"SoundFX"
+script = ExtResource("8_khhpe")
 
 [node name="DroneFlyingSounds" type="AudioStreamPlayer3D" parent="Audio"]
 stream = ExtResource("8_yxefg")

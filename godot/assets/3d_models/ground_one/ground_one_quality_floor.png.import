@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dpkakwgpp1iw1"
 path.s3tc="res://.godot/imported/ground_one_quality_floor.png-991c87262c6e556b9c7eff940d36f3d0.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_one_quality_floor.png-991c87262c6e556b9c7eff940d36f3d0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_one/ground_one_quality_floor.png"
-dest_files=["res://.godot/imported/ground_one_quality_floor.png-991c87262c6e556b9c7eff940d36f3d0.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_one_quality_floor.png-991c87262c6e556b9c7eff940d36f3d0.s3tc.ctex", "res://.godot/imported/ground_one_quality_floor.png-991c87262c6e556b9c7eff940d36f3d0.etc2.ctex"]
 
 [params]
 

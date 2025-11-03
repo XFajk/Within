@@ -23,6 +23,7 @@ public partial class EnterableAreaInteractable : Interactable {
         _audioPlayer = new AudioStreamPlayer();
         _audioPlayer.Stream = EnterAreaSound;
         _audioPlayer.VolumeDb = SoundDb;
+        _audioPlayer.Bus = "SoundFX";
         _audioPlayer.Finished += () => _audioPlayer.QueueFree();
     }
 

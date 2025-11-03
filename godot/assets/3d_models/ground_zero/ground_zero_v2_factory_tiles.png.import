@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b63v5esox3phi"
 path.s3tc="res://.godot/imported/ground_zero_v2_factory_tiles.png-4782b57e28271b62c9a5318c6fce8bb2.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_zero_v2_factory_tiles.png-4782b57e28271b62c9a5318c6fce8bb2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ground_zero/ground_zero_v2_factory_tiles.png"
-dest_files=["res://.godot/imported/ground_zero_v2_factory_tiles.png-4782b57e28271b62c9a5318c6fce8bb2.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_zero_v2_factory_tiles.png-4782b57e28271b62c9a5318c6fce8bb2.s3tc.ctex", "res://.godot/imported/ground_zero_v2_factory_tiles.png-4782b57e28271b62c9a5318c6fce8bb2.etc2.ctex"]
 
 [params]
 

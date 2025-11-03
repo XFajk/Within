@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://blcswfg6n3f7r"
 path.s3tc="res://.godot/imported/boss_fight_room_v1_curved_elevator_frame.png-cfd72b004a8ed9fac61814d2379e7ddb.s3tc.ctex"
+path.etc2="res://.godot/imported/boss_fight_room_v1_curved_elevator_frame.png-cfd72b004a8ed9fac61814d2379e7ddb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_curved_elevator_frame.png"
-dest_files=["res://.godot/imported/boss_fight_room_v1_curved_elevator_frame.png-cfd72b004a8ed9fac61814d2379e7ddb.s3tc.ctex"]
+dest_files=["res://.godot/imported/boss_fight_room_v1_curved_elevator_frame.png-cfd72b004a8ed9fac61814d2379e7ddb.s3tc.ctex", "res://.godot/imported/boss_fight_room_v1_curved_elevator_frame.png-cfd72b004a8ed9fac61814d2379e7ddb.etc2.ctex"]
 
 [params]
 

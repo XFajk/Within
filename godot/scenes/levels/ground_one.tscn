@@ -2381,6 +2381,7 @@ script = ExtResource("38_es46h")
 EnterableAreaScene = &"res://scenes/levels/archive.tscn"
 ExitPosition = Vector3(4.9024377, -2.184, 0)
 EnterAreaSound = ExtResource("41_qegqs")
+SoundDb = -10.0
 InteractionTitle = "Enter Archive"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 
@@ -2420,6 +2421,7 @@ KeyItemName = "Laboratory Password"
 EnterableAreaScene = &"res://scenes/levels/laboratry.tscn"
 ExitPosition = Vector3(-7.404, 0.306, 0)
 EnterAreaSound = ExtResource("41_qegqs")
+SoundDb = -10.0
 InteractionTitle = "Enter Laboratory"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 

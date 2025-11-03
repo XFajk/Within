@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dc6gnrfmcrwam"
 path.s3tc="res://.godot/imported/ending_v3_metal_sheeting.png-1d5a04679eba7b4a52178ee23c665af7.s3tc.ctex"
+path.etc2="res://.godot/imported/ending_v3_metal_sheeting.png-1d5a04679eba7b4a52178ee23c665af7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ending/ending_v3_metal_sheeting.png"
-dest_files=["res://.godot/imported/ending_v3_metal_sheeting.png-1d5a04679eba7b4a52178ee23c665af7.s3tc.ctex"]
+dest_files=["res://.godot/imported/ending_v3_metal_sheeting.png-1d5a04679eba7b4a52178ee23c665af7.s3tc.ctex", "res://.godot/imported/ending_v3_metal_sheeting.png-1d5a04679eba7b4a52178ee23c665af7.etc2.ctex"]
 
 [params]
 

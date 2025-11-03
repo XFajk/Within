@@ -126,3 +126,7 @@ interact={
 3d_physics/layer_14="Lazer Blocker"
 3d_physics/layer_15="Drone Physics"
 3d_physics/layer_31="Metal"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

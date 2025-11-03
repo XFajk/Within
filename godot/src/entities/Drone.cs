@@ -80,7 +80,9 @@ public partial class Drone : Enemy {
         if (Health < MaxHealth / 2) {
             _brokenSmoke.Visible = true;
         }
-        _droneHitSound.Play();
+        var newDroneHitSound = _droneHitSound.Duplicate() as AudioStreamPlayer3D;
+        AddSibling(newDroneHitSound);
+        newDroneHitSound.Play();
 
         _body.SetSurfaceOverrideMaterial(0, HitMaterial);
         Vector3 directionFromPlayer = (_player.GlobalPosition - (GlobalPosition - Vector3.Up * 0.3f)).Normalized() * -1;

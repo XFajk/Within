@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmmi8nrn8a1s0"
 path.s3tc="res://.godot/imported/laboratory_v1_white_wall.png-c1bace2998a53570aaeb5a1e8788a628.s3tc.ctex"
+path.etc2="res://.godot/imported/laboratory_v1_white_wall.png-c1bace2998a53570aaeb5a1e8788a628.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/laboratory/laboratory_v1_white_wall.png"
-dest_files=["res://.godot/imported/laboratory_v1_white_wall.png-c1bace2998a53570aaeb5a1e8788a628.s3tc.ctex"]
+dest_files=["res://.godot/imported/laboratory_v1_white_wall.png-c1bace2998a53570aaeb5a1e8788a628.s3tc.ctex", "res://.godot/imported/laboratory_v1_white_wall.png-c1bace2998a53570aaeb5a1e8788a628.etc2.ctex"]
 
 [params]
 

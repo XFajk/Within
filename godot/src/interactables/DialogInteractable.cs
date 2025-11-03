@@ -87,6 +87,7 @@ public partial class DialogInteractable : Interactable {
                 } else {
                     // Fast-forward current section
                     _currentDialogText = (string)_currentDialogSections["text"];
+                    _speachSounds?.Stop();
                     if ((int)_currentDialogSections["speaker"] == 0) {
                         _player.TextBox.Text = _currentDialogText;
                     } else {
@@ -115,6 +116,7 @@ public partial class DialogInteractable : Interactable {
 
                 if (_currentCharIndex >= ((string)_currentDialogSections["text"]).Length) {
                     _isDialogPaused = true;
+                    _speachSounds?.Stop();
                     return;
                 }
 

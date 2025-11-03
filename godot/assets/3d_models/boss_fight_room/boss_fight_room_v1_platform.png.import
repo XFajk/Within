@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://yujeafut7y27"
 path.s3tc="res://.godot/imported/boss_fight_room_v1_platform.png-c06a3d79da26f4322f287cf5bc40ddf8.s3tc.ctex"
+path.etc2="res://.godot/imported/boss_fight_room_v1_platform.png-c06a3d79da26f4322f287cf5bc40ddf8.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_platform.png"
-dest_files=["res://.godot/imported/boss_fight_room_v1_platform.png-c06a3d79da26f4322f287cf5bc40ddf8.s3tc.ctex"]
+dest_files=["res://.godot/imported/boss_fight_room_v1_platform.png-c06a3d79da26f4322f287cf5bc40ddf8.s3tc.ctex", "res://.godot/imported/boss_fight_room_v1_platform.png-c06a3d79da26f4322f287cf5bc40ddf8.etc2.ctex"]
 
 [params]
 

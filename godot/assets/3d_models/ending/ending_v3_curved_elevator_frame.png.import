@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwwxgxf1tahcy"
 path.s3tc="res://.godot/imported/ending_v3_curved_elevator_frame.png-bad6fa2ff21f3e6a55cabf3c8d3962d3.s3tc.ctex"
+path.etc2="res://.godot/imported/ending_v3_curved_elevator_frame.png-bad6fa2ff21f3e6a55cabf3c8d3962d3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/ending/ending_v3_curved_elevator_frame.png"
-dest_files=["res://.godot/imported/ending_v3_curved_elevator_frame.png-bad6fa2ff21f3e6a55cabf3c8d3962d3.s3tc.ctex"]
+dest_files=["res://.godot/imported/ending_v3_curved_elevator_frame.png-bad6fa2ff21f3e6a55cabf3c8d3962d3.s3tc.ctex", "res://.godot/imported/ending_v3_curved_elevator_frame.png-bad6fa2ff21f3e6a55cabf3c8d3962d3.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b82ddfa1yopqy"
 path.s3tc="res://.godot/imported/metro_stuff_computer_screen.png-c6536d258170956fa794286869b777bb.s3tc.ctex"
+path.etc2="res://.godot/imported/metro_stuff_computer_screen.png-c6536d258170956fa794286869b777bb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/metro/metro_stuff_computer_screen.png"
-dest_files=["res://.godot/imported/metro_stuff_computer_screen.png-c6536d258170956fa794286869b777bb.s3tc.ctex"]
+dest_files=["res://.godot/imported/metro_stuff_computer_screen.png-c6536d258170956fa794286869b777bb.s3tc.ctex", "res://.godot/imported/metro_stuff_computer_screen.png-c6536d258170956fa794286869b777bb.etc2.ctex"]
 
 [params]
 

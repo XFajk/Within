@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1roy54o10n7n"
 path.s3tc="res://.godot/imported/laboratory_v1_stripes.png-01de520a8c9451007edb9150eb1c5aaa.s3tc.ctex"
+path.etc2="res://.godot/imported/laboratory_v1_stripes.png-01de520a8c9451007edb9150eb1c5aaa.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/laboratory/laboratory_v1_stripes.png"
-dest_files=["res://.godot/imported/laboratory_v1_stripes.png-01de520a8c9451007edb9150eb1c5aaa.s3tc.ctex"]
+dest_files=["res://.godot/imported/laboratory_v1_stripes.png-01de520a8c9451007edb9150eb1c5aaa.s3tc.ctex", "res://.godot/imported/laboratory_v1_stripes.png-01de520a8c9451007edb9150eb1c5aaa.etc2.ctex"]
 
 [params]
 

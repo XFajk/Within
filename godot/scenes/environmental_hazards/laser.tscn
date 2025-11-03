@@ -34,5 +34,5 @@ surface_material_override/0 = ExtResource("1_kwpaa")
 
 [node name="LaserFireSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_ekgrj")
-volume_db = -15.0
+volume_db = -25.0
 bus = &"SoundFX"

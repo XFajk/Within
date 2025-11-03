@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0oac6fjmo6tw"
 path.s3tc="res://.godot/imported/archive_v2_bright_woor.png-91e0c0218fa20fd55f4d5df0431300cf.s3tc.ctex"
+path.etc2="res://.godot/imported/archive_v2_bright_woor.png-91e0c0218fa20fd55f4d5df0431300cf.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/archive/archive_v2_bright_woor.png"
-dest_files=["res://.godot/imported/archive_v2_bright_woor.png-91e0c0218fa20fd55f4d5df0431300cf.s3tc.ctex"]
+dest_files=["res://.godot/imported/archive_v2_bright_woor.png-91e0c0218fa20fd55f4d5df0431300cf.s3tc.ctex", "res://.godot/imported/archive_v2_bright_woor.png-91e0c0218fa20fd55f4d5df0431300cf.etc2.ctex"]
 
 [params]
 

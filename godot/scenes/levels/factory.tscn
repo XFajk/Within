@@ -1530,6 +1530,7 @@ shape = SubResource("BoxShape3D_menmw")
 [node name="PistonSound" type="AudioStreamPlayer3D" parent="factory_v2/PistonHouding/Piston"]
 transform = Transform3D(0.8488442, -4.2765727e-08, -7.1054274e-15, -2.8421708e-14, 1.4561496, 1.0164395e-20, 0, -1.6940659e-21, 0.8629136, 0, 0.6337123, 0)
 stream = ExtResource("16_x4hh3")
+volume_db = -18.0
 bus = &"SoundFX"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="factory_v2/PistonHouding"]
@@ -1566,6 +1567,7 @@ shape = SubResource("BoxShape3D_menmw")
 [node name="PistonSound" type="AudioStreamPlayer3D" parent="factory_v2/PistonHousing/Piston_001"]
 transform = Transform3D(0.8488442, -4.2765727e-08, -7.1054274e-15, -2.8421708e-14, 1.4561496, 1.0164395e-20, 0, -1.6940659e-21, 0.8629136, 0, 0.6337123, 0)
 stream = ExtResource("16_x4hh3")
+volume_db = -18.0
 bus = &"SoundFX"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="factory_v2/PistonHousing"]
@@ -1604,6 +1606,7 @@ shape = SubResource("BoxShape3D_menmw")
 [node name="PistonSound" type="AudioStreamPlayer3D" parent="factory_v2/PistonHousing_001/Piston_002"]
 transform = Transform3D(0.8488442, -4.2765727e-08, -7.1054274e-15, -2.8421708e-14, 1.4561496, 1.0164395e-20, 0, -1.6940659e-21, 0.8629136, 0, 0.6337123, 0)
 stream = ExtResource("16_x4hh3")
+volume_db = -18.0
 bus = &"SoundFX"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="factory_v2/PistonHousing_001"]
@@ -1649,6 +1652,7 @@ script = ExtResource("14_gmod2")
 EnterableAreaScene = &"res://scenes/levels/ground_zero.tscn"
 ExitPosition = Vector3(5.631441, 0.3677963, -0.06658658)
 EnterAreaSound = ExtResource("20_8urcy")
+SoundDb = -10.0
 InteractionTitle = "Exit"
 metadata/_custom_type_script = "uid://b2u288mrgr3kt"
 

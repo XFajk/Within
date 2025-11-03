@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://fdwslrqafuqm"
 path.s3tc="res://.godot/imported/boss_fight_room_v1_concrete_tile_black.png-c922b8c82645aea236170155cb87ec80.s3tc.ctex"
+path.etc2="res://.godot/imported/boss_fight_room_v1_concrete_tile_black.png-c922b8c82645aea236170155cb87ec80.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d_models/boss_fight_room/boss_fight_room_v1_concrete_tile_black.png"
-dest_files=["res://.godot/imported/boss_fight_room_v1_concrete_tile_black.png-c922b8c82645aea236170155cb87ec80.s3tc.ctex"]
+dest_files=["res://.godot/imported/boss_fight_room_v1_concrete_tile_black.png-c922b8c82645aea236170155cb87ec80.s3tc.ctex", "res://.godot/imported/boss_fight_room_v1_concrete_tile_black.png-c922b8c82645aea236170155cb87ec80.etc2.ctex"]
 
 [params]
 

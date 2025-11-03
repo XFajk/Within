@@ -1,7 +1,7 @@
-[gd_scene load_steps=238 format=4 uid="uid://dxkvb2eoxa74j"]
+[gd_scene load_steps=243 format=4 uid="uid://dxkvb2eoxa74j"]
 
 [ext_resource type="Texture2D" uid="uid://dbkbjd3j5kmnm" path="res://assets/3d_models/metro/metro_v1_wallpaper3.png" id="1_0fs0g"]
-[ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_dmms0"]
+[ext_resource type="Script" uid="uid://d3kickv6fs2i4" path="res://src/levels/Metro.cs" id="1_lyawp"]
 [ext_resource type="Texture2D" uid="uid://dl58qtolvgkbr" path="res://assets/3d_models/metro/metro_v1_concrete.png" id="2_es4gr"]
 [ext_resource type="Texture2D" uid="uid://sbje35bc6743" path="res://assets/3d_models/metro/metro_v1_metro_tiles.png" id="3_lr6xj"]
 [ext_resource type="Texture2D" uid="uid://lxvfo5qcnqoq" path="res://assets/3d_models/metro/metro_v1_tactile_pavement.png" id="4_140p0"]
@@ -44,6 +44,10 @@
 [ext_resource type="Texture2D" uid="uid://cnudnxbl8st5" path="res://assets/3d_models/metro/metro_stuff_Untitled.png" id="40_jwqob"]
 [ext_resource type="Texture2D" uid="uid://dkro8g6fa857e" path="res://assets/3d_models/furniture_and_objects/modern_table/modern_table_galvanized3.png" id="41_lyawp"]
 [ext_resource type="Texture2D" uid="uid://0jwei0471aex" path="res://assets/3d_models/furniture_and_objects/modern_table/modern_table_white_plastic.png" id="42_gcji0"]
+[ext_resource type="Script" uid="uid://cvga7nhg6e82n" path="res://src/interactables/DialogInteractable.cs" id="43_kk28e"]
+[ext_resource type="JSON" path="res://assets/dialogs/metro/note.json" id="44_bbfhi"]
+[ext_resource type="PackedScene" uid="uid://d1ab5ge5paykn" path="res://assets/3d_models/furniture_and_objects/clipboard/clipboard.glb" id="44_dy0gn"]
+[ext_resource type="PackedScene" uid="uid://bpyiw8cyc80xd" path="res://scenes/misc/text_box.tscn" id="45_bbfhi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsppo"]
 resource_name = "idk"
@@ -9099,6 +9103,9 @@ shadow_mesh = SubResource("ArrayMesh_uvo8t")
 [sub_resource type="BoxShape3D" id="BoxShape3D_us5wt"]
 size = Vector3(1, 2.1817627, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_kq4p4"]
+size = Vector3(1, 0.8048096, 0.4)
+
 [sub_resource type="Environment" id="Environment_lyawp"]
 background_mode = 1
 background_energy_multiplier = 2.52
@@ -9115,7 +9122,7 @@ fog_depth_end = 55.3
 volumetric_fog_albedo = Color(0.6429688, 0.6429688, 0.6429688, 1)
 
 [node name="Metro" type="Node3D"]
-script = ExtResource("1_dmms0")
+script = ExtResource("1_lyawp")
 
 [node name="metro_v1" type="Node3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5.622, -1.08, -1.01)
@@ -9427,7 +9434,7 @@ mesh = SubResource("ArrayMesh_ust1k")
 skeleton = NodePath("")
 
 [node name="ProbeAparatus_001" type="MeshInstance3D" parent="metro_v1/metro_stuff/ProbeAparatus"]
-transform = Transform3D(0.032114442, 0, 0.48849538, 0, 0.48954988, 0, -0.48849538, 0, 0.032114442, 0, -0.27147937, 0)
+transform = Transform3D(0.032114208, 0, 0.48849535, 0, 0.48954988, 0, -0.48849535, 0, 0.032114208, 0, -0.27147937, 0)
 mesh = SubResource("ArrayMesh_tiyes")
 skeleton = NodePath("")
 
@@ -9447,12 +9454,12 @@ mesh = SubResource("ArrayMesh_mkexs")
 skeleton = NodePath("")
 
 [node name="ProbeAparatus_005" type="MeshInstance3D" parent="metro_v1/metro_stuff/ProbeAparatus/ProbeAparatus_001/ProbeAparatus_003"]
-transform = Transform3D(3.4278568e-07, -0.6681503, -0.74402624, 1, 3.1391642e-07, 1.7881393e-07, 1.14087484e-07, -0.7440261, 0.6681504, 0, -0.0026204074, 0)
+transform = Transform3D(2.9843827e-07, -0.6681503, -0.74402624, 1, 3.1391642e-07, 1.1920929e-07, 1.5391235e-07, -0.7440261, 0.6681504, 0, -0.0026204074, 0)
 mesh = SubResource("ArrayMesh_cr0fi")
 skeleton = NodePath("")
 
 [node name="ProbeAparatus_006" type="MeshInstance3D" parent="metro_v1/metro_stuff/ProbeAparatus/ProbeAparatus_001/ProbeAparatus_003/ProbeAparatus_005"]
-transform = Transform3D(0.9390189, -0.020674106, -0.012990048, -0.021477615, -0.46169683, -0.8177573, 0.01161346, 0.8177778, -0.4620137, 0.06614859, 0, -0.7767354)
+transform = Transform3D(0.9390189, -0.020674106, -0.01299005, -0.021477615, -0.46169683, -0.81775737, 0.01161346, 0.8177778, -0.46201375, 0.06614859, 0, -0.7767354)
 mesh = SubResource("ArrayMesh_08pun")
 skeleton = NodePath("")
 
@@ -9462,7 +9469,7 @@ mesh = SubResource("ArrayMesh_wj8i1")
 skeleton = NodePath("")
 
 [node name="ProbeAparatus_009" type="MeshInstance3D" parent="metro_v1/metro_stuff/ProbeAparatus/ProbeAparatus_001/ProbeAparatus_003/ProbeAparatus_005/ProbeAparatus_006/ProbeAparatus_008"]
-transform = Transform3D(-1.8182672e-12, -4.1597108e-05, -1.0951202, 1.0951202, -4.786923e-08, 0, -4.7869225e-08, -1.0951203, 4.1597104e-05, 0, 0.02266718, 0)
+transform = Transform3D(-3.2678354e-08, -4.133601e-05, -1.0951202, 1.0951202, -1.0922573e-06, -3.2637125e-08, -1.092256e-06, -1.0951203, 4.1336007e-05, 0, 0.02266718, 0)
 mesh = SubResource("ArrayMesh_bl220")
 skeleton = NodePath("")
 
@@ -9773,6 +9780,29 @@ shape = SubResource("BoxShape3D_us5wt")
 [node name="Camera" type="Marker3D" parent="metro_v1/AbilityUnlocker"]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.626184, 0.59275347, 2.4326649)
 gizmo_extents = 0.67
+
+[node name="InjectionProcessLog" type="Area3D" parent="metro_v1"]
+transform = Transform3D(-0.86592066, 0, 0.50018126, 0, 1, 0, -0.50018126, 0, -0.86592066, 0.5650818, 0.34596872, -12.627272)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("43_kk28e")
+DialogData = Array[JSON]([ExtResource("44_bbfhi")])
+InteractionTitle = "Read Log"
+metadata/_custom_type_script = "uid://cvga7nhg6e82n"
+
+[node name="clipboard" parent="metro_v1/InjectionProcessLog" instance=ExtResource("44_dy0gn")]
+transform = Transform3D(1.0000012, 0, -2.9802322e-08, 0, 1, 0, 2.9802322e-08, 0, 1.0000012, -0.45218873, 0.009055689, 0.23163795)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="metro_v1/InjectionProcessLog"]
+transform = Transform3D(0.86629635, 0, 0.49953163, 0, 1, 0, -0.49953163, 0, 0.86629635, -0.43941283, 0.34866643, 0.22498322)
+shape = SubResource("BoxShape3D_kq4p4")
+
+[node name="TextBox" parent="metro_v1/InjectionProcessLog" instance=ExtResource("45_bbfhi")]
+transform = Transform3D(1.0000008, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000008, -0.49210668, 1.076882, 0.37701845)
+
+[node name="Title" parent="metro_v1/InjectionProcessLog" instance=ExtResource("13_140p0")]
+transform = Transform3D(0.4600005, 0, 1.4901161e-08, 0, 0.46, 0, -1.4901161e-08, 0, 0.4600005, -0.49210668, 1.0746477, 0.37701845)
+layers = 2
 
 [node name="Player" parent="." instance=ExtResource("14_140p0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9450703, -0.436, 0)

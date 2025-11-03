@@ -1,4 +1,4 @@
-[gd_scene load_steps=134 format=4 uid="uid://dps12qsrclx7m"]
+[gd_scene load_steps=139 format=4 uid="uid://dps12qsrclx7m"]
 
 [ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_th01p"]
 [ext_resource type="Texture2D" uid="uid://bpydamrjqm5kp" path="res://assets/3d_models/factory/factory_v2_black_bricks.png" id="1_w0abr"]
@@ -39,7 +39,11 @@
 [ext_resource type="Script" uid="uid://b6tr1636xdryq" path="res://src/interactables/specific/FactoryShutoffValve.cs" id="30_cyp1q"]
 [ext_resource type="PackedScene" uid="uid://vcu3pcns5scd" path="res://assets/3d_models/misc/valve.glb" id="31_1su6w"]
 [ext_resource type="Texture2D" uid="uid://btiwsm7juqkyh" path="res://assets/3d_models/furniture_and_objects/valve_pipe/factory_valve_pipe_red_metal.png" id="37_0svox"]
+[ext_resource type="AudioStream" uid="uid://c2l41sjfvit0v" path="res://assets/sounds/people/boss/boss1.wav" id="37_fx5x7"]
 [ext_resource type="AudioStream" uid="uid://bwc2yonsjk6an" path="res://assets/sounds/squeaky_valve.wav" id="38_c4to3"]
+[ext_resource type="AudioStream" uid="uid://dd053s58a2vax" path="res://assets/sounds/people/boss/boss2.wav" id="38_x8p6m"]
+[ext_resource type="AudioStream" uid="uid://hauup5o6g7ea" path="res://assets/sounds/people/boss/boss3.wav" id="39_7kk53"]
+[ext_resource type="AudioStream" uid="uid://hoa85x26pvmv" path="res://assets/sounds/people/boss/boss4.wav" id="40_klcj1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dw8sw"]
 resource_name = "idk"
@@ -1353,6 +1357,13 @@ _data = {
 &"busness_idle": SubResource("Animation_aogpk")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ajgv8"]
+streams_count = 4
+stream_0/stream = ExtResource("37_fx5x7")
+stream_1/stream = ExtResource("38_x8p6m")
+stream_2/stream = ExtResource("39_7kk53")
+stream_3/stream = ExtResource("40_klcj1")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_derrb"]
 size = Vector3(0.765625, 1.0158691, 1.390625)
 
@@ -1776,7 +1787,7 @@ omni_range = 1.6386464
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -10.126923, 1.8166053, 0.05280578)
 
 [node name="Computer" type="MeshInstance3D" parent="factory_v2/old_table"]
-transform = Transform3D(-0.49665242, 0.012705854, 0.05634685, 0.011682829, 0.49976894, -0.009719986, -0.056567825, -0.008338336, -0.49671984, -0.07821846, 0.35429096, 0.0043480396)
+transform = Transform3D(-0.49665242, 0.012705854, 0.05634685, 0.011682829, 0.49976894, -0.009719986, -0.056567825, -0.008338336, -0.49671984, -0.07821846, 0.34188938, 0.0043480396)
 mesh = SubResource("ArrayMesh_c4to3")
 skeleton = NodePath("")
 surface_material_override/1 = SubResource("StandardMaterial3D_x4hh3")
@@ -1991,10 +2002,15 @@ libraries = {
 autoplay = "busness_idle"
 
 [node name="CctvCamera" parent="JosephStalin" instance=ExtResource("30_1su6w")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.549335, 0.5510471, -1.0580215)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.0232911, 0.5510471, -1.0580215)
 
 [node name="CctvCamera2" parent="JosephStalin" instance=ExtResource("30_1su6w")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -13.991776, -3.1748614, -1.0580221)
+
+[node name="SpeechSounds" type="AudioStreamPlayer3D" parent="JosephStalin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.18171608)
+stream = SubResource("AudioStreamRandomizer_ajgv8")
+bus = &"SoundFX"
 
 [node name="ShutoffValve" type="Area3D" parent="." node_paths=PackedStringArray("PistonsToTurnOff", "SteamToTurnOff")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.680748, 3.7771347, -0.87010425)

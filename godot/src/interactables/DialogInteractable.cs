@@ -28,10 +28,11 @@ public partial class DialogInteractable : Interactable {
 
     private bool _interactionBuffer = false; // To prevent immediate skiping of dialog
 
-
+    protected AudioStreamPlayer3D _speachSounds;
 
     public override void _Ready() {
         base._Ready();
+        _speachSounds = GetNodeOrNull<AudioStreamPlayer3D>("SpeechSounds");
         _textBox = GetNode<Label3D>("TextBox");
         if (_textBox != null) {
             _textBox.Text = "";
@@ -50,7 +51,7 @@ public partial class DialogInteractable : Interactable {
             _currentSectionIndex = 0;
             return;
         }
-        
+
         if (_isDialogActive) {
             _interactionTitleLabel.Visible = false;
         }
@@ -78,6 +79,8 @@ public partial class DialogInteractable : Interactable {
                     } else {
                         Array sections = (Array)DialogData[CurrentDialogIndex].Data;
                         _currentDialogSections = (Dictionary)sections[_currentSectionIndex];
+                        if ((int)_currentDialogSections["speaker"] == 1)
+                            _speachSounds?.Play();
                     }
 
                     _isDialogPaused = false;
@@ -95,6 +98,16 @@ public partial class DialogInteractable : Interactable {
         }
         if (_isDialogActive && !_isDialogPaused) {
             _timeAccumulator += delta;
+
+            if (_speachSounds != null) {
+                if (!_speachSounds.Playing) {
+                    if ((int)_currentDialogSections["speaker"] == 1)
+                        _speachSounds.Play();
+                    else
+                        _speachSounds.Stop();
+                }
+            }
+
             if (_timeAccumulator >= (double)_currentDialogSections["typing_speed"]) {
                 _timeAccumulator = 0.0;
 
@@ -139,5 +152,7 @@ public partial class DialogInteractable : Interactable {
         _player.CurrentState = Player.PlayerState.NoControl;
         _isDialogActive = true;
         _interactionBuffer = true;
+        if ((int)_currentDialogSections["speaker"] == 1)
+            _speachSounds?.Play();
     }
 }

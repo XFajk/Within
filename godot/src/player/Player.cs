@@ -2,6 +2,7 @@ using Godot;
 using System;
 using Godot.Collections;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 
 public partial class Player : CharacterBody3D, ISavable {
 
@@ -54,6 +55,7 @@ public partial class Player : CharacterBody3D, ISavable {
     private AudioStreamPlayer3D _wallGrindSound;
     private AudioStreamPlayer3D _dashSound;
     private AudioStreamPlayer _crazySound;
+    private AudioStreamPlayer _pickupSound;
 
     [Export]
     public AudioStreamRandomizer ConcreteFootstepSounds;
@@ -263,6 +265,7 @@ public partial class Player : CharacterBody3D, ISavable {
         _wallGrindSound = GetNode<AudioStreamPlayer3D>("Audio/WallGrindSound");
         _dashSound = GetNode<AudioStreamPlayer3D>("Audio/DashSound");
         _crazySound = GetNode<AudioStreamPlayer>("Audio/CrazySound");
+        _pickupSound = GetNode<AudioStreamPlayer>("Audio/PickupSound");
 
         _hitBoxArea = GetNode<Area3D>("HitBox");
 
@@ -1143,6 +1146,7 @@ public partial class Player : CharacterBody3D, ISavable {
     }
 
     public void PickupItem(string itemName, Texture2D iconTexture) {
+        _pickupSound.Play();
         Inventory.Add(itemName);
         var pickedUpItem = Camera.GetNode<TextureRect>("UserInterface/PickedUpItem");
         pickedUpItem.Visible = true;

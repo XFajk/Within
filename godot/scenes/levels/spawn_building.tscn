@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=4 uid="uid://cmo76gbynpwaa"]
+[gd_scene load_steps=148 format=4 uid="uid://cmo76gbynpwaa"]
 
 [ext_resource type="Script" uid="uid://brm0w4guymjxy" path="res://src/levels/SpawnBuilding.cs" id="1_ovlgm"]
 [ext_resource type="Texture2D" uid="uid://ccrllmojcjc0x" path="res://assets/3d_models/spawn_building/spawn_level_v2_concrete_tile.png" id="1_uqtdq"]
@@ -37,9 +37,18 @@
 [ext_resource type="Texture2D" uid="uid://wr8bvlwjrvd8" path="res://assets/3d_models/people/kenstn/kenston_sitting_okakane.png" id="31_u8pck"]
 [ext_resource type="Texture2D" uid="uid://bf1evjbh5w3co" path="res://assets/3d_models/people/kenstn/kenston_sitting_dark_wood.png" id="32_26326"]
 [ext_resource type="Script" uid="uid://brrcp17ekweo7" path="res://src/interactables/specific/Winston.cs" id="35_26326"]
+[ext_resource type="AudioStream" uid="uid://f71mixxhdrg" path="res://assets/sounds/people/kenstn/kenstn1.wav" id="36_hpgse"]
+[ext_resource type="AudioStream" uid="uid://dmjpsu7nobdjq" path="res://assets/sounds/people/kenstn/kenstn2.wav" id="37_2dhb0"]
 [ext_resource type="JSON" path="res://assets/dialogs/spawn building/winston/when_you_have_medicine.json" id="37_ovlgm"]
 [ext_resource type="JSON" path="res://assets/dialogs/spawn building/winston/after_you_give_mr_kenstn_medicine.json" id="38_7q3ur"]
+[ext_resource type="AudioStream" uid="uid://81vqpro8s820" path="res://assets/sounds/people/kenstn/kenstn3.wav" id="38_obmcr"]
 [ext_resource type="JSON" path="res://assets/dialogs/spawn building/winston/when_you_havent_talked_to_him_when_you_had_the_medicine.json" id="39_dtswq"]
+[ext_resource type="AudioStream" uid="uid://fcidtvenu62d" path="res://assets/sounds/people/kenstn/kenstn4.wav" id="39_kgpke"]
+[ext_resource type="AudioStream" uid="uid://nw5w6fxgqiq0" path="res://assets/sounds/people/winston/winston1.wav" id="45_dhn80"]
+[ext_resource type="AudioStream" uid="uid://crcx04iiy4ro4" path="res://assets/sounds/people/winston/winston2.wav" id="46_bsvyt"]
+[ext_resource type="AudioStream" uid="uid://12jkw10fq2qn" path="res://assets/sounds/people/winston/winston3.wav" id="47_14wfw"]
+[ext_resource type="AudioStream" uid="uid://dsd347rpt8jgy" path="res://assets/sounds/people/winston/winston4.wav" id="48_uaddf"]
+[ext_resource type="PackedScene" uid="uid://cq1pxlt8npxt4" path="res://assets/3d_models/furniture_and_objects/old_table/old_table.glb" id="49_bsvyt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uc4q7"]
 resource_name = "concrete_panels"
@@ -1265,6 +1274,13 @@ _data = {
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4ocpw"]
 size = Vector3(1.6855469, 0.873291, 1.390625)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dhn80"]
+streams_count = 4
+stream_0/stream = ExtResource("36_hpgse")
+stream_1/stream = ExtResource("37_2dhb0")
+stream_2/stream = ExtResource("38_obmcr")
+stream_3/stream = ExtResource("39_kgpke")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lefpe"]
 resource_name = "pant"
@@ -3133,6 +3149,13 @@ _data = {
 &"idle": SubResource("Animation_2pujd")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g83qj"]
+streams_count = 4
+stream_0/stream = ExtResource("45_dhn80")
+stream_1/stream = ExtResource("46_bsvyt")
+stream_2/stream = ExtResource("47_14wfw")
+stream_3/stream = ExtResource("48_uaddf")
+
 [node name="SpawnBuilding" type="Node3D"]
 script = ExtResource("1_ovlgm")
 
@@ -3705,6 +3728,11 @@ transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, -0.105701685, 0.4395
 [node name="TextBox" parent="ElderKenstn" instance=ExtResource("28_5rx6v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105701685, 0.4395802, 0)
 
+[node name="SpeechSounds" type="AudioStreamPlayer3D" parent="ElderKenstn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.18171608)
+stream = SubResource("AudioStreamRandomizer_dhn80")
+bus = &"SoundFX"
+
 [node name="Winston" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.234891, -2.9531538, -0.87010425)
 collision_layer = 0
@@ -3902,6 +3930,14 @@ transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0.5363815, 0)
 
 [node name="TextBox" parent="Winston" instance=ExtResource("28_5rx6v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.065849304, 0.5363815, 0.7884753)
+
+[node name="SpeechSounds" type="AudioStreamPlayer3D" parent="Winston"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.18171608)
+stream = SubResource("AudioStreamRandomizer_g83qj")
+bus = &"SoundFX"
+
+[node name="old_table" parent="Winston" instance=ExtResource("49_bsvyt")]
+transform = Transform3D(0.31516403, 0, -0.64735746, 0, 0.7200001, 0, 0.64735746, 0, 0.31516403, 6.4753428, 5.7451773, 0.2623821)
 
 [node name="GroundZeroPlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.365899, -0.94846725, 0)

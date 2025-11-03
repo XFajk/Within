@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://5mk0bkydqh2l"]
+
+[ext_resource type="Texture2D" uid="uid://bbo0cepvcx3dl" path="res://assets/sprites/end_credits/backdrop.png" id="1_325g6"]
+[ext_resource type="Texture2D" uid="uid://dx6taqieon6r8" path="res://assets/sprites/end_credits/titles.png" id="2_240hb"]
+
+[sub_resource type="Animation" id="Animation_55m7m"]
+resource_name = "scroling"
+length = 60.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.93333334, 59.833332),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(240, 1440), Vector2(240, -751)]
+}
+
+[sub_resource type="Animation" id="Animation_u2phu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(240, 1440)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j4kql"]
+_data = {
+&"RESET": SubResource("Animation_u2phu"),
+&"scroling": SubResource("Animation_55m7m")
+}
+
+[node name="EndCredits" type="Node2D"]
+
+[node name="Backdrop" type="Sprite2D" parent="."]
+position = Vector2(240, 135)
+texture = ExtResource("1_325g6")
+
+[node name="Titles" type="Sprite2D" parent="."]
+position = Vector2(240, 1440)
+texture = ExtResource("2_240hb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Titles"]
+libraries = {
+&"": SubResource("AnimationLibrary_j4kql")
+}
+autoplay = "scroling"

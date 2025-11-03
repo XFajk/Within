@@ -2,11 +2,11 @@
 
 [ext_resource type="FontFile" uid="uid://nlvl0qhy4rw5" path="res://assets/fonts/Poesing.otf" id="1_fe2o3"]
 [ext_resource type="Script" uid="uid://ce1mmdu054ilq" path="res://src/ui/MainMenu.cs" id="1_m1kxf"]
-[ext_resource type="FontFile" uid="uid://ca03g572uqbwc" path="res://assets/fonts/Handodle-rg38A.ttf" id="1_sl1te"]
+[ext_resource type="FontFile" uid="uid://bwp1wfvmljsl0" path="res://assets/fonts/Depres.ttf" id="3_1g8jr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fe2o3"]
-font = ExtResource("1_sl1te")
-font_size = 100
+font = ExtResource("3_1g8jr")
+font_size = 90
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -52,9 +52,10 @@ text = "Exit"
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
-offset_left = 216.0
-offset_top = -3.0
-offset_right = 455.0
-offset_bottom = 127.0
+offset_left = 205.0
+offset_top = -2.0
+offset_right = 466.0
+offset_bottom = 128.0
 text = "Within"
 label_settings = SubResource("LabelSettings_fe2o3")
+horizontal_alignment = 1

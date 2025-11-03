@@ -1,7 +1,8 @@
-[gd_scene load_steps=154 format=4 uid="uid://uqci6lbw6al5"]
+[gd_scene load_steps=155 format=4 uid="uid://uqci6lbw6al5"]
 
 [ext_resource type="Script" uid="uid://qoq6rl2wk8ql" path="res://src/ui/FadeOutRect.cs" id="1_3t8gl"]
 [ext_resource type="Texture2D" uid="uid://b1dgqyo6k1gov" path="res://assets/3d_models/ending/ending_v3_chora_koza.png" id="1_ixjwx"]
+[ext_resource type="Script" uid="uid://drt0gwgophqlx" path="res://src/Ending.cs" id="1_mqi2y"]
 [ext_resource type="Texture2D" uid="uid://7pfre17yuna3" path="res://assets/3d_models/ending/ending_v3_Untitled.png" id="2_oh43w"]
 [ext_resource type="Material" uid="uid://ojfpbxel0tbq" path="res://assets/materials/outline2.tres" id="3_2fabr"]
 [ext_resource type="Texture2D" uid="uid://dajd508dl5i8b" path="res://assets/3d_models/ending/ending_v3_curved_elevator_door.png" id="3_gi673"]
@@ -12014,6 +12015,7 @@ material = SubResource("StandardMaterial3D_mqi2y")
 size = Vector2(0.02, 0.02)
 
 [node name="Ending" type="Node3D"]
+script = ExtResource("1_mqi2y")
 
 [node name="ending_v3" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3104801, 0, -45.494164)

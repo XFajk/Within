@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://chbeopyr8bi5a"]
+[gd_scene load_steps=4 format=3 uid="uid://chbeopyr8bi5a"]
 
 [ext_resource type="Script" uid="uid://fo3uqns7tmgy" path="res://src/ui/PauseMenu.cs" id="1_0lmf7"]
 [ext_resource type="FontFile" uid="uid://nlvl0qhy4rw5" path="res://assets/fonts/Poesing.otf" id="1_6tw0m"]
+[ext_resource type="Texture2D" uid="uid://ce8ma6dfvxpea" path="res://assets/sprites/tutorial.png" id="3_f6eus"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -45,3 +46,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_6tw0m")
 theme_override_font_sizes/font_size = 30
 text = "Exit"
+
+[node name="Tutorial" type="Sprite2D" parent="VBoxContainer"]
+position = Vector2(57.5, 75.5)
+texture = ExtResource("3_f6eus")
